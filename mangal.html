@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Мангальная зона | Золотые пески</title>
+  <meta name="description" content="Мангальная зона на базе «Золотые пески» на озере Тургояк: мангалы, беседки, отдых у воды. Фото и условия.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Мангальная зона | Золотые пески">
+  <meta property="og:description" content="Мангалы и зоны для отдыха на природе на базе Золотые пески.">
+  <meta property="og:image" content="https://bazaturgoyak.ru/images/Entertaiment/Mangal.webp">
+  <meta property="og:url" content="https://bazaturgoyak.ru/mangal.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Золотые пески">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="js/config.js"></script>
+  <script src="js/apply-config.js"></script>
+  <script src="js/booking-mode.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .road-card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .road-card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08); }
+    html { scroll-behavior: smooth; }
+    /* Галерея: основное фото целиком в кадре, кнопки на краях изображения */
+    .gallery-main-wrap { max-height: 380px; min-height: 160px; width: 100%; overflow: hidden; background: #f0eeea; display: flex; align-items: center; justify-content: center; padding: 0; }
+    .gallery-image-wrap { position: relative; display: inline-block; max-width: 100%; max-height: 380px; }
+    .gallery-main { max-width: 100%; max-height: 380px; width: auto; height: auto; object-fit: contain; object-position: center; display: block; vertical-align: middle; }
+    .gallery-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(212, 175, 55, 0.9); color: #1a1a1a; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; transition: background 0.2s, transform 0.2s; }
+    .gallery-nav-btn:hover { background: #D4AF37; transform: translateY(-50%) scale(1.1); }
+    .gallery-nav-btn.prev { left: 8px; }
+    .gallery-nav-btn.next { right: 8px; }
+    .gallery-expand-btn { position: absolute; bottom: 8px; right: 8px; width: 40px; height: 40px; border-radius: 50%; background: rgba(212, 175, 55, 0.95); color: #1a1a1a; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; transition: background 0.2s, transform 0.2s; box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
+    .gallery-expand-btn:hover { background: #D4AF37; transform: scale(1.1); }
+    @media (max-width: 768px) { .gallery-image-wrap, .gallery-main { max-height: 280px; } }
+    @media (max-width: 640px) { .gallery-main-wrap { max-height: 220px; } .gallery-image-wrap, .gallery-main { max-height: 220px; } .gallery-nav-btn { width: 36px; height: 36px; font-size: 0.875rem; left: 4px; } .gallery-nav-btn.next { right: 4px; } .gallery-expand-btn { width: 34px; height: 34px; } }
+    .gallery-thumb { width: 64px; height: 64px; object-fit: cover; object-position: center; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; flex-shrink: 0; border-radius: 0.5rem; }
+    .gallery-thumb:hover, .gallery-thumb.active { opacity: 1; }
+    @media (max-width: 640px) { .gallery-thumb { width: 48px; height: 48px; } }
+    /* Попап полноэкранной галереи */
+    #mangal-page-popup { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 1rem; box-sizing: border-box; overflow: auto; }
+    #mangal-page-popup.active { display: flex; }
+    #mangal-page-popup .popup-content { position: relative; width: 100%; max-width: min(1200px, calc(100vw - 2rem)); max-height: none; display: flex; flex-direction: column; align-items: center; padding: 0; box-sizing: border-box; }
+    #mangal-page-popup .popup-close { position: absolute; top: 0; right: 0; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.2); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; flex-shrink: 0; }
+    #mangal-page-popup .popup-close:hover { background: rgba(255,255,255,0.35); }
+    #mangal-page-popup .popup-image-area { display: flex; align-items: center; justify-content: center; padding: 48px 0 0; box-sizing: border-box; }
+    #mangal-page-popup .popup-image-wrap { position: relative; display: inline-block; max-width: 100%; }
+    #mangal-page-popup .popup-main { max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain; object-position: center; display: block; border-radius: 8px; vertical-align: middle; }
+    #mangal-page-popup .popup-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; min-width: 44px; min-height: 44px; border-radius: 50%; background: rgba(212, 175, 55, 0.9); color: #1a1a1a; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; flex-shrink: 0; }
+    #mangal-page-popup .popup-nav:hover { background: #D4AF37; }
+    #mangal-page-popup .popup-nav.prev { left: 8px; }
+    #mangal-page-popup .popup-nav.next { right: 8px; }
+    @media (max-width: 640px) {
+      #mangal-page-popup .popup-nav { width: 36px; height: 36px; min-width: 36px; min-height: 36px; font-size: 0.875rem; }
+      #mangal-page-popup .popup-nav.prev { left: 4px; }
+      #mangal-page-popup .popup-nav.next { right: 4px; }
+    }
+    #mangal-page-popup .popup-counter { position: absolute; top: 0; left: 0; color: rgba(255,255,255,0.9); font-size: 0.875rem; }
+    #mangal-page-popup .popup-thumbs { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+    #mangal-page-popup .popup-thumb { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; cursor: pointer; opacity: 0.6; border: 2px solid transparent; transition: opacity 0.2s, border-color 0.2s; flex-shrink: 0; }
+    #mangal-page-popup .popup-thumb:hover, #mangal-page-popup .popup-thumb.active { opacity: 1; border-color: #D4AF37; }
+    .mangal-btn { min-height: 44px; }
+    @media (max-width: 640px) { .mangal-btn { width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+  <div id="header-placeholder"></div>
+
+  <main class="pt-28">
+    <!-- Hero -->
+    <section class="relative bg-[#1a1a1a] text-white overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center opacity-50" style="background-image: url('images/Entertaiment/Mangal.webp');"></div>
+      <div class="relative mx-auto max-w-6xl px-4 sm:px-6 py-12 sm:py-16 md:py-20">
+        <p class="text-xs tracking-[0.2em] uppercase text-[#D4AF37]">Развлечения</p>
+        <h1 class="mt-3 font-[Playfair_Display] text-3xl sm:text-4xl md:text-5xl">Мангальная зона</h1>
+        <p class="mt-4 sm:mt-5 max-w-2xl text-white/90 text-sm sm:text-base">Оборудованные зоны на берегу озера Тургояк для пикников и шашлыков. Большие столы, скамейки, мангал и вид на Уральские горы.</p>
+      </div>
+    </section>
+
+    <!-- Мангальные площадки -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14" id="platforms" aria-label="Мангальные площадки">
+      <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Мангальные площадки</h2>
+      <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8 sm:mb-12 text-sm sm:text-base px-1">На берегу озера Тургояк расположены открытые мангальные зоны для отдыха с семьёй и друзьями. Аренда отдельной зоны — для гостей без проживания или для расширенного пикника.</p>
+      <div class="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-3">
+        <div class="road-card-hover rounded-2xl border border-black/10 bg-white p-4 sm:p-6 shadow-sm min-w-0">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]"><i class="fas fa-map-marker-alt text-xl"></i></span>
+            <h3 class="font-[Playfair_Display] text-xl">Количество площадок</h3>
+          </div>
+          <p class="text-gray-700 text-sm">Открытые мангальные зоны на берегу озера. Отдельная большая арендуемая зона для пикника — одна основная площадка с фиксированной арендой; у домов комфорт (№8, 9, 10, 14) — своя мангальная зона входит в размещение.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 bg-white p-4 sm:p-6 shadow-sm min-w-0">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]"><i class="fas fa-water text-xl"></i></span>
+            <h3 class="font-[Playfair_Display] text-xl">Расположение</h3>
+          </div>
+          <p class="text-gray-700 text-sm">Большая мангальная зона — в 5 метрах от озера Тургояк, прямо на берегу. Открытая территория (без крыши), с видом на озеро и Уральские горы. Вдоль береговой линии базы — уютные мангальные зоны у корпусов и домов.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 bg-white p-4 sm:p-6 shadow-sm min-w-0">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]"><i class="fas fa-users text-xl"></i></span>
+            <h3 class="font-[Playfair_Display] text-xl">Вместимость</h3>
+          </div>
+          <p class="text-gray-700 text-sm">Арендуемая мангальная зона рассчитана на <strong>6–8 и более человек</strong> — отличное место для пикника компанией или семьёй. Большие столы и скамейки позволяют комфортно разместиться у воды.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Комплектация -->
+    <section class="bg-[#F7F3E8] py-10 sm:py-14" id="equipment">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Комплектация</h2>
+        <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8 text-sm sm:text-base">В арендуемой мангальной зоне уже есть базовое оборудование; часть вещей нужно привезти с собой или докупить на базе.</p>
+        <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="road-card-hover rounded-xl bg-white p-4 sm:p-6 shadow-sm min-w-0">
+            <i class="fas fa-fire text-3xl text-[#D4AF37] mb-3"></i>
+            <h3 class="font-semibold text-lg mb-2">Мангал</h3>
+            <p class="text-sm text-gray-600">В зоне предоставляется мангал. Использование открытого огня только в мангале.</p>
+          </div>
+          <div class="road-card-hover rounded-xl bg-white p-4 sm:p-6 shadow-sm min-w-0">
+            <i class="fas fa-utensils text-3xl text-[#D4AF37] mb-3"></i>
+            <h3 class="font-semibold text-lg mb-2">Решётки для шашлыка</h3>
+            <p class="text-sm text-gray-600">Решётки и шампуры в комплектацию не входят — привозите с собой для приготовления шашлыка и гриля.</p>
+          </div>
+          <div class="road-card-hover rounded-xl bg-white p-4 sm:p-6 shadow-sm min-w-0">
+            <i class="fas fa-basket-shopping text-3xl text-[#D4AF37] mb-3"></i>
+            <h3 class="font-semibold text-lg mb-2">Посуда и столовые приборы</h3>
+            <p class="text-sm text-gray-600">Посуда и столовые приборы не предоставляются. Всё необходимое для еды и напитков берите с собой.</p>
+          </div>
+          <div class="road-card-hover rounded-xl bg-white p-4 sm:p-6 shadow-sm min-w-0">
+            <i class="fas fa-tree text-3xl text-[#D4AF37] mb-3"></i>
+            <h3 class="font-semibold text-lg mb-2">Дрова и уголь</h3>
+            <p class="text-sm text-gray-600">Дрова на базе — <strong>за отдельную плату</strong>: 500 ₽ за 8 полешков. Уголь можно привезти свой или докупить в ближайшем магазине (посёлок — около 18 минут на машине).</p>
+          </div>
+        </div>
+        <div class="mt-6 rounded-xl bg-white/80 p-4 sm:p-6 border border-[#D4AF37]/20">
+          <p class="text-sm text-gray-700"><strong>В зоне уже есть:</strong> мангал, стол, скамейки.</p>
+          <p class="text-sm text-gray-700 mt-2"><strong>С собой необходимо привезти:</strong> уголь или заказать дрова на базе, решётки/шампуры, посуду, столовые приборы и всё для приготовления и приёма пищи.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Правила использования -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14" id="rules" aria-label="Правила использования мангальной зоны">
+      <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Правила использования</h2>
+      <div class="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-3">
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-clock text-[#D4AF37]"></i> Время работы</h3>
+          <p class="text-gray-700 text-sm">Использование мангальной зоны — в светлое время суток, в рамках графика работы базы. Ориентировочно с 9:00 до 22:00. Точное время начала и окончания аренды согласовывается при бронировании. Соблюдайте время начала и окончания аренды.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-shield-alt text-[#D4AF37]"></i> Правила безопасности</h3>
+          <ul class="text-gray-700 text-sm space-y-1 list-disc pl-4">
+            <li>Разведение огня только в мангале.</li>
+            <li>Не оставляйте огонь без присмотра.</li>
+            <li>Дети — только под присмотром взрослых.</li>
+            <li>Соблюдайте противопожарные правила и указания администрации.</li>
+          </ul>
+          <p class="mt-3 text-gray-700 text-sm font-medium">Установка своих мангалов, столов и другого оборудования на территории пляжа запрещена. Хотите пожарить шашлыки — арендуйте мангальную зону.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-broom text-[#D4AF37]"></i> Правила уборки</h3>
+          <p class="text-gray-700 text-sm">После использования необходимо оставить зону в порядке: убрать мусор, остатки угля и продуктов. Вынос мусора — в специально отведённые на территории места. Зона должна быть передана в том же виде, в каком была получена.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Галерея -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14" id="gallery">
+      <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Фотографии мангальных зон</h2>
+      <div class="road-card-hover rounded-2xl overflow-hidden shadow-lg bg-white min-w-0">
+        <div class="gallery-main-wrap">
+          <div class="gallery-image-wrap">
+            <img id="gallery-main" src="images/Entertaiment/Mangal.webp" alt="Мангальная зона на берегу озера Тургояк" class="gallery-main">
+            <button type="button" class="gallery-nav-btn prev" id="gallery-prev" aria-label="Предыдущее фото"><i class="fas fa-chevron-left"></i></button>
+            <button type="button" class="gallery-nav-btn next" id="gallery-next" aria-label="Следующее фото"><i class="fas fa-chevron-right"></i></button>
+            <button type="button" class="gallery-expand-btn" id="gallery-expand" title="Открыть в полноэкранном режиме"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+        <div class="p-3 sm:p-4 flex flex-wrap gap-1.5 sm:gap-2 justify-center border-t border-gray-100">
+          <img src="images/Entertaiment/Mangal.webp" alt="Мангальная зона 1" class="gallery-thumb rounded active" data-src="images/Entertaiment/Mangal.webp" data-index="0">
+          <img src="images/Entertaiment/Mangal2.jfif" alt="Мангальная зона 2" class="gallery-thumb rounded" data-src="images/Entertaiment/Mangal2.jfif" data-index="1">
+          <img src="images/mangal/1.jfif" alt="Мангальная зона 3" class="gallery-thumb rounded" data-src="images/mangal/1.jfif" data-index="2">
+          <img src="images/mangal/2.jfif" alt="Мангальная зона 4" class="gallery-thumb rounded" data-src="images/mangal/2.jfif" data-index="3">
+        </div>
+      </div>
+    </section>
+
+    <!-- Цены на аренду -->
+    <section class="bg-[#F7F3E8] py-10 sm:py-14" id="prices">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Цены на аренду</h2>
+        <p class="text-center text-gray-600 max-w-xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base px-1">Аренда мангальной зоны на берегу озера: большие столы, скамейки, мангал. Идеально для пикника и шашлыков.</p>
+        <div class="max-w-xl mx-auto">
+          <div class="road-card-hover rounded-2xl bg-white p-4 sm:p-6 md:p-8 shadow-md border border-[#D4AF37]/30 min-w-0">
+            <h3 class="font-[Playfair_Display] text-xl mb-2">Мангальная зона на берегу</h3>
+            <p class="text-gray-600 text-sm mb-4">6–8 и более человек</p>
+            <ul class="space-y-2 text-gray-700 text-sm mb-4">
+              <li><strong>Выходные:</strong> <span id="mangal-price-weekend">2 500</span> ₽ за 3 часа</li>
+              <li><strong>Продление:</strong> <span id="mangal-price-extra">500</span> ₽ за каждый дополнительный час</li>
+              <li><strong>Будние дни:</strong> <span id="mangal-price-weekday">2 500</span> ₽ за весь день</li>
+            </ul>
+            <p class="text-sm text-gray-500">Парковка оплачивается отдельно — <span id="mangal-price-parking">500</span> ₽ в сутки.</p>
+          </div>
+        </div>
+        <p class="text-center text-sm text-gray-500 mt-6">Точную стоимость и доступность уточняйте при бронировании.</p>
+      </div>
+    </section>
+
+    <!-- Условия бронирования -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14" id="booking" aria-label="Условия бронирования мангальной зоны">
+      <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Условия бронирования</h2>
+      <div class="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 md:grid-cols-3">
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-calendar-check text-[#D4AF37]"></i> Как забронировать</h3>
+          <p class="text-gray-700 text-sm">Бронировать мангальную зону нужно заранее — через <a href="/" class="text-[#D4AF37] hover:underline">сайт</a>, <a data-config="telegram" href="#" target="_blank" rel="noopener" class="text-[#D4AF37] hover:underline">Telegram-бот</a>, WhatsApp или по телефону. Подберём удобные дату и время.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-wallet text-[#D4AF37]"></i> Предоплата</h3>
+          <p class="text-gray-700 text-sm">При бронировании требуется предоплата <strong>50%</strong>. Сумма предоплаты в случае неявки не возвращается. Оплачивая бронь, вы соглашаетесь с условиями бронирования и правилами проживания и отдыха на базе.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-file-contract text-[#D4AF37]"></i> Важно</h3>
+          <p class="text-gray-700 text-sm">Ознакомьтесь с правилами пользования мангальными зонами и противопожарной безопасностью. Соблюдайте время аренды и правила уборки после использования.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты и кнопка бронирования -->
+    <section class="bg-[#1a1a1a] text-white py-10 sm:py-14">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 text-center">
+        <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-6">Забронировать мангальную зону</h2>
+        <p class="text-white/80 max-w-xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base">Напишите в Telegram или WhatsApp, позвоните — подберём дату и время аренды.</p>
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-stretch sm:items-center">
+          <a href="#" data-booking-widget-link data-widget-period="hourly" data-widget-type-match="mangal" target="_blank" rel="noopener" class="mangal-btn inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-white text-[#1a1a1a] uppercase tracking-widest text-xs font-bold rounded-sm hover:bg-gray-100 transition-colors border border-white/30">
+            <i class="fas fa-globe text-lg shrink-0"></i> <span>Забронировать на сайте</span>
+          </a>
+          <a data-config="telegram" data-tg-text="Здравствуйте! Хочу забронировать мангальную зону (укажите желаемые дату и время)." href="#" target="_blank" rel="noopener" class="mangal-btn inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#0088cc] text-white uppercase tracking-widest text-xs font-bold rounded-sm hover:bg-[#006ba1] transition-colors">
+            <i class="fab fa-telegram text-xl shrink-0"></i> <span>Написать в Telegram</span>
+          </a>
+          <a data-config="max" href="#" target="_blank" rel="noopener" class="mangal-btn inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#6B4EFF] text-white uppercase tracking-widest text-xs font-bold rounded-sm hover:bg-[#5538E0] transition-colors">
+            <img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> <span>Написать в MAX</span>
+          </a>
+          <a data-config="phone" href="#" class="mangal-btn inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#D4AF37] text-[#1a1a1a] uppercase tracking-widest text-xs font-bold rounded-sm hover:bg-[#b5952f] transition-colors">
+            <i class="fas fa-phone shrink-0"></i> <span>Позвонить</span>
+          </a>
+        </div>
+        <p class="mt-6 text-sm text-white/60">Время работы администрации: 9:00–22:00</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Полноэкранный просмотр галереи мангальной зоны -->
+  <div id="mangal-page-popup" aria-label="Галерея мангальных зон" role="dialog">
+    <div class="popup-content">
+      <button type="button" class="popup-close" id="mangal-popup-close" aria-label="Закрыть"><i class="fas fa-times"></i></button>
+      <span class="popup-counter" id="mangal-popup-counter">1 / 4</span>
+      <div class="popup-image-area">
+        <div class="popup-image-wrap">
+          <img src="images/Entertaiment/Mangal.webp" alt="Мангальная зона" class="popup-main" id="mangal-popup-main">
+          <button type="button" class="popup-nav prev" id="mangal-popup-prev" aria-label="Предыдущее"><i class="fas fa-chevron-left"></i></button>
+          <button type="button" class="popup-nav next" id="mangal-popup-next" aria-label="Следующее"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="popup-thumbs" id="mangal-popup-thumbs">
+        <img src="images/Entertaiment/Mangal.webp" alt="Мангальная зона 1" class="popup-thumb active" data-index="0">
+        <img src="images/Entertaiment/Mangal2.jfif" alt="Мангальная зона 2" class="popup-thumb" data-index="1">
+        <img src="images/mangal/1.jfif" alt="Мангальная зона 3" class="popup-thumb" data-index="2">
+        <img src="images/mangal/2.jfif" alt="Мангальная зона 4" class="popup-thumb" data-index="3">
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    (function() {
+      var mangalImages = ['images/Entertaiment/Mangal.webp', 'images/Entertaiment/Mangal2.jfif', 'images/mangal/1.jfif', 'images/mangal/2.jfif'];
+      var currentIndex = 0;
+
+      function updateMainImage(index) {
+        currentIndex = (index + mangalImages.length) % mangalImages.length;
+        var mainImg = document.getElementById('gallery-main');
+        var thumbs = document.querySelectorAll('#gallery .gallery-thumb');
+        if (mainImg) {
+          mainImg.src = mangalImages[currentIndex];
+          mainImg.alt = thumbs[currentIndex] ? thumbs[currentIndex].alt : 'Мангальная зона';
+        }
+        thumbs.forEach(function(t, i) { t.classList.toggle('active', i === currentIndex); });
+      }
+
+      function openPopup() {
+        var popup = document.getElementById('mangal-page-popup');
+        var popupMain = document.getElementById('mangal-popup-main');
+        if (!popup || !popupMain) return;
+        popupMain.src = mangalImages[currentIndex];
+        document.getElementById('mangal-popup-counter').textContent = (currentIndex + 1) + ' / ' + mangalImages.length;
+        document.querySelectorAll('#mangal-page-popup .popup-thumb').forEach(function(t, i) { t.classList.toggle('active', i === currentIndex); });
+        popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closePopup() {
+        var popup = document.getElementById('mangal-page-popup');
+        if (!popup) return;
+        popup.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function updatePopupImage(index) {
+        currentIndex = (index + mangalImages.length) % mangalImages.length;
+        var popupMain = document.getElementById('mangal-popup-main');
+        if (popupMain) popupMain.src = mangalImages[currentIndex];
+        document.getElementById('mangal-popup-counter').textContent = (currentIndex + 1) + ' / ' + mangalImages.length;
+        document.querySelectorAll('#mangal-page-popup .popup-thumb').forEach(function(t, i) { t.classList.toggle('active', i === currentIndex); });
+        var mainImg = document.getElementById('gallery-main');
+        var thumbs = document.querySelectorAll('#gallery .gallery-thumb');
+        if (mainImg) mainImg.src = mangalImages[currentIndex];
+        thumbs.forEach(function(t, i) { t.classList.toggle('active', i === currentIndex); });
+      }
+
+      // Цены мангальной зоны с сервера (typeId мангал/BBQ).
+      // В режиме placeholder (консервация) API не дёргаем — вместо цен «уточняйте».
+      function updateMangalPrices() {
+        if (window.GSBooking && !window.GSBooking.isLive()) {
+          ['mangal-price-weekend', 'mangal-price-weekday', 'mangal-price-extra', 'mangal-price-parking'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = 'уточняйте';
+            var tail = el.nextSibling;
+            if (tail && tail.nodeType === 3) tail.textContent = tail.textContent.replace(/^\s*₽[^.]*/, '.');
+          });
+          return;
+        }
+        var weekendEl = document.getElementById('mangal-price-weekend');
+        var weekdayEl = document.getElementById('mangal-price-weekday');
+        var extraEl = document.getElementById('mangal-price-extra');
+        var parkingEl = document.getElementById('mangal-price-parking');
+        if (!weekendEl && !weekdayEl && !extraEl && !parkingEl) return;
+
+        var formatter = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 });
+        var parsePrice = function(v) { var n = parseFloat(v); return isFinite(n) ? n : null; };
+        var url = ((window.CONFIG && window.CONFIG.apiBaseUrl) || '/api').replace(/\/+$/, '') + '/objects?typeId=ee23bc33-41f1-4d78-9c58-df5e8bd12b15&displayPrice=today';
+
+        fetch(url)
+          .then(function(r) { return r.json(); })
+          .then(function(items) {
+            if (!Array.isArray(items) || items.length === 0) return;
+            var active = items.filter(function(item) { return item && item.isActive; });
+            var source = active.length ? active : items;
+            var first = source[0];
+            var hourPrice = first ? (parsePrice(first.effectivePricePerHour) || parsePrice(first.effectivePricePerDay)) : null;
+            var dayPrice = first ? (parsePrice(first.effectivePricePerDay) || parsePrice(first.effectivePricePerHour)) : null;
+            var prices = source.map(function(item) { return parsePrice(item.effectivePricePerDay) || parsePrice(item.effectivePricePerHour); }).filter(function(n) { return n !== null; });
+            var minDay = prices.length ? Math.min.apply(null, prices) : null;
+            if (weekendEl && hourPrice !== null) weekendEl.textContent = formatter.format(hourPrice * 3);
+            if (weekdayEl && (minDay !== null || dayPrice !== null)) weekdayEl.textContent = formatter.format(minDay !== null ? minDay : dayPrice);
+            if (extraEl && hourPrice !== null) extraEl.textContent = formatter.format(hourPrice);
+            if (parkingEl && first && first.parkingPrice != null) {
+              var park = parsePrice(first.parkingPrice);
+              if (park !== null) parkingEl.textContent = formatter.format(park);
+            }
+          })
+          .catch(function() { /* оставляем цены из HTML */ });
+      }
+
+      function initIncludesAndPreloader() {
+        var headerC = document.getElementById('header-placeholder');
+        var footerC = document.getElementById('footer-placeholder');
+        if (!headerC || !footerC) {
+          if (typeof includesRetryCount === 'undefined') window.includesRetryCount = 0;
+          window.includesRetryCount++;
+          if (window.includesRetryCount < 10) setTimeout(initIncludesAndPreloader, 100);
+          return;
+        }
+        window.includesRetryCount = 0;
+        if (window.includesInProgress) return;
+        window.includesInProgress = true;
+        window.includesLoaded = { header: false, footer: false };
+        fetch('header.html').then(function(r) { return r.text(); }).then(function(html) {
+          var c = document.getElementById('header-placeholder');
+          if (c) { c.innerHTML = html; c.querySelectorAll('script').forEach(function(s) { var n = document.createElement('script'); if (s.src) n.src = s.src; else n.textContent = s.textContent; s.parentNode.replaceChild(n, s); }); }
+          window.includesLoaded.header = true;
+        }).catch(function() {});
+        fetch('footer.html').then(function(r) { return r.text(); }).then(function(html) {
+          var c = document.getElementById('footer-placeholder');
+          if (c) { c.innerHTML = html; c.querySelectorAll('script').forEach(function(s) { var n = document.createElement('script'); if (s.src) n.src = s.src; else n.textContent = s.textContent; s.parentNode.replaceChild(n, s); }); }
+          window.includesLoaded.footer = true;
+        }).catch(function() {});
+        setTimeout(function() { window.includesInProgress = false; }, 2000);
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        initIncludesAndPreloader();
+        updateMangalPrices();
+
+        var mainImg = document.getElementById('gallery-main');
+        var thumbs = document.querySelectorAll('#gallery .gallery-thumb');
+        if (mainImg && thumbs.length) {
+          thumbs.forEach(function(thumb) {
+            thumb.addEventListener('click', function() {
+              var idx = parseInt(thumb.getAttribute('data-index'), 10);
+              if (!isNaN(idx)) updateMainImage(idx);
+            });
+          });
+        }
+
+        var prevBtn = document.getElementById('gallery-prev');
+        var nextBtn = document.getElementById('gallery-next');
+        if (prevBtn) prevBtn.addEventListener('click', function() { updateMainImage(currentIndex - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function() { updateMainImage(currentIndex + 1); });
+
+        var expandBtn = document.getElementById('gallery-expand');
+        if (expandBtn) expandBtn.addEventListener('click', openPopup);
+        if (mainImg) { mainImg.style.cursor = 'pointer'; mainImg.addEventListener('click', openPopup); }
+
+        var popup = document.getElementById('mangal-page-popup');
+        var popupClose = document.getElementById('mangal-popup-close');
+        var popupPrev = document.getElementById('mangal-popup-prev');
+        var popupNext = document.getElementById('mangal-popup-next');
+        if (popupClose) popupClose.addEventListener('click', closePopup);
+        if (popup) popup.addEventListener('click', function(e) { if (e.target === popup) closePopup(); });
+        if (popupPrev) popupPrev.addEventListener('click', function() { updatePopupImage(currentIndex - 1); });
+        if (popupNext) popupNext.addEventListener('click', function() { updatePopupImage(currentIndex + 1); });
+        document.querySelectorAll('#mangal-page-popup .popup-thumb').forEach(function(thumb) {
+          thumb.addEventListener('click', function() {
+            var idx = parseInt(thumb.getAttribute('data-index'), 10);
+            if (!isNaN(idx)) updatePopupImage(idx);
+          });
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && popup && popup.classList.contains('active')) closePopup();
+          if (popup && !popup.classList.contains('active')) return;
+          if (e.key === 'ArrowLeft') { updatePopupImage(currentIndex - 1); e.preventDefault(); }
+          if (e.key === 'ArrowRight') { updatePopupImage(currentIndex + 1); e.preventDefault(); }
+        });
+      });
+      window.addEventListener('pageshow', initIncludesAndPreloader);
+    })();
+  </script>
+</body>
+</html>

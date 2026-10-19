@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Запрет на индексацию служебных файлов
+Disallow: /netlify/
+Disallow: /.netlify/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Запрет на индексацию технических страниц
+Disallow: /maintenance.html
+Disallow: /404.html
+Disallow: /test-api.html
+
+# Sitemap
+Sitemap: https://bazaturgoyak.ru/sitemap.xml

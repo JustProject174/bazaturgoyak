@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Бани | Золотые пески</title>
+  <meta name="description" content="Русская баня на базе отдыха «Золотые пески» на озере Тургояк. Условия аренды, фото. Отдых с баней на природе. Миасс.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Бани | Золотые пески">
+  <meta property="og:description" content="Русская баня на территории базы Золотые пески, озеро Тургояк.">
+  <meta property="og:image" content="https://bazaturgoyak.ru/images/Entertaiment/banya.webp">
+  <meta property="og:url" content="https://bazaturgoyak.ru/banya.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Золотые пески">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="js/config.js"></script>
+  <script src="js/apply-config.js"></script>
+  <script src="js/booking-mode.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .road-card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .road-card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08); }
+    html { scroll-behavior: smooth; }
+    .gallery-main { height: 320px; object-fit: cover; width: 100%; }
+    .gallery-thumb { height: 72px; object-fit: cover; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; min-width: 0; }
+    .gallery-thumb:hover, .gallery-thumb.active { opacity: 1; }
+    @media (max-width: 768px) { .gallery-main { height: 240px; } }
+    @media (max-width: 640px) { .gallery-main { height: 200px; } .gallery-thumb { height: 56px; } }
+    .banya-btn { min-height: 44px; }
+    @media (max-width: 640px) { .banya-btn { width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+  <div id="header-placeholder"></div>
+
+  <main class="pt-28">
+    <!-- Hero -->
+    <section class="relative bg-[#1a1a1a] text-white overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center opacity-50" style="background-image: url('images/Entertaiment/banya.webp');"></div>
+      <div class="relative mx-auto max-w-6xl px-4 sm:px-6 py-12 sm:py-16 md:py-20">
+        <p class="text-xs tracking-[0.2em] uppercase text-[#D4AF37]">Развлечения</p>
+        <h1 class="mt-3 font-[Playfair_Display] text-3xl sm:text-4xl md:text-5xl">Бани</h1>
+        <p class="mt-4 sm:mt-5 max-w-2xl text-white/90 text-sm sm:text-base">Русская баня на дровах у озера Тургояк: большая и малая. Парение, зона отдыха, ныряние в озеро в 25 метрах.</p>
+      </div>
+    </section>
+
+    <!-- Типы бань -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14" id="types">
+      <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Типы бань</h2>
+      <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8 sm:mb-12 text-sm sm:text-base px-1">У нас две русские бани на дровах — большая для компании и малая для камерного отдыха. Классическая русская парная с веником и лёгким паром.</p>
+      <div class="grid gap-6 sm:gap-8 md:grid-cols-2">
+        <div class="road-card-hover rounded-2xl border border-black/10 bg-white p-4 sm:p-6 md:p-8 shadow-sm min-w-0">
+          <div class="flex items-center gap-3 mb-4 flex-wrap">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]"><i class="fas fa-fire-alt text-xl"></i></span>
+            <h3 class="font-[Playfair_Display] text-xl sm:text-2xl min-w-0">Русская баня (большая)</h3>
+          </div>
+          <ul class="space-y-2 text-gray-700">
+            <li><strong>Вместимость:</strong> до 30 человек</li>
+            <li><strong>Температура:</strong> 55–70 °C (регулируется паром)</li>
+            <li><strong>Влажность:</strong> высокая (лёгкий пар, русский режим)</li>
+            <li>Большая парилка, моечное отделение, просторный предбанник с большим столом и скамейками</li>
+            <li>Мангальная зона перед баней</li>
+          </ul>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 bg-white p-4 sm:p-6 md:p-8 shadow-sm min-w-0">
+          <div class="flex items-center gap-3 mb-4 flex-wrap">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]"><i class="fas fa-hot-tub text-xl"></i></span>
+            <h3 class="font-[Playfair_Display] text-xl sm:text-2xl min-w-0">Русская баня (малая)</h3>
+          </div>
+          <ul class="space-y-2 text-gray-700">
+            <li><strong>Вместимость:</strong> до 6 человек</li>
+            <li><strong>Температура:</strong> 55–70 °C</li>
+            <li><strong>Влажность:</strong> высокая (русская парная)</li>
+            <li>Уютная парилка и предбанник — идеально для семьи или компании друзей</li>
+          </ul>
+        </div>
+      </div>
+      <p class="mt-6 text-sm text-gray-500 text-center">Обе бани — русская баня на дровах с парением (не сухая сауна). Расположены в 25 метрах от озера.</p>
+    </section>
+
+    <!-- Удобства и оборудование -->
+    <section class="bg-[#F7F3E8] py-10 sm:py-14" id="amenities">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Удобства и оборудование</h2>
+        <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="road-card-hover rounded-xl bg-white p-4 sm:p-6 shadow-sm text-center min-w-0">
+            <i class="fas fa-couch text-3xl text-[#D4AF37] mb-3"></i>
+            <h3 class="font-semibold text-lg mb-2">Зона отдыха</h3>
+            <p class="text-sm text-gray-600">Просторный предбанник с большим столом и скамейками (большая баня). Удобно для чая и общения.</p>
+          </div>
+          <div class="road-card-hover rounded-xl bg-white p-4 sm:p-6 shadow-sm text-center min-w-0">
+            <i class="fas fa-mug-hot text-3xl text-[#D4AF37] mb-3"></i>
+            <h3 class="font-semibold text-lg mb-2">Чай и напитки</h3>
+            <p class="text-sm text-gray-600">Чайник и место для чаепития. Напитки и закуски привозьте с собой или заказывайте заранее.</p>
+          </div>
+          <div class="road-card-hover rounded-xl bg-white p-4 sm:p-6 shadow-sm text-center min-w-0">
+            <i class="fas fa-water text-3xl text-[#D4AF37] mb-3"></i>
+            <h3 class="font-semibold text-lg mb-2">Озеро вместо купели</h3>
+            <p class="text-sm text-gray-600">Обе бани в 25 метрах от берега озера Тургояк — после парной можно нырнуть в прохладную воду.</p>
+          </div>
+          <div class="road-card-hover rounded-xl bg-white p-4 sm:p-6 shadow-sm text-center min-w-0">
+            <i class="fas fa-plus-circle text-3xl text-[#D4AF37] mb-3"></i>
+            <h3 class="font-semibold text-lg mb-2">Дополнительно</h3>
+            <p class="text-sm text-gray-600">Мангальная зона перед большой баней. Дрова для бани и мангала на базе (за отдельную плату).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Галерея -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14" id="gallery">
+      <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Фотографии бань</h2>
+      <div class="road-card-hover rounded-2xl overflow-hidden shadow-lg bg-white min-w-0">
+        <img id="gallery-main" src="images/Entertaiment/banya.webp" alt="Баня Золотые пески" class="gallery-main w-full">
+        <div class="p-3 sm:p-4 flex flex-wrap gap-2 justify-center border-t border-gray-100">
+          <img src="images/Entertaiment/banya.webp" alt="Баня 1" class="gallery-thumb w-20 rounded active" data-src="images/Entertaiment/banya.webp">
+          <img src="images/Entertaiment/banya (1).webp" alt="Баня 2" class="gallery-thumb w-20 rounded" data-src="images/Entertaiment/banya (1).webp">
+          <img src="images/Entertaiment/banya (2).webp" alt="Баня 3" class="gallery-thumb w-20 rounded" data-src="images/Entertaiment/banya (2).webp">
+          <img src="images/Entertaiment/banya (3).webp" alt="Баня 4" class="gallery-thumb w-20 rounded" data-src="images/Entertaiment/banya (3).webp">
+        </div>
+      </div>
+    </section>
+
+    <!-- Цены -->
+    <section class="bg-[#F7F3E8] py-10 sm:py-14" id="prices">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Цены на аренду</h2>
+        <p class="text-center text-gray-600 max-w-xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base px-1">Почасовая аренда. Минимальное время бронирования указано ниже.</p>
+        <div class="grid gap-4 sm:gap-6 md:grid-cols-2 max-w-3xl mx-auto">
+          <div class="road-card-hover rounded-2xl bg-white p-4 sm:p-6 md:p-8 shadow-md border border-[#D4AF37]/30 min-w-0">
+            <h3 class="font-[Playfair_Display] text-xl mb-2">Большая баня</h3>
+            <p class="text-gray-600 text-sm mb-4">до 30 человек</p>
+            <div class="text-2xl font-bold text-[#D4AF37] mb-1" id="price-large-wrap">от <span id="price-large">2 500</span> ₽/час</div>
+            <p class="text-sm text-gray-500">Минимум <strong>3 часа</strong>. Бронировать желательно за 4 часа.</p>
+          </div>
+          <div class="road-card-hover rounded-2xl bg-white p-4 sm:p-6 md:p-8 shadow-md border border-[#D4AF37]/30 min-w-0">
+            <h3 class="font-[Playfair_Display] text-xl mb-2">Малая баня</h3>
+            <p class="text-gray-600 text-sm mb-4">до 6 человек</p>
+            <div class="text-2xl font-bold text-[#D4AF37] mb-1" id="price-small-wrap">от <span id="price-small">2 000</span> ₽/час</div>
+            <p class="text-sm text-gray-500">Минимум <strong>1,5 часа</strong>. Бронировать желательно за 2 часа.</p>
+          </div>
+        </div>
+        <p class="text-center text-sm text-gray-500 mt-6">Точную стоимость уточняйте при бронировании. Предоплата требуется.</p>
+      </div>
+    </section>
+
+    <!-- Условия бронирования -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14" id="booking">
+      <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-10">Условия бронирования</h2>
+      <div class="grid gap-4 sm:gap-8 md:grid-cols-3">
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-calendar-check text-[#D4AF37]"></i> Как забронировать</h3>
+          <p class="text-gray-700 text-sm">Бронирование через <a href="https://bazaturgoyak.ru/" target="_blank" rel="noopener" class="text-[#D4AF37] hover:underline">сайт</a>, <a data-config="telegram" href="#" target="_blank" rel="noopener" class="text-[#D4AF37] hover:underline">Telegram-бот</a> или по телефону. Большая баня — бронировать за 4 часа, малая — за 2 часа.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-wallet text-[#D4AF37]"></i> Предоплата</h3>
+          <p class="text-gray-700 text-sm">При бронировании требуется предоплата. Способы оплаты уточняйте при заказе. Полная оплата при использовании.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl border border-black/10 p-4 sm:p-6 bg-white shadow-sm min-w-0">
+          <h3 class="font-[Playfair_Display] text-xl mb-3 flex items-center gap-2"><i class="fas fa-list-ol text-[#D4AF37]"></i> Правила использования</h3>
+          <p class="text-gray-700 text-sm">Соблюдайте время начала и окончания аренды. Дрова для бани и мангала — за отдельную плату на базе. Детей не оставляйте без присмотра.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты и кнопка бронирования -->
+    <section class="bg-[#1a1a1a] text-white py-10 sm:py-14">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 text-center">
+        <h2 class="font-[Playfair_Display] text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-6">Забронировать баню</h2>
+        <p class="text-white/80 max-w-xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base">Забронируйте на сайте, напишите в Telegram или позвоните — подберём время и тип бани.</p>
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-stretch sm:items-center">
+          <a href="#" data-booking-widget-link data-widget-period="hourly" data-widget-type-match="bania" target="_blank" rel="noopener" class="banya-btn inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-white text-[#1a1a1a] uppercase tracking-widest text-xs font-bold rounded-sm hover:bg-gray-100 transition-colors border border-white/30">
+            <i class="fas fa-globe text-lg shrink-0"></i> <span>Забронировать на сайте</span>
+          </a>
+          <a data-config="telegram" data-tg-text="Здравствуйте! Хочу забронировать баню (укажите большую или малую и желаемые дату/время)." href="#" target="_blank" rel="noopener" class="banya-btn inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#0088cc] text-white uppercase tracking-widest text-xs font-bold rounded-sm hover:bg-[#006ba1] transition-colors">
+            <i class="fab fa-telegram text-xl shrink-0"></i> <span>Написать в Telegram</span>
+          </a>
+          <a data-config="max" href="#" target="_blank" rel="noopener" class="banya-btn inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#6B4EFF] text-white uppercase tracking-widest text-xs font-bold rounded-sm hover:bg-[#5538E0] transition-colors">
+            <img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> <span>Написать в MAX</span>
+          </a>
+          <a data-config="phone" href="#" class="banya-btn inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#D4AF37] text-[#1a1a1a] uppercase tracking-widest text-xs font-bold rounded-sm hover:bg-[#b5952f] transition-colors">
+            <i class="fas fa-phone shrink-0"></i> <span>Позвонить</span>
+          </a>
+        </div>
+        <p class="mt-6 text-sm text-white/60">Время работы: 9:00–22:00</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Универсальный механизм динамической подгрузки header/footer
+    let includesLoaded = { header: false, footer: false };
+    let includesInProgress = false;
+    let includesRetryCount = 0;
+    function loadInclude(id, url) {
+      const container = document.getElementById(id);
+      if (!container) return;
+      fetch(url)
+        .then(r => r.text())
+        .then(html => {
+          container.innerHTML = html;
+          container.querySelectorAll('script').forEach(oldScript => {
+            const newScript = document.createElement('script');
+            if (oldScript.src) newScript.src = oldScript.src;
+            else newScript.textContent = oldScript.textContent;
+            Array.from(oldScript.attributes).forEach(attr => {
+              newScript.setAttribute(attr.name, attr.value);
+            });
+            oldScript.replaceWith(newScript);
+          });
+          if (id === 'header-placeholder') includesLoaded.header = true;
+          if (id === 'footer-placeholder') includesLoaded.footer = true;
+          if (includesLoaded.header && includesLoaded.footer) {
+            var loader = document.getElementById('loader');
+            if (loader) loader.style.display = 'none';
+            includesLoaded.header = false;
+            includesLoaded.footer = false;
+          }
+        })
+        .catch(() => {});
+    }
+    function initIncludesAndPreloader() {
+      const headerC = document.getElementById('header-placeholder');
+      const footerC = document.getElementById('footer-placeholder');
+      if (!headerC || !footerC) {
+        includesRetryCount = (includesRetryCount || 0) + 1;
+        if (includesRetryCount < 10) setTimeout(initIncludesAndPreloader, 100);
+        return;
+      }
+      includesRetryCount = 0;
+      if (includesInProgress) return;
+      includesInProgress = true;
+      includesLoaded = { header: false, footer: false };
+      loadInclude('header-placeholder', 'header.html');
+      loadInclude('footer-placeholder', 'footer.html');
+      setTimeout(() => { includesInProgress = false; }, 2000);
+    }
+    function onReadyOrShow() {
+      initIncludesAndPreloader();
+      setTimeout(() => {
+        var headerC = document.getElementById('header-placeholder');
+        var footerC = document.getElementById('footer-placeholder');
+        if ((headerC && !headerC.innerHTML.trim()) || (footerC && !footerC.innerHTML.trim())) {
+          initIncludesAndPreloader();
+        }
+      }, 1000);
+    }
+    document.addEventListener('DOMContentLoaded', onReadyOrShow);
+    window.addEventListener('pageshow', onReadyOrShow);
+
+    // Галерея: клик по миниатюре
+    document.querySelectorAll('.gallery-thumb').forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        var src = this.getAttribute('data-src');
+        if (!src) return;
+        var main = document.getElementById('gallery-main');
+        if (main) main.src = src;
+        document.querySelectorAll('.gallery-thumb').forEach(function(t) { t.classList.remove('active'); });
+        this.classList.add('active');
+      });
+    });
+
+    // Цены с сервера, при ошибке — из вёрстки страницы.
+    // В режиме placeholder (консервация) API не дёргаем — вместо цены «уточняйте».
+    function updateBanyaPrices() {
+      if (window.GSBooking && !window.GSBooking.isLive()) {
+        ['price-small-wrap', 'price-large-wrap'].forEach(function(id) {
+          var wrap = document.getElementById(id);
+          if (wrap) wrap.textContent = window.GSBooking.priceText;
+        });
+        return;
+      }
+      var smallEl = document.getElementById('price-small');
+      var largeEl = document.getElementById('price-large');
+      if (!smallEl && !largeEl) return;
+
+      var formatter = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 });
+      var url = ((window.CONFIG && window.CONFIG.apiBaseUrl) || '/api').replace(/\/+$/, '') + '/objects?typeId=3bad900a-960f-4bd2-9c15-7b5864a1a4f6&displayPrice=today';
+      fetch(url)
+        .then(function(response) { return response.json(); })
+        .then(function(items) {
+          if (!Array.isArray(items) || items.length === 0) return;
+          var active = items.filter(function(item) { return item && item.isActive; });
+          var source = active.length ? active : items;
+          var bySmall = source.find(function(item) { return String(item.name || '').toLowerCase().indexOf('малая') !== -1; });
+          var byLarge = source.find(function(item) { return String(item.name || '').toLowerCase().indexOf('большая') !== -1; });
+          var parse = function(v) { var n = parseFloat(v); return isFinite(n) ? n : null; };
+          // Бани: отображение ₽/час — берём эффективную почасовую или суточную цену
+          var getHourPrice = function(item) {
+            var h = parse(item.effectivePricePerHour);
+            if (h != null) return h;
+            var d = parse(item.effectivePricePerDay);
+            return d != null ? d : null;
+          };
+          var prices = source.map(getHourPrice).filter(function(n) { return n !== null; });
+          var minP = prices.length ? Math.min.apply(null, prices) : null;
+          var maxP = prices.length ? Math.max.apply(null, prices) : null;
+          var smallPrice = (bySmall && getHourPrice(bySmall) != null) ? formatter.format(getHourPrice(bySmall)) : (minP != null ? formatter.format(minP) : null);
+          var largePrice = (byLarge && getHourPrice(byLarge) != null) ? formatter.format(getHourPrice(byLarge)) : (maxP != null ? formatter.format(maxP) : null);
+          if (smallEl && smallPrice) smallEl.textContent = smallPrice;
+          if (largeEl && largePrice) largeEl.textContent = largePrice;
+        })
+        .catch(function() {
+          // Оставляем цены по умолчанию из HTML (2 000 / 2 500)
+        });
+    }
+    document.addEventListener('DOMContentLoaded', updateBanyaPrices);
+  </script>
+</body>
+</html>

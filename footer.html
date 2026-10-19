@@ -1,0 +1,782 @@
+<!-- Standalone Footer v3 for Tilda (улучшенная версия) -->
+<style>
+/* ПОЛНЫЙ СБРОС для изоляции от Tilda */
+.gs-footer-v3,
+.gs-footer-v3 * {
+    box-sizing: border-box;
+    display: revert;
+}
+
+.gs-footer-v3 {
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    line-height: 1.6 !important;
+    background: #1a1a1a !important;
+    color: white !important;
+    padding: 48px 0 24px !important;
+    width: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    border: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+.gs-footer-container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 32px !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    position: relative !important;
+}
+
+/* Footer Grid - компактная версия */
+.gs-footer-grid {
+    display: grid !important;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr !important;
+    gap: 40px !important;
+    margin-bottom: 40px !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.gs-footer-section {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+.gs-footer-section h3 {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 18px !important;
+    margin: 0 0 20px 0 !important;
+    padding: 0 !important;
+    color: #D4AF37 !important;
+    font-weight: bold !important;
+    letter-spacing: 0.05em !important;
+    display: block !important;
+    line-height: 1.4 !important;
+    text-transform: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.gs-footer-section p {
+    color: #d1d1d1 !important;
+    margin: 0 0 16px 0 !important;
+    padding: 0 !important;
+    line-height: 1.7 !important;
+    font-size: 14px !important;
+    display: block !important;
+    font-family: 'Lato', sans-serif !important;
+    font-weight: normal !important;
+    text-decoration: none !important;
+    border: none !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+}
+
+.gs-footer-section a {
+    color: #d1d1d1 !important;
+    text-decoration: none !important;
+    display: block !important;
+    margin: 0 0 10px 0 !important;
+    padding: 0 !important;
+    transition: all 0.3s ease !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    cursor: pointer !important;
+    font-family: 'Lato', sans-serif !important;
+    font-weight: normal !important;
+    border: none !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+}
+
+.gs-footer-section a:hover {
+    color: #D4AF37 !important;
+    padding-left: 8px !important;
+    text-decoration: none !important;
+}
+
+/* Social Icons - жёсткие стили */
+.gs-footer-social {
+    display: flex !important;
+    gap: 12px !important;
+    margin-top: 20px !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    padding: 0 !important;
+}
+
+.gs-social-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    background: rgba(212, 175, 55, 0.15) !important;
+    border-radius: 50% !important;
+    color: #D4AF37 !important;
+    font-size: 20px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    vertical-align: middle !important;
+}
+
+.gs-social-btn i {
+    display: block !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    line-height: 1 !important;
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    color: #D4AF37 !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 20px !important;
+    height: 20px !important;
+    text-align: center !important;
+}
+
+.gs-social-btn i::before {
+    display: block !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.gs-social-btn:hover {
+    background: #D4AF37 !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3) !important;
+}
+
+.gs-social-btn:hover i {
+    color: #1a1a1a !important;
+}
+
+/* Contact Info with Icons - жёсткие стили */
+.gs-contact-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    margin-bottom: 14px !important;
+    color: #d1d1d1 !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+}
+
+.gs-contact-icon {
+    display: inline-block !important;
+    color: #D4AF37 !important;
+    margin-right: 12px !important;
+    margin-left: 0 !important;
+    margin-top: 4px !important;
+    margin-bottom: 0 !important;
+    font-size: 16px !important;
+    width: 20px !important;
+    min-width: 20px !important;
+    text-align: center !important;
+    flex-shrink: 0 !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    line-height: 1 !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    position: relative !important;
+    vertical-align: top !important;
+}
+
+.gs-contact-icon::before {
+    display: block !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    margin: 0 auto !important;
+}
+
+.gs-contact-item a {
+    color: #d1d1d1 !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline !important;
+    background: transparent !important;
+    border: none !important;
+    font-family: 'Lato', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+
+.gs-contact-item a:hover {
+    color: #D4AF37 !important;
+    padding-left: 0 !important;
+}
+
+.gs-contact-item span {
+    color: #d1d1d1 !important;
+    font-family: 'Lato', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline !important;
+}
+
+/* Footer Bottom - жёсткие стили */
+.gs-footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-top: 24px !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+}
+
+.gs-footer-bottom p {
+    color: #888 !important;
+    font-size: 13px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.6 !important;
+    font-family: 'Lato', sans-serif !important;
+    font-weight: normal !important;
+    display: block !important;
+    text-decoration: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.gs-footer-links {
+    display: flex !important;
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    align-items: center !important;
+}
+
+.gs-footer-links a {
+    color: #888 !important;
+    font-size: 13px !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-block !important;
+    line-height: 1.6 !important;
+    font-family: 'Lato', sans-serif !important;
+    font-weight: normal !important;
+    border: none !important;
+    background: transparent !important;
+    cursor: pointer !important;
+}
+
+.gs-footer-links a:hover {
+    color: #D4AF37 !important;
+    padding-left: 0 !important;
+    text-decoration: none !important;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .gs-footer-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 32px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .gs-footer-v3 {
+        padding: 40px 0 20px !important;
+    }
+    
+    .gs-footer-container {
+        padding: 0 20px !important;
+    }
+    
+    .gs-footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+        margin-bottom: 32px !important;
+    }
+    
+    .gs-footer-section h3 {
+        font-size: 17px !important;
+        margin-bottom: 16px !important;
+    }
+    
+    .gs-footer-section p {
+        font-size: 13px !important;
+    }
+    
+    .gs-footer-section a {
+        font-size: 13px !important;
+    }
+    
+    .gs-footer-bottom {
+        flex-direction: column !important;
+        text-align: center !important;
+        align-items: center !important;
+        padding-top: 20px !important;
+        gap: 12px !important;
+    }
+    
+    .gs-footer-links {
+        justify-content: center !important;
+        gap: 16px !important;
+    }
+    
+    .gs-social-btn {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+    }
+    
+    .gs-social-btn i {
+        font-size: 18px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .gs-footer-v3 {
+        padding: 32px 0 16px !important;
+    }
+    
+    .gs-footer-container {
+        padding: 0 16px !important;
+    }
+    
+    .gs-footer-grid {
+        gap: 24px !important;
+        margin-bottom: 24px !important;
+    }
+    
+    .gs-footer-section h3 {
+        font-size: 16px !important;
+        margin-bottom: 14px !important;
+    }
+    
+    .gs-footer-section p,
+    .gs-footer-section a {
+        font-size: 12px !important;
+    }
+    
+    .gs-contact-item {
+        font-size: 12px !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .gs-contact-icon {
+        font-size: 14px !important;
+        width: 16px !important;
+        min-width: 16px !important;
+        margin-right: 10px !important;
+    }
+    
+    .gs-footer-social {
+        margin-top: 16px !important;
+        gap: 10px !important;
+    }
+    
+    .gs-social-btn {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
+    }
+    
+    .gs-social-btn i {
+        font-size: 16px !important;
+        width: 16px !important;
+        height: 16px !important;
+    }
+    
+    .gs-footer-bottom {
+        padding-top: 16px !important;
+        gap: 10px !important;
+    }
+    
+    .gs-footer-bottom p {
+        font-size: 11px !important;
+    }
+    
+    .gs-footer-links {
+        gap: 12px !important;
+        flex-direction: column !important;
+    }
+    
+    .gs-footer-links a {
+        font-size: 11px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .gs-footer-section h3 {
+        font-size: 15px !important;
+    }
+    
+    .gs-footer-section p,
+    .gs-footer-section a,
+    .gs-contact-item {
+        font-size: 11px !important;
+    }
+    
+    .gs-footer-container {
+        padding: 0 12px !important;
+    }
+}
+.jp174-signature-link {
+    color: #888;
+    display: inline !important;
+    font-size: 13px !important;
+    font-family: 'Lato', sans-serif !important;
+    cursor: pointer !important;
+    transition: color 0.3s;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.jp174-signature-link:hover {
+    color: #fff !important;
+    text-decoration: underline !important;
+}
+
+/* Cookie consent banner */
+.gs-cookie-banner {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 99999 !important;
+    background: #1a1a1a !important;
+    color: #e5e5e5 !important;
+    padding: 16px 20px 20px !important;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25) !important;
+    font-family: 'Lato', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    display: none !important;
+    box-sizing: border-box !important;
+}
+.gs-cookie-banner.is-visible {
+    display: block !important;
+}
+.gs-cookie-banner-inner {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 16px !important;
+    justify-content: space-between !important;
+}
+.gs-cookie-banner-text {
+    flex: 1 1 280px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.gs-cookie-banner-text a {
+    color: #D4AF37 !important;
+    text-decoration: underline !important;
+}
+.gs-cookie-banner-text a:hover {
+    color: #e8c04a !important;
+}
+.gs-cookie-banner-btns {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    align-items: center !important;
+}
+.gs-cookie-banner-btn {
+    display: inline-block !important;
+    padding: 10px 18px !important;
+    border: none !important;
+    border-radius: 4px !important;
+    font-family: 'Lato', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background 0.2s, color 0.2s !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+}
+.gs-cookie-banner-btn-accept {
+    background: #D4AF37 !important;
+    color: #1a1a1a !important;
+}
+.gs-cookie-banner-btn-accept:hover {
+    background: #e8c04a !important;
+}
+.gs-cookie-banner-btn-reject {
+    background: transparent !important;
+    color: #d1d1d1 !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+}
+.gs-cookie-banner-btn-reject:hover {
+    background: rgba(255,255,255,0.08) !important;
+    color: #fff !important;
+}
+.gs-cookie-banner-btn-more {
+    background: transparent !important;
+    color: #D4AF37 !important;
+    border: 1px solid #D4AF37 !important;
+}
+.gs-cookie-banner-btn-more:hover {
+    background: rgba(212, 175, 55, 0.15) !important;
+}
+@media (max-width: 576px) {
+    .gs-cookie-banner-inner {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        text-align: center !important;
+    }
+    .gs-cookie-banner-btns {
+        justify-content: center !important;
+    }
+}
+</style>
+
+<!-- FontAwesome (если еще не загружен в header) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<footer class="gs-footer-v3">
+    <div class="gs-footer-container">
+        <div class="gs-footer-grid">            <!-- О нас -->
+            <div class="gs-footer-section">
+                <h3 data-config="site-name" data-config-text="1">Золотые пески</h3>
+                <p>База отдыха на берегу озера Тургояк. Испытайте идеальное сочетание современного комфорта и спокойствия природы.</p>
+                <div class="gs-footer-social">
+                    <a data-config="telegram" href="#" target="_blank" class="gs-social-btn" title="Telegram Бот">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a data-config="vk" href="#" target="_blank" class="gs-social-btn" title="Вконтакте">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                    <a data-config="telegram-channel" href="#" target="_blank" class="gs-social-btn" title="Telegram канал">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Навигация -->
+            <div class="gs-footer-section">
+                <h3>Навигация</h3>
+                <a href="/">Главная</a>
+                <a href="/promotions.html">Акции</a>
+                <a href="/accommodation.html">Проживание</a>
+                <a href="/entertament.html">Развлечения</a>
+                <a href="/about.html">О нас</a>
+            </div>
+
+            <!-- Информация -->
+            <div class="gs-footer-section">
+                <h3>Информация</h3>
+                <a href="/gallery.html">Галерея</a>
+                <a href="/qna.html">Вопросы и ответы</a>
+                <a href="/certificates.html">Рейтинги и документы</a>
+                <a href="/contacts.html">Контакты</a>
+            </div>
+
+            <!-- Контакты -->
+            <div class="text-center md:text-left">
+                <h3 class="text-brand-gold font-serif text-lg mb-6" style="font-weight: bold; font-size: 18px !important;"><b>Свяжитесь с нами</b></h3>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li class="flex items-start justify-center md:justify-start gap-3">
+                        <i class="fas fa-map-marker-alt mt-1 text-brand-gold"></i>
+                        <a data-config="address" href="https://yandex.ru/maps/?ll=60.061851%2C55.187183&mode=routes&rtext=~55.187969%2C60.059069&rtt=auto&ruri=~ymapsbm1%3A%2F%2Forg%3Foid%3D109014041624&source=serp_navig&z=15" target="_blank" class="hover:text-white transition-colors" data-config-text="1">
+                            База отдыха "Золотые пески",<br>Челябинская область, г. Миасс, озеро Тургояк
+                        </a>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-phone-alt text-brand-gold"></i>
+                        <div class="flex flex-col gap-1">
+                            <span>
+                                База отдыха:&nbsp;
+                                <a data-config="phone" href="#" class="hover:text-white" data-config-text="1"></a>
+                            </span>
+                            <br>
+                            <span>
+                                Палатки:&nbsp;
+                                <a data-config="phone-tents" href="#" class="hover:text-white" data-config-text="1"></a>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-envelope text-brand-gold"></i>
+                        <a data-config="email" href="#" class="hover:text-white" data-config-text="1"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="gs-footer-bottom" style="justify-content: center !important; text-align: center !important; flex-direction: column !important; align-items: center !important;">
+            <p style="text-align: center !important;">&copy; 2024 <span data-config="site-name" data-config-text="1">Золотые пески</span>. Все права защищены. — ООО «ЭКО-ГРУППА». ИНН 7404037055, КПП 740401001, ОГРН 1037400582064</p>
+            <div class="gs-footer-links" style="justify-content: center !important;">
+            <a href="privacy.html">Политика конфиденциальности</a>
+            <a href="terms.html">Условия использования</a>
+            <a href="cookies.html">Cookies</a>
+            <a href="docs/Положение о бронировании.pdf" target="_blank" rel="noopener">Положение о бронировании</a>
+            <a href="docs/Правила проживания и отдыха.pdf" target="_blank" rel="noopener">Правила проживания и отдыха</a>
+            <a href="docs/Публичная_оферта_базы_отдыха.pdf" target="_blank" rel="noopener">Публичная оферта</a>
+            </div>
+            <p style="text-align: center !important;">
+            <a data-config="signature-email" href="#" class="jp174-signature-link">
+                Данный сайт создан IT-студией Kragor
+            </a>
+            <div style="margin-top: 8px;">
+                <img src="images/kragor-dev-logo.png" alt="Kragor" style="height: 68px; background: #fff; vertical-align: middle; margin-right: 6px; border-radius: 4px; padding: 4px 8px; box-shadow: none;">
+            </div>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Cookie consent banner -->
+<div id="gs-cookie-banner" class="gs-cookie-banner" role="dialog" aria-label="Уведомление об использовании cookies" aria-live="polite">
+    <div class="gs-cookie-banner-inner">
+        <p class="gs-cookie-banner-text">
+            Мы используем файлы cookie для работы сайта, аналитики и улучшения вашего опыта. Продолжая просмотр, вы соглашаетесь с использованием cookie. Подробнее — в нашей <a href="cookies.html">политике cookies</a> и <a href="privacy.html">политике конфиденциальности</a>.
+        </p>
+        <div class="gs-cookie-banner-btns">
+            <a href="cookies.html" class="gs-cookie-banner-btn gs-cookie-banner-btn-more">Подробнее</a>
+            <button type="button" id="gs-cookie-reject" class="gs-cookie-banner-btn gs-cookie-banner-btn-reject">Отклонить</button>
+            <button type="button" id="gs-cookie-accept" class="gs-cookie-banner-btn gs-cookie-banner-btn-accept">Принять</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+    
+    // Smooth scroll для ссылок footer
+    var footerLinks = document.querySelectorAll('.gs-footer-v3 a[href^="#"]');
+    footerLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            var href = this.getAttribute('href');
+            if (href.length > 1) {
+                e.preventDefault();
+                var target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+
+    // Обновление года в copyright
+    var year = new Date().getFullYear();
+    var copyright = document.querySelector('.gs-footer-bottom p');
+    if (copyright) {
+        copyright.textContent = copyright.textContent.replace('2024', year);
+    }
+
+    // Cookie consent banner
+    var COOKIE_CONSENT_KEY = 'zolotye_peski_cookie_consent';
+    var banner = document.getElementById('gs-cookie-banner');
+    var acceptBtn = document.getElementById('gs-cookie-accept');
+    var rejectBtn = document.getElementById('gs-cookie-reject');
+
+    function getConsent() {
+        try {
+            return localStorage.getItem(COOKIE_CONSENT_KEY);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function setConsent(value) {
+        try {
+            localStorage.setItem(COOKIE_CONSENT_KEY, value);
+        } catch (e) {}
+    }
+
+    function hideBanner() {
+        if (banner) {
+            banner.classList.remove('is-visible');
+        }
+    }
+
+    function showBanner() {
+        if (banner && !getConsent()) {
+            banner.classList.add('is-visible');
+        }
+    }
+
+    if (banner) {
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', function() {
+                setConsent('accepted');
+                hideBanner();
+            });
+        }
+        if (rejectBtn) {
+            rejectBtn.addEventListener('click', function() {
+                setConsent('rejected');
+                hideBanner();
+            });
+        }
+        showBanner();
+    }
+
+    // Apply config to dynamically loaded elements
+    if (typeof window.applyConfig === 'function') window.applyConfig();
+})();
+</script>

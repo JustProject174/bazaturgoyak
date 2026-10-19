@@ -1,0 +1,2398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Развлечения | Золотые пески</title>
+    <meta name="description" content="Развлечения на базе «Золотые пески»: йога, волейбол, площадка для мероприятий, прокат инвентаря. Озеро Тургояк.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Развлечения | Золотые пески">
+    <meta property="og:description" content="Йога, волейбол, аренда площадки для праздников, прокат. Активный отдых на Тургояке.">
+    <meta property="og:image" content="https://bazaturgoyak.ru/images/Entertaiment/eventspace1.jfif">
+    <meta property="og:url" content="https://bazaturgoyak.ru/entertament.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Золотые пески">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/config.js"></script>
+    <script src="js/apply-config.js"></script>
+    <script src="js/booking-mode.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4AF37; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b5952f; 
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+/* Hero Background Transition */
+#hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Villa Card Hover Effects */
+.villa-card:hover .villa-img {
+    transform: scale(1.1);
+}
+
+.villa-card {
+    overflow: hidden;
+}
+
+.villa-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating Icons */
+.floating-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.floating-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal Styles */
+#villa-modal {
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Transition */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        max-height: 95vh;
+    }
+}
+
+/* Focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Button hover effects */
+button:hover,
+a.button:hover {
+    cursor: pointer;
+}
+
+/* Parallax effect for background images */
+.bg-fixed {
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll;
+    }
+}
+
+/* Gallery Slider Styles - Modern Design */
+.gallery-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.gallery-slider:hover {
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.2);
+    transform: translateY(-2px);
+}
+
+.gallery-main-img {
+    width: 100%;
+    height: 384px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+    position: relative;
+}
+
+.gallery-main-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.1) 100%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-main-img:hover {
+    transform: scale(1.03);
+}
+
+.gallery-main-img:hover::after {
+    opacity: 1;
+}
+
+.gallery-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(250, 250, 250, 0.8));
+    border-radius: 0.75rem;
+    backdrop-filter: blur(10px);
+}
+
+.gallery-thumb {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.6;
+    position: relative;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.gallery-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-thumb:hover {
+    opacity: 1;
+    transform: scale(1.08) translateY(-2px);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 8px 16px rgba(212, 175, 55, 0.2);
+}
+
+.gallery-thumb:hover::before {
+    opacity: 1;
+}
+
+.gallery-thumb.active {
+    border-color: #D4AF37;
+    opacity: 1;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3), 0 4px 12px rgba(212, 175, 55, 0.25);
+    transform: scale(1.05);
+}
+
+.gallery-thumb.active::before {
+    opacity: 1;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, transparent 100%);
+}
+
+.gallery-counter {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.gallery-expand-btn {
+    position: absolute;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    background: linear-gradient(135deg, #D4AF37 0%, #b5952f 100%);
+    color: white;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4), 0 0 0 0 rgba(212, 175, 55, 0.5);
+    z-index: 10;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.gallery-expand-btn:hover {
+    background: linear-gradient(135deg, #b5952f 0%, #D4AF37 100%);
+    transform: scale(1.12) rotate(5deg);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.6), 0 0 0 4px rgba(212, 175, 55, 0.2);
+}
+
+/* Volleyball video (lazy load on play) */
+.volley-video-block { background: #1a1a1a; }
+.volley-video-poster { position: relative; cursor: pointer; }
+.volley-video-poster:hover .volley-play-overlay { transform: scale(1.1); background: rgba(212, 175, 55, 0.9); }
+.volley-play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+.volley-play-overlay i {
+    font-size: 3rem;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.volley-video.hidden { display: none; }
+.volley-main-area { position: relative; min-height: 384px; }
+.volley-view.hidden { display: none !important; }
+
+.gallery-expand-btn:active {
+    transform: scale(1.05) rotate(0deg);
+}
+
+/* Rental Slider */
+.rental-slider-wrap {
+    width: 100%;
+}
+.rental-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+.rental-slider-viewport {
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+}
+.rental-slider-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.rental-slider-page {
+    flex: 0 0 100%;
+    display: flex;
+    gap: 1.5rem;
+    min-width: 0;
+}
+.rental-slider-page-3 .rental-slider-card {
+    flex: 0 0 calc((100% - 3rem) / 3);
+}
+.rental-slider-page-2 .rental-slider-card {
+    flex: 0 0 calc((100% - 1.5rem) / 2);
+}
+.rental-slider-card {
+    min-width: 0;
+}
+@media (max-width: 767px) {
+    .rental-slider-page-3 .rental-slider-card { flex: 0 0 calc((100% - 1.5rem) / 3); }
+    .rental-slider-page-2 .rental-slider-card { flex: 0 0 calc((100% - 1.5rem) / 2); }
+}
+.rental-slider-nav {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #D4AF37 0%, #b5952f 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+.rental-slider-nav:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+.rental-slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+.rental-slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.rental-slider-dot.active {
+    background: #D4AF37;
+    transform: scale(1.2);
+}
+
+@media (max-width: 640px) {
+    .rental-slider-wrap .entertainment-card {
+        padding: 1rem !important;
+    }
+}
+
+/* Gallery Popup Modal - Modern Design */
+#gallery-popup,
+#banya-gallery-popup,
+#mangal-gallery-popup,
+#beach-gallery-popup,
+#volley-gallery-popup,
+#yoga-gallery-popup,
+#eventspace-gallery-popup,
+.gallery-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#gallery-popup.active,
+#banya-gallery-popup.active,
+#mangal-gallery-popup.active,
+#beach-gallery-popup.active,
+#volley-gallery-popup.active,
+#yoga-gallery-popup.active,
+#eventspace-gallery-popup.active,
+.gallery-popup.active {
+    display: flex;
+    opacity: 1;
+}
+
+.gallery-popup-content {
+    position: relative;
+    width: 92%;
+    max-width: 1400px;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    animation: popupFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-popup-image-area {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.gallery-popup-main {
+    width: 100%;
+    max-height: 58vh;
+    object-fit: contain;
+    border-radius: 1rem;
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #000;
+}
+
+.gallery-popup-thumbnails {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 1.25rem 2rem;
+    min-height: 150px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-shrink: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #D4AF37 rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.gallery-popup-thumbnails::-webkit-scrollbar {
+    height: 8px;
+}
+
+.gallery-popup-thumbnails::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.gallery-popup-thumbnails::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #D4AF37, #b5952f);
+    border-radius: 4px;
+}
+
+.gallery-popup-thumbnails::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #b5952f, #D4AF37);
+}
+
+.gallery-popup-thumb {
+    width: 120px;
+    min-width: 120px;
+    height: 120px;
+    min-height: 120px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.5;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.gallery-popup-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-popup-thumb:hover {
+    opacity: 1;
+    transform: scale(1.15) translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+}
+
+.gallery-popup-thumb:hover::before {
+    opacity: 1;
+}
+
+.gallery-popup-thumb.active {
+    border-color: #D4AF37;
+    opacity: 1;
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.4), 0 8px 24px rgba(212, 175, 55, 0.35);
+    transform: scale(1.1);
+}
+
+.gallery-popup-thumb.active::before {
+    opacity: 1;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, transparent 100%);
+}
+
+.gallery-popup-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.95) 0%, rgba(181, 149, 47, 0.95) 100%);
+    color: white;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    font-size: 1.375rem;
+    z-index: 10;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4), 0 0 0 0 rgba(212, 175, 55, 0.5);
+}
+
+.gallery-popup-nav:hover {
+    background: linear-gradient(135deg, #D4AF37 0%, #b5952f 100%);
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 6px 24px rgba(212, 175, 55, 0.6), 0 0 0 4px rgba(212, 175, 55, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.gallery-popup-nav:active {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.gallery-popup-nav.prev {
+    left: 1.5rem;
+}
+
+.gallery-popup-nav.next {
+    right: 1.5rem;
+}
+
+.gallery-popup-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: white;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    font-size: 1.5rem;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg) scale(1.1);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-popup-counter {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+/* Rental slider mobile: smaller nav buttons */
+@media (max-width: 480px) {
+    .rental-slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 0.875rem;
+    }
+    .rental-slider-row {
+        gap: 0.5rem;
+    }
+}
+
+/* Floating icons - smaller on mobile */
+@media (max-width: 640px) {
+    .floating-icon {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 1.25rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-slider {
+        border-radius: 0.75rem;
+    }
+    
+    .gallery-main-img {
+        height: 300px;
+    }
+    
+    .volley-main-area {
+        min-height: 300px;
+    }
+    
+    .gallery-thumbnails {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+        padding: 0.375rem;
+    }
+    
+    .gallery-thumb {
+        height: 65px;
+        border-radius: 0.375rem;
+    }
+    
+    .gallery-counter {
+        top: 0.75rem;
+        right: 0.75rem;
+        padding: 0.5rem 0.875rem;
+        font-size: 0.75rem;
+    }
+    
+    .gallery-expand-btn {
+        bottom: 0.75rem;
+        right: 0.75rem;
+        width: 44px;
+        height: 44px;
+    }
+    
+    .gallery-popup-content {
+        width: 95%;
+        padding: 1rem;
+    }
+    
+    .gallery-popup-main {
+        max-height: 52vh;
+        border-radius: 0.75rem;
+    }
+    
+    .gallery-popup-nav {
+        width: 44px;
+        height: 44px;
+        font-size: 1.125rem;
+    }
+    
+    .gallery-popup-nav.prev {
+        left: 0.75rem;
+    }
+    
+    .gallery-popup-nav.next {
+        right: 0.75rem;
+    }
+    
+    .gallery-popup-close {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+    
+    .gallery-popup-counter {
+        top: 0.75rem;
+        left: 0.75rem;
+        padding: 0.5rem 0.875rem;
+        font-size: 0.75rem;
+    }
+    
+    .gallery-popup-thumb {
+        width: 88px;
+        min-width: 88px;
+        height: 88px;
+        min-height: 88px;
+        aspect-ratio: 1;
+        border-radius: 0.5rem;
+    }
+    
+    .gallery-popup-thumbnails {
+        gap: 0.625rem;
+        padding: 1rem 1.25rem;
+        margin-top: 1rem;
+        min-height: 120px;
+    }
+}
+    </style>
+    
+    <!-- Tailwind Config -->
+    <script>
+// Tailwind CSS Configuration
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'brand-gold': '#D4AF37',
+                'brand-dark': '#1a1a1a',
+                'brand-green': '#2C3E50',
+                'brand-cream': '#F9F9F5',
+            },
+            fontFamily: {
+                serif: ['"Playfair Display"', 'serif'],
+                sans: ['"Lato"', 'sans-serif'],
+            }
+        }
+    }
+}
+    </script>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="flex flex-col items-center">
+            <img src="images/logo.png" alt="Золотые пески логотип" class="w-24 h-24 mb-4 opacity-0" id="loader-logo">
+            <h1 class="text-brand-gold text-5xl font-serif mb-4 tracking-widest opacity-0" id="loader-text">РАЗВЛЕЧЕНИЯ</h1>
+            <div class="w-16 h-1 bg-brand-gold rounded-full transform scale-x-0" id="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Floating Contact Icons -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-4">
+        <a data-config="telegram" href="#" target="_blank" class="floating-icon w-14 h-14 bg-[#0088cc] rounded-full flex items-center justify-center text-white text-3xl" title="Telegram">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a data-config="max" href="#" target="_blank" rel="noopener" class="floating-icon w-14 h-14 bg-[#6B4EFF] rounded-full flex items-center justify-center" title="Написать в MAX">
+            <img src="images/max-mess.png" alt="MAX" class="w-8 h-8 object-contain">
+        </a>
+        <a data-config="phone" href="#" class="floating-icon w-14 h-14 bg-brand-gold rounded-full flex items-center justify-center text-white text-2xl" title="Позвонить">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <header class="relative min-h-[70vh] md:min-h-[900px] max-h-[1000px] w-full overflow-hidden pt-[88px] md:pt-28">
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('images/Entertaiment/Mangal.webp');"></div>
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 h-full flex flex-col justify-center items-center text-center text-white">
+            <p class="text-brand-gold tracking-[0.3em] uppercase text-sm md:text-base mb-4 font-bold gsap-hero-elem">Активный отдых</p>
+            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif font-medium mb-6 leading-tight gsap-hero-elem">
+                Развлечения <br> <span class="italic text-brand-gold">и активности</span>
+            </h1>
+            
+            <!-- Маркетинговое описание развлечений -->
+            <div class="max-w-4xl mx-auto mb-8 gsap-hero-elem">
+                <p class="text-gray-100 text-base md:text-lg font-light leading-relaxed mb-6">
+                    База отдыха <span class="text-brand-gold font-semibold">"Золотые пески"</span> на живописном озере Тургояк предлагает незабываемый отдых для всей семьи. 
+                    От традиционной русской бани до водных развлечений — каждый найдет занятие по душе.
+                </p>
+                
+                <!-- Иконки развлечений в современном стиле -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-8">
+                    <div class="group flex flex-col items-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-brand-gold/50 transition-all duration-300">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-gold/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-brand-gold/30 group-hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-water text-brand-gold text-xl md:text-2xl"></i>
+                        </div>
+                        <span class="text-xs md:text-sm font-medium text-gray-200">Пляж и водные развлечения</span>
+                    </div>
+                    
+                    <div class="group flex flex-col items-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-brand-gold/50 transition-all duration-300">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-gold/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-brand-gold/30 group-hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-fire text-brand-gold text-xl md:text-2xl"></i>
+                        </div>
+                        <span class="text-xs md:text-sm font-medium text-gray-200">Русская баня</span>
+                    </div>
+                    
+                    <div class="group flex flex-col items-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-brand-gold/50 transition-all duration-300">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-gold/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-brand-gold/30 group-hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-utensils text-brand-gold text-xl md:text-2xl"></i>
+                        </div>
+                        <span class="text-xs md:text-sm font-medium text-gray-200">Зона барбекю</span>
+                    </div>
+                    
+                    <div class="group flex flex-col items-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-brand-gold/50 transition-all duration-300">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-gold/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-brand-gold/30 group-hover:scale-110 transition-all duration-300">
+                            <i class="fas fa-mountain text-brand-gold text-xl md:text-2xl"></i>
+                        </div>
+                        <span class="text-xs md:text-sm font-medium text-gray-200">Экскурсии и активность</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 gsap-hero-elem">
+                <a href="#sauna" class="group relative px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden inline-block rounded-sm shadow-lg hover:shadow-xl transition-all duration-300">
+                    <span class="relative z-10">Открыть все развлечения</span>
+                    <div class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20"></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl opacity-70"></i>
+        </div>
+    </header>
+
+    <!-- Sauna Section -->
+    <section id="sauna" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Бани</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Русская баня и сауна</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <!-- Gallery Slider -->
+                    <div class="gallery-slider" id="banya-gallery">
+                        <div class="relative">
+                            <img src="images/Entertaiment/banya.webp" alt="Русская баня" class="gallery-main-img" id="banya-main-img">
+                            <div class="gallery-counter">
+                                <span id="banya-current">1</span> / <span id="banya-total">4</span>
+                            </div>
+                            <div class="gallery-expand-btn" onclick="openBanyaGallery()" title="Открыть галерею">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <img src="images/Entertaiment/banya.webp" alt="Русская баня 1" class="gallery-thumb active" onclick="changeBanyaImage(0)" data-index="0">
+                            <img src="images/Entertaiment/banya (1).webp" alt="Русская баня 2" class="gallery-thumb" onclick="changeBanyaImage(1)" data-index="1">
+                            <img src="images/Entertaiment/banya (2).webp" alt="Русская баня 3" class="gallery-thumb" onclick="changeBanyaImage(2)" data-index="2">
+                            <img src="images/Entertaiment/banya (3).webp" alt="Русская баня 4" class="gallery-thumb" onclick="changeBanyaImage(3)" data-index="3">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-serif mb-4">Традиционная русская баня</h3>
+                    <p class="text-gray-600 mb-6">Наслаждайтесь настоящей русской баней с паром, вениками и купелью. Идеально для релаксации после активного дня.</p>
+                    <div class="text-brand-gold font-bold text-xl mb-4" id="banya-price">
+                        <div>Малая баня — <span id="banya-price-small">от 2 500 ₽/час</span></div>
+                        <div>Большая баня — <span id="banya-price-large">от 5 000 ₽/час</span></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4">Минимальное бронирование — от 3 часов.</p>
+                    <a href="banya.html" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Узнать подробнее <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BBQ Section -->
+    <section id="bbq" class="py-16 md:py-24 bg-brand-cream">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Мангальная зона</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Зона барбекю</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <div class="gallery-slider" id="mangal-gallery">
+                        <div class="relative">
+                            <img src="images/Entertaiment/Mangal.webp" alt="Мангальная зона" class="gallery-main-img" id="mangal-main-img">
+                            <div class="gallery-counter">
+                                <span id="mangal-current">1</span> / <span id="mangal-total">2</span>
+                            </div>
+                            <div class="gallery-expand-btn" onclick="openMangalGallery()" title="Открыть галерею">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <img src="images/Entertaiment/Mangal.webp" alt="Мангальная зона 1" class="gallery-thumb active" onclick="changeMangalImage(0)" data-index="0">
+                            <img src="images/Entertaiment/Mangal2.jfif" alt="Мангальная зона 2" class="gallery-thumb" onclick="changeMangalImage(1)" data-index="1">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-serif mb-4">Мангальная зона с беседками</h3>
+                    <p class="text-gray-600 mb-6">Оборудованная зона для приготовления шашлыков и барбекю. Доступны мангалы, шампуры, дрова и беседки.</p>
+                    <div class="text-brand-gold font-bold text-xl mb-4" id="bbq-price">от 500 ₽/час</div>
+                    <a href="mangal.html" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-brand-cream">
+                        <span class="relative z-10 flex items-center gap-2">Узнать подробнее <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beach Section -->
+    <section id="beach" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Пляж</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Частный пляж</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <div class="gallery-slider" id="beach-gallery">
+                        <div class="relative">
+                            <img src="images/Entertaiment/Beach1.jfif" alt="Частный пляж" class="gallery-main-img" id="beach-main-img">
+                            <div class="gallery-counter">
+                                <span id="beach-current">1</span> / <span id="beach-total">5</span>
+                            </div>
+                            <div class="gallery-expand-btn" onclick="openBeachGallery()" title="Открыть галерею">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <img src="images/Entertaiment/Beach1.jfif" alt="Пляж 1" class="gallery-thumb active" onclick="changeBeachImage(0)" data-index="0">
+                            <img src="images/Entertaiment/beach2.jfif" alt="Пляж 2" class="gallery-thumb" onclick="changeBeachImage(1)" data-index="1">
+                            <img src="images/Entertaiment/beach3.jfif" alt="Пляж 3" class="gallery-thumb" onclick="changeBeachImage(2)" data-index="2">
+                            <img src="images/Entertaiment/beach4.jfif" alt="Пляж 4" class="gallery-thumb" onclick="changeBeachImage(3)" data-index="3">
+                            <img src="images/Entertaiment/beach5.jfif" alt="Пляж 5" class="gallery-thumb" onclick="changeBeachImage(4)" data-index="4">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-serif mb-4">Пляж у озера</h3>
+                    <p class="text-gray-600 mb-6">Чистый песчаный пляж с лежаками, зонтами и водными развлечениями. Идеально для купания и отдыха.</p>
+                    <div class="text-brand-gold font-bold text-xl mb-4">Включено в проживание</div>
+                    <p class="text-xs text-gray-500 mb-2">Возможно дневное посещение без проживания за отдельную плату.</p>
+                    <p class="text-xs text-gray-500 mb-4">Посещение с собаками — 1 000 ₽ с человека. Мангалы на пляже запрещены — арендуйте мангальную зону.</p>
+                    <a href="beach.html" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Узнать подробнее <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Excursions Section -->
+    <section id="excursions" class="py-16 md:py-24 bg-brand-cream">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Экскурсии</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Организованные экскурсии</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto items-stretch">
+                <div class="entertainment-card bg-white p-5 md:p-6 rounded-lg shadow-xl reveal-up flex flex-col">
+                    <div class="w-16 h-16 bg-brand-gold/20 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-ship text-2xl text-brand-gold"></i>
+                    </div>
+                    <span class="text-xs text-brand-gold font-bold uppercase tracking-widest">Озеро Тургояк</span>
+                    <h3 class="text-xl font-serif mb-3">Экскурсия на остров Веры на большом катамаране</h3>
+                    <p class="text-gray-600 text-sm mb-4">Комфортное путешествие по кристально чистому озеру на современном катамаране. По прибытии — экскурсия к древним мегалитам и культовым сооружениям острова Веры.</p>
+                    <ul class="text-gray-600 text-sm mb-4 space-y-1">
+                        <li>• Прогулка на устойчивом катамаране</li>
+                        <li>• Экскурсия по острову с рассказом об истории</li>
+                        <li>• Подходит для взрослых и детей</li>
+                        <li>• Длительность — 2,5 часа</li>
+                    </ul>
+                    <div class="mt-auto pt-4 border-t border-gray-100">
+                        <div class="text-brand-gold font-bold text-lg mb-4">1 800 ₽ — взрослый / 800 ₽ — ребёнок</div>
+                        <a data-config="telegram" data-tg-text="Здравствуйте! Хочу забронировать экскурсию на остров Веры на большом катамаране (озеро Тургояк). Стоимость: 1800 ₽ — взрослый, 800 ₽ — ребёнок. Длительность: 2,5 часа." href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-brand-cream">
+                            <span class="relative z-10 flex items-center gap-2">Забронировать <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                            <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="entertainment-card bg-white p-5 md:p-6 rounded-lg shadow-xl reveal-up flex flex-col">
+                    <div class="w-16 h-16 bg-brand-gold/20 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-mountain text-2xl text-brand-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3">Пешие прогулки по окрестностям с гидом</h3>
+                    <p class="text-gray-600 text-sm mb-4">Живописные маршруты по окрестностям озера Тургояк с опытным гидом. Откройте для себя красоты природы Южного Урала.</p>
+                    <div class="mt-auto pt-4 border-t border-gray-100">
+                        <div class="text-brand-gold font-bold text-lg mb-4">1 000 ₽/чел</div>
+                        <a data-config="telegram" data-tg-text="Здравствуйте! Хочу забронировать пешую прогулку по окрестностям с гидом. Стоимость: 1000 ₽/чел." href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-brand-cream">
+                            <span class="relative z-10 flex items-center gap-2">Забронировать <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                            <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rental Section -->
+    <section id="rental" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Прокат</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Прокат оборудования</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Жилеты включены во все виды проката водного транспорта.</p>
+            <div class="rental-slider-wrap max-w-5xl mx-auto">
+                <div class="rental-slider-row">
+                <button class="rental-slider-nav prev" onclick="rentalSliderPrev()" aria-label="Предыдущие">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="rental-slider-viewport">
+                <div class="rental-slider-track" id="rental-slider-track">
+                    <div class="rental-slider-page rental-slider-page-3">
+                        <div class="rental-slider-card">
+                            <div class="entertainment-card bg-brand-cream p-6 rounded-lg text-center h-full flex flex-col">
+                                <i class="fas fa-water text-3xl text-brand-gold mb-4"></i>
+                                <h3 class="text-lg font-serif mb-2">Саб борды</h3>
+                                <div class="text-brand-gold font-bold mb-4">1 200 ₽/час</div>
+                                <p class="text-xs text-gray-500">Жилеты включены</p>
+                            </div>
+                        </div>
+                        <div class="rental-slider-card">
+                            <div class="entertainment-card bg-brand-cream p-6 rounded-lg text-center h-full flex flex-col">
+                                <i class="fas fa-ship text-3xl text-brand-gold mb-4"></i>
+                                <h3 class="text-lg font-serif mb-2">Байдарка</h3>
+                                <p class="text-sm text-gray-600 mb-2">Вместимость 3 человека</p>
+                                <div class="text-brand-gold font-bold mb-2">1 500 ₽/час</div>
+                                <div class="text-brand-gold font-bold mb-4">3 500 ₽ — 3 часа</div>
+                                <p class="text-xs text-gray-500">Жилеты включены</p>
+                            </div>
+                        </div>
+                        <div class="rental-slider-card">
+                            <div class="entertainment-card bg-brand-cream p-6 rounded-lg text-center h-full flex flex-col">
+                                <i class="fas fa-ship text-3xl text-brand-gold mb-4"></i>
+                                <h3 class="text-lg font-serif mb-2">Лодка резиновая на вёслах</h3>
+                                <p class="text-sm text-gray-600 mb-2">Двухместная</p>
+                                <div class="text-brand-gold font-bold mb-2">1 500 ₽/час</div>
+                                <div class="text-brand-gold font-bold mb-4">3 500 ₽ — 3 часа</div>
+                                <p class="text-xs text-gray-500">Жилеты включены</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rental-slider-page rental-slider-page-2">
+                        <div class="rental-slider-card">
+                            <div class="entertainment-card bg-brand-cream p-6 rounded-lg text-center h-full flex flex-col">
+                                <i class="fas fa-ship text-3xl text-brand-gold mb-4"></i>
+                                <h3 class="text-lg font-serif mb-2">Лодка на 4 человека</h3>
+                                <div class="text-brand-gold font-bold mb-2">2 000 ₽/час</div>
+                                <div class="text-brand-gold font-bold mb-4">4 500 ₽ — 3 часа</div>
+                                <p class="text-xs text-gray-500">Жилеты включены</p>
+                            </div>
+                        </div>
+                        <div class="rental-slider-card">
+                            <div class="entertainment-card bg-brand-cream p-6 rounded-lg text-center h-full flex flex-col">
+                                <i class="fas fa-fish text-3xl text-brand-gold mb-4"></i>
+                                <h3 class="text-lg font-serif mb-2">Рыбалка</h3>
+                                <p class="text-sm text-gray-600 mb-4">Со своими снастями</p>
+                                <div class="text-brand-gold font-bold">Бесплатно</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <button class="rental-slider-nav next" onclick="rentalSliderNext()" aria-label="Следующие">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                </div>
+                <div class="rental-slider-dots" id="rental-slider-dots"></div>
+                <div class="text-center mt-8">
+                    <a href="prokat.html" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Узнать подробнее <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volleyball Section -->
+    <section id="volleyball" class="py-16 md:py-24 bg-brand-cream">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Волейбол</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Пляжный волейбол</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <div class="gallery-slider" id="volley-gallery">
+                        <div class="relative volley-main-area">
+                            <img src="images/Entertaiment/volleyball-net.jfif" alt="Волейбольная площадка" class="gallery-main-img" id="volley-main-img">
+                            <div class="volley-video-block volley-view hidden absolute inset-0 w-full h-full overflow-hidden rounded-b-lg" id="volley-video-view">
+                                <div class="volley-video-poster" id="volley-video-poster" onclick="playVolleyVideo()" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); playVolleyVideo(); }" role="button" tabindex="0" aria-label="Воспроизвести видео">
+                                    <img src="images/Entertaiment/top-view-volleyball-beach-sand.jfif" alt="Волейбол на пляже" class="w-full h-full object-cover">
+                                    <div class="volley-play-overlay">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                                <video id="volley-video" class="volley-video hidden w-full h-full object-cover" controls playsinline data-src="videos/volley.mp4" poster="images/Entertaiment/top-view-volleyball-beach-sand.jfif"></video>
+                            </div>
+                            <div class="gallery-counter">
+                                <span id="volley-current">1</span> / <span id="volley-total">2</span>
+                            </div>
+                            <div class="gallery-expand-btn" id="volley-expand-btn" onclick="openVolleyGallery()" title="Открыть галерею">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <img src="images/Entertaiment/volleyball-net.jfif" alt="Волейбольная площадка" class="gallery-thumb active" onclick="changeVolleyView(0)" data-index="0">
+                            <img src="images/Entertaiment/top-view-volleyball-beach-sand.jfif" alt="Видео волейбол" class="gallery-thumb" onclick="changeVolleyView(1)" data-index="1">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-serif mb-4">Игровая площадка</h3>
+                    <p class="text-gray-600 mb-6">Волейбольная площадка на песке у озера с разметкой и сеткой. Идеально для командных игр и активного отдыха на свежем воздухе.</p>
+                    <div class="text-brand-gold font-bold text-xl mb-4">Включено в проживание</div>
+                    <a href="volley.html" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-brand-cream">
+                        <span class="relative z-10 flex items-center gap-2">Узнать подробнее <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yoga Section -->
+    <section id="yoga" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Йога</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Йога и медитация</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <div class="gallery-slider" id="yoga-gallery">
+                        <div class="relative">
+                            <img src="images/Entertaiment/yoga1.jfif" alt="Йога на природе" class="gallery-main-img" id="yoga-main-img">
+                            <div class="gallery-counter">
+                                <span id="yoga-current">1</span> / <span id="yoga-total">4</span>
+                            </div>
+                            <div class="gallery-expand-btn" onclick="openYogaGallery()" title="Открыть галерею">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <img src="images/Entertaiment/yoga1.jfif" alt="Йога 1" class="gallery-thumb active" onclick="changeYogaImage(0)" data-index="0">
+                            <img src="images/Entertaiment/yoga2.jfif" alt="Йога 2" class="gallery-thumb" onclick="changeYogaImage(1)" data-index="1">
+                            <img src="images/Entertaiment/yoga3.jfif" alt="Йога 3" class="gallery-thumb" onclick="changeYogaImage(2)" data-index="2">
+                            <img src="images/Entertaiment/yoga4.jfif" alt="Йога 4" class="gallery-thumb" onclick="changeYogaImage(3)" data-index="3">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-serif mb-4">Занятия йогой на берегу</h3>
+                    <p class="text-gray-600 mb-6">Йога и саунд-хилинг (поющие чаши) на берегу озера — входят в стоимость любого размещения.<br>При непогоде — занятия в юрте с панорамными окнами. Среда, суббота, воскресенье в 9:00.</p>
+                    <div class="text-brand-gold font-bold text-xl mb-4">Включено в проживание</div>
+                    <a href="yoga.html" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-brand-cream">
+                        <span class="relative z-10 flex items-center gap-2">Узнать подробнее <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Space Section -->
+    <section id="eventspace" class="py-16 md:py-24 bg-brand-cream">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Мероприятия</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Аренда площадки для мероприятий</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <div class="gallery-slider" id="eventspace-gallery">
+                        <div class="relative">
+                            <img src="images/Entertaiment/eventspace1.jfif" alt="Площадка для мероприятий" class="gallery-main-img" id="eventspace-main-img">
+                            <div class="gallery-counter">
+                                <span id="eventspace-current">1</span> / <span id="eventspace-total">3</span>
+                            </div>
+                            <div class="gallery-expand-btn" onclick="openEventSpaceGallery()" title="Открыть галерею">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <img src="images/Entertaiment/eventspace1.jfif" alt="Площадка 1" class="gallery-thumb active" onclick="changeEventSpaceImage(0)" data-index="0">
+                            <img src="images/Entertaiment/eventspace2.jfif" alt="Площадка 2" class="gallery-thumb" onclick="changeEventSpaceImage(1)" data-index="1">
+                            <img src="images/Entertaiment/eventspace4.jfif" alt="Площадка 4" class="gallery-thumb" onclick="changeEventSpaceImage(2)" data-index="2">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-serif mb-4">Площадка у озера для вашего мероприятия</h3>
+                    <p class="text-gray-600 mb-6">Универсальная площадка на берегу озера Тургояк — корпоративы, свадьбы, семинары, тренинги, мастер-классы, фотосессии и другие мероприятия. Открытое пространство с видом на воду, возможность установки шатра, сцены и банкетной зоны. Идеально для событий до 100 гостей.</p>
+                    <div class="text-brand-gold font-bold text-xl mb-4">Индивидуальные условия аренды</div>
+                    <a href="event-space.html" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-brand-cream">
+                        <span class="relative z-10 flex items-center gap-2">Узнать подробнее <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section (from main page, entertainment style) -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <div class="text-center mb-12 md:mb-16">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Бронирование</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif mt-2 text-brand-dark">Уединённый отдых на заповедном озере Тургояк</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-600 text-sm sm:text-base md:text-lg mb-6 md:mb-8 max-w-2xl mx-auto px-2 sm:px-0">Наша база находится в сердце особо охраняемой природной территории. Создали пространство для настоящего цифрового детокса и единения с природой — баня, пляж, йога и развлечения на любой вкус.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#" data-booking-widget-link data-widget-period="hourly" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать онлайн <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a data-config="telegram" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#0088cc] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#0088cc]/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать через Telegram <i class="fab fa-telegram-plane text-sm"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a data-config="max" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#6B4EFF] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#6B4EFF]/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2"><img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX</span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script>
+    // Универсальный loader для страницы "Развлечения"
+    window.addEventListener('DOMContentLoaded', function() {
+      var loader = document.getElementById('loader');
+      if (!loader) return;
+      var tl = gsap.timeline();
+      tl.to("#loader-logo", { opacity: 1, duration: 0.8, ease: "power2.out" })
+        .to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
+        .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" });
+      var loaderHidden = false;
+      function hideLoader() {
+        if (loaderHidden || !loader || !loader.isConnected) return;
+        loaderHidden = true;
+        tl.to(loader, { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut", onComplete: function() {
+          if (loader.parentNode) loader.parentNode.removeChild(loader);
+        }});
+      }
+      var fallbackTimer = setTimeout(hideLoader, 5000);
+      var checkReady = setInterval(function() {
+        var headerC = document.getElementById('header-placeholder');
+        var footerC = document.getElementById('footer-placeholder');
+        if (headerC && headerC.innerHTML.trim() && footerC && footerC.innerHTML.trim()) {
+          clearInterval(checkReady);
+          clearTimeout(fallbackTimer);
+          hideLoader();
+        }
+      }, 100);
+    });
+    </script>
+    <script>
+// Register GSAP ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Reveal Animations
+gsap.utils.toArray('.reveal-up').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-left').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: -60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-right').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Don't prevent default for links that just have "#"
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const offset = 100;
+            const targetPosition = targetElement.offsetTop - offset;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Lazy loading for images
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Performance: Throttle scroll events
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(() => {
+        // Scroll-based functionality here
+    });
+}, { passive: true });
+
+// Console welcome message
+console.log('%cЗолотые пески', 'color: #D4AF37; font-size: 20px; font-weight: bold;');
+console.log('%cБаза отдыха на озере Тургояк', 'color: #666; font-size: 14px;');
+
+// Обновление цены бани с сервера при загрузке страницы.
+// В режиме placeholder (консервация) API не дёргаем — «цена уточняйте».
+function updateBanyaPrice() {
+    const smallEl = document.getElementById('banya-price-small');
+    const largeEl = document.getElementById('banya-price-large');
+    if (!smallEl && !largeEl) return;
+    if (window.GSBooking && !window.GSBooking.isLive()) {
+        if (smallEl) smallEl.textContent = 'цена уточняйте';
+        if (largeEl) largeEl.textContent = 'цена уточняйте';
+        return;
+    }
+
+    const url = ((window.CONFIG && window.CONFIG.apiBaseUrl) || '/api').replace(/\/+$/, '') + '/objects?typeId=3bad900a-960f-4bd2-9c15-7b5864a1a4f6';
+    const formatter = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 });
+    const parsePrice = value => {
+        const number = parseFloat(value);
+        return Number.isFinite(number) ? number : null;
+    };
+    const formatPrice = value => {
+        const number = parsePrice(value);
+        return number === null ? null : formatter.format(number);
+    };
+
+    fetch(url)
+        .then(response => response.json())
+        .then(items => {
+            if (!Array.isArray(items) || items.length === 0) return;
+            const activeItems = items.filter(item => item && item.isActive);
+            const sourceItems = activeItems.length ? activeItems : items;
+
+            const byNameSmall = sourceItems.find(item => String(item.name || '').toLowerCase().includes('малая'));
+            const byNameLarge = sourceItems.find(item => String(item.name || '').toLowerCase().includes('большая'));
+
+            const getHourPrice = item => {
+                const h = parsePrice(item.effectivePricePerHour);
+                if (h != null) return h;
+                return parsePrice(item.effectivePricePerDay);
+            };
+            const prices = sourceItems.map(getHourPrice).filter(number => number !== null);
+            const minPrice = prices.length ? Math.min(...prices) : null;
+            const maxPrice = prices.length ? Math.max(...prices) : null;
+
+            const smallPrice = (byNameSmall && getHourPrice(byNameSmall) != null) ? formatter.format(getHourPrice(byNameSmall)) : (minPrice !== null ? formatter.format(minPrice) : null);
+            const largePrice = (byNameLarge && getHourPrice(byNameLarge) != null) ? formatter.format(getHourPrice(byNameLarge)) : (maxPrice !== null ? formatter.format(maxPrice) : null);
+
+            if (smallEl && smallPrice) smallEl.textContent = `от ${smallPrice} ₽/час`;
+            if (largeEl && largePrice) largeEl.textContent = `от ${largePrice} ₽/час`;
+        })
+        .catch(() => {
+            // Оставляем текущие цены, если сервер недоступен
+        });
+}
+
+function updateBbqPrice() {
+    const priceEl = document.getElementById('bbq-price');
+    if (!priceEl) return;
+    if (window.GSBooking && !window.GSBooking.isLive()) {
+        priceEl.textContent = 'Цена уточняйте';
+        return;
+    }
+
+    const url = ((window.CONFIG && window.CONFIG.apiBaseUrl) || '/api').replace(/\/+$/, '') + '/objects?typeId=ee23bc33-41f1-4d78-9c58-df5e8bd12b15&displayPrice=today';
+    const formatter = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 });
+    const parsePrice = value => {
+        const number = parseFloat(value);
+        return Number.isFinite(number) ? number : null;
+    };
+
+    fetch(url)
+        .then(response => response.json())
+        .then(items => {
+            if (!Array.isArray(items) || items.length === 0) return;
+            const activeItems = items.filter(item => item && item.isActive);
+            const sourceItems = activeItems.length ? activeItems : items;
+
+            const getHourPrice = item => {
+                const h = parsePrice(item.effectivePricePerHour);
+                if (h != null) return h;
+                return parsePrice(item.effectivePricePerDay);
+            };
+            const prices = sourceItems.map(getHourPrice).filter(number => number !== null);
+            if (!prices.length) return;
+
+            const minPrice = Math.min(...prices);
+            priceEl.textContent = `от ${formatter.format(minPrice)} ₽/час`;
+        })
+        .catch(() => {
+            // Оставляем текущую цену, если сервер недоступен
+        });
+}
+
+// Rental Slider (infinite, 2 pages: 3 cards + 2 cards)
+let rentalSliderIndex = 0;
+const rentalSliderPageCount = 2;
+
+function updateRentalSlider(noTransition) {
+    const track = document.getElementById('rental-slider-track');
+    const dotsEl = document.getElementById('rental-slider-dots');
+    if (!track) return;
+    const logicalIndex = ((rentalSliderIndex % rentalSliderPageCount) + rentalSliderPageCount) % rentalSliderPageCount;
+    const percent = logicalIndex * 100;
+    if (noTransition) track.style.transition = 'none';
+    track.style.transform = `translateX(-${percent}%)`;
+    if (noTransition) {
+        track.offsetHeight;
+        track.style.transition = '';
+    }
+    if (dotsEl) {
+        dotsEl.innerHTML = Array.from({length: rentalSliderPageCount}, (_, i) =>
+            `<span class="rental-slider-dot ${i === logicalIndex ? 'active' : ''}" onclick="rentalSliderGoTo(${i})" aria-label="Слайд ${i+1}"></span>`
+        ).join('');
+    }
+}
+
+function rentalSliderPrev() {
+    rentalSliderIndex--;
+    updateRentalSlider();
+}
+
+function rentalSliderNext() {
+    rentalSliderIndex++;
+    updateRentalSlider();
+}
+
+function rentalSliderGoTo(idx) {
+    rentalSliderIndex = Math.min(idx, rentalSliderPageCount - 1);
+    updateRentalSlider();
+}
+
+let volleyCurrentView = 0;
+
+function changeVolleyView(index) {
+    volleyCurrentView = index;
+    const img = document.getElementById('volley-main-img');
+    const videoView = document.getElementById('volley-video-view');
+    const expandBtn = document.getElementById('volley-expand-btn');
+    const currentSpan = document.getElementById('volley-current');
+    const thumbs = document.querySelectorAll('#volley-gallery .gallery-thumb');
+    if (!img || !videoView) return;
+    if (index === 0) {
+        img.classList.remove('hidden');
+        videoView.classList.add('hidden');
+        if (expandBtn) expandBtn.style.display = 'flex';
+        const vid = document.getElementById('volley-video');
+        if (vid) { vid.pause(); }
+    } else {
+        img.classList.add('hidden');
+        videoView.classList.remove('hidden');
+        if (expandBtn) expandBtn.style.display = 'none';
+    }
+    if (currentSpan) currentSpan.textContent = index + 1;
+    thumbs.forEach((t, i) => { t.classList.toggle('active', i === index); });
+}
+
+function playVolleyVideo() {
+    const poster = document.getElementById('volley-video-poster');
+    const video = document.getElementById('volley-video');
+    if (!poster || !video) return;
+    const src = video.getAttribute('data-src');
+    if (src && !video.src) {
+        video.src = src;
+    }
+    poster.classList.add('hidden');
+    video.classList.remove('hidden');
+    video.play().catch(function() {});
+}
+
+const volleyImages = ['images/Entertaiment/volleyball-net.jfif'];
+
+function openVolleyGallery() {
+    const popup = document.getElementById('volley-gallery-popup');
+    if (!popup) return;
+    const img = document.getElementById('volley-popup-img');
+    if (img) img.src = volleyImages[0];
+    popup.style.display = 'flex';
+    popup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo('#volley-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" });
+    }
+}
+
+function closeVolleyGallery() {
+    const popup = document.getElementById('volley-gallery-popup');
+    if (!popup) return;
+    const finishClose = () => { popup.classList.remove('active'); popup.style.display = 'none'; document.body.style.overflow = 'auto'; };
+    if (typeof gsap !== 'undefined') {
+        gsap.to('#volley-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in", onComplete: finishClose });
+    } else { finishClose(); }
+}
+
+function openYogaGallery() {
+    const popup = document.getElementById('yoga-gallery-popup');
+    if (!popup) return;
+    const popupMain = document.getElementById('yoga-popup-main');
+    const popupThumbs = document.querySelectorAll('#yoga-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('yoga-popup-counter');
+    if (!popupMain) return;
+    popupMain.src = yogaImages[currentYogaIndex];
+    if (popupCounter) popupCounter.textContent = `${currentYogaIndex + 1} / ${yogaImages.length}`;
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => popup.classList.add('active'));
+    document.body.style.overflow = 'hidden';
+    popupThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === currentYogaIndex));
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo('#yoga-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" });
+    }
+}
+
+function closeYogaGallery() {
+    const popup = document.getElementById('yoga-gallery-popup');
+    if (!popup) return;
+    const finishClose = () => { popup.classList.remove('active'); popup.style.display = 'none'; document.body.style.overflow = 'auto'; };
+    if (typeof gsap !== 'undefined') {
+        gsap.to('#yoga-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in", onComplete: finishClose });
+    } else { finishClose(); }
+}
+
+function changeYogaPopupImage(index) {
+    currentYogaIndex = index;
+    const popupMain = document.getElementById('yoga-popup-main');
+    const popupThumbs = document.querySelectorAll('#yoga-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('yoga-popup-counter');
+    if (!popupMain) return;
+    popupMain.src = yogaImages[index];
+    if (popupCounter) popupCounter.textContent = `${index + 1} / ${yogaImages.length}`;
+    popupThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === index));
+}
+
+function navigateYogaPopup(direction) {
+    currentYogaIndex = direction === 'prev' ? (currentYogaIndex - 1 + yogaImages.length) % yogaImages.length : (currentYogaIndex + 1) % yogaImages.length;
+    changeYogaPopupImage(currentYogaIndex);
+}
+
+function openEventSpaceGallery() {
+    const popup = document.getElementById('eventspace-gallery-popup');
+    if (!popup) return;
+    const popupMain = document.getElementById('eventspace-popup-main');
+    const popupThumbs = document.querySelectorAll('#eventspace-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('eventspace-popup-counter');
+    if (!popupMain) return;
+    popupMain.src = eventSpaceImages[currentEventSpaceIndex];
+    if (popupCounter) popupCounter.textContent = `${currentEventSpaceIndex + 1} / ${eventSpaceImages.length}`;
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => popup.classList.add('active'));
+    document.body.style.overflow = 'hidden';
+    popupThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === currentEventSpaceIndex));
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo('#eventspace-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" });
+    }
+}
+
+function closeEventSpaceGallery() {
+    const popup = document.getElementById('eventspace-gallery-popup');
+    if (!popup) return;
+    const finishClose = () => { popup.classList.remove('active'); popup.style.display = 'none'; document.body.style.overflow = 'auto'; };
+    if (typeof gsap !== 'undefined') {
+        gsap.to('#eventspace-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in", onComplete: finishClose });
+    } else { finishClose(); }
+}
+
+function changeEventSpacePopupImage(index) {
+    currentEventSpaceIndex = index;
+    const popupMain = document.getElementById('eventspace-popup-main');
+    const popupThumbs = document.querySelectorAll('#eventspace-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('eventspace-popup-counter');
+    if (!popupMain) return;
+    popupMain.src = eventSpaceImages[index];
+    if (popupCounter) popupCounter.textContent = `${index + 1} / ${eventSpaceImages.length}`;
+    popupThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === index));
+}
+
+function navigateEventSpacePopup(direction) {
+    currentEventSpaceIndex = direction === 'prev' ? (currentEventSpaceIndex - 1 + eventSpaceImages.length) % eventSpaceImages.length : (currentEventSpaceIndex + 1) % eventSpaceImages.length;
+    changeEventSpacePopupImage(currentEventSpaceIndex);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateBanyaPrice();
+    updateBbqPrice();
+    updateRentalSlider();
+    window.addEventListener('resize', updateRentalSlider);
+    changeVolleyView(0);
+});
+
+// Динамическая подгрузка header и footer
+function loadInclude(id, url) {
+  fetch(url)
+    .then(r => r.text())
+    .then(html => {
+      const container = document.getElementById(id);
+      container.innerHTML = html;
+      container.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        Array.from(oldScript.attributes).forEach(attr => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        oldScript.replaceWith(newScript);
+      });
+    });
+}
+loadInclude('header-placeholder', 'header.html');
+loadInclude('footer-placeholder', 'footer.html');
+
+// --- Исправление бага с возвратом из bfcache ---
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    loadInclude('header-placeholder', 'header.html');
+    loadInclude('footer-placeholder', 'footer.html');
+    var loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'flex';
+  }
+});
+
+// Banya Gallery Slider Functions
+const banyaImages = [
+    'images/Entertaiment/banya.webp',
+    'images/Entertaiment/banya (1).webp',
+    'images/Entertaiment/banya (2).webp',
+    'images/Entertaiment/banya (3).webp'
+];
+
+let currentBanyaIndex = 0;
+
+function changeBanyaImage(index) {
+    currentBanyaIndex = index;
+    const mainImg = document.getElementById('banya-main-img');
+    const thumbs = document.querySelectorAll('#banya-gallery .gallery-thumb');
+    const counter = document.getElementById('banya-current');
+
+    if (!mainImg) return;
+
+    const updateImage = () => {
+        mainImg.src = banyaImages[index];
+        if (counter) counter.textContent = index + 1;
+
+        // Update active thumbnail
+        thumbs.forEach((thumb, i) => {
+            if (i === index) {
+                thumb.classList.add('active');
+            } else {
+                thumb.classList.remove('active');
+            }
+        });
+
+        if (typeof gsap !== 'undefined') {
+            // Fade in with scale
+            gsap.fromTo(mainImg,
+                { opacity: 0, scale: 1.05 },
+                { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
+            );
+        } else {
+            mainImg.style.opacity = '1';
+            mainImg.style.transform = 'scale(1)';
+        }
+    };
+
+    if (typeof gsap !== 'undefined') {
+        // Smooth fade transition with scale effect
+        gsap.to(mainImg, {
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.3,
+            ease: "power2.in",
+            onComplete: updateImage
+        });
+    } else {
+        updateImage();
+    }
+}
+
+// Mangal Gallery Slider
+const mangalImages = ['images/Entertaiment/Mangal.webp', 'images/Entertaiment/Mangal2.jfif'];
+let currentMangalIndex = 0;
+
+// Yoga Gallery Slider
+const yogaImages = ['images/Entertaiment/yoga1.jfif', 'images/Entertaiment/yoga2.jfif', 'images/Entertaiment/yoga3.jfif', 'images/Entertaiment/yoga4.jfif'];
+let currentYogaIndex = 0;
+
+const eventSpaceImages = ['images/Entertaiment/eventspace1.jfif', 'images/Entertaiment/eventspace2.jfif', 'images/Entertaiment/eventspace4.jfif'];
+let currentEventSpaceIndex = 0;
+
+function changeEventSpaceImage(index) {
+    currentEventSpaceIndex = index;
+    const mainImg = document.getElementById('eventspace-main-img');
+    const currentSpan = document.getElementById('eventspace-current');
+    const thumbs = document.querySelectorAll('#eventspace-gallery .gallery-thumb');
+    if (!mainImg) return;
+    mainImg.src = eventSpaceImages[index];
+    if (currentSpan) currentSpan.textContent = index + 1;
+    thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
+}
+
+function changeYogaImage(index) {
+    currentYogaIndex = index;
+    const mainImg = document.getElementById('yoga-main-img');
+    const currentSpan = document.getElementById('yoga-current');
+    const thumbs = document.querySelectorAll('#yoga-gallery .gallery-thumb');
+    if (!mainImg) return;
+    mainImg.src = yogaImages[index];
+    if (currentSpan) currentSpan.textContent = index + 1;
+    thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
+}
+
+function changeMangalImage(index) {
+    currentMangalIndex = index;
+    const mainImg = document.getElementById('mangal-main-img');
+    const thumbs = document.querySelectorAll('#mangal-gallery .gallery-thumb');
+    const counter = document.getElementById('mangal-current');
+    if (!mainImg) return;
+    const updateImage = () => {
+        mainImg.src = mangalImages[index];
+        if (counter) counter.textContent = index + 1;
+        thumbs.forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === index);
+        });
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo(mainImg, { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
+        }
+    };
+    if (typeof gsap !== 'undefined') {
+        gsap.to(mainImg, { opacity: 0, scale: 0.95, duration: 0.3, ease: "power2.in", onComplete: updateImage });
+    } else {
+        updateImage();
+    }
+}
+
+// Beach Gallery Slider
+const beachImages = [
+    'images/Entertaiment/Beach1.jfif',
+    'images/Entertaiment/beach2.jfif',
+    'images/Entertaiment/beach3.jfif',
+    'images/Entertaiment/beach4.jfif',
+    'images/Entertaiment/beach5.jfif'
+];
+let currentBeachIndex = 0;
+
+function changeBeachImage(index) {
+    currentBeachIndex = index;
+    const mainImg = document.getElementById('beach-main-img');
+    const thumbs = document.querySelectorAll('#beach-gallery .gallery-thumb');
+    const counter = document.getElementById('beach-current');
+    if (!mainImg) return;
+    const updateImage = () => {
+        mainImg.src = beachImages[index];
+        if (counter) counter.textContent = index + 1;
+        thumbs.forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === index);
+        });
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo(mainImg, { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
+        }
+    };
+    if (typeof gsap !== 'undefined') {
+        gsap.to(mainImg, { opacity: 0, scale: 0.95, duration: 0.3, ease: "power2.in", onComplete: updateImage });
+    } else {
+        updateImage();
+    }
+}
+
+function openBanyaGallery() {
+    const popup = document.getElementById('banya-gallery-popup');
+    if (!popup) {
+        console.error('Popup element not found');
+        return;
+    }
+    
+    // Set initial image
+    const popupMain = document.getElementById('banya-popup-main');
+    if (!popupMain) {
+        console.error('Popup main image not found');
+        return;
+    }
+    
+    const popupThumbs = document.querySelectorAll('#banya-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('banya-popup-counter');
+    
+    popupMain.src = banyaImages[currentBanyaIndex];
+    if (popupCounter) {
+        popupCounter.textContent = `${currentBanyaIndex + 1} / ${banyaImages.length}`;
+    }
+    
+    // Force display before adding active class
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => {
+        popup.classList.add('active');
+    });
+    
+    document.body.style.overflow = 'hidden';
+    
+    // Update active thumbnail in popup
+    popupThumbs.forEach((thumb, i) => {
+        if (i === currentBanyaIndex) {
+            thumb.classList.add('active');
+        } else {
+            thumb.classList.remove('active');
+        }
+    });
+    
+    // Animate popup
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo('#banya-gallery-popup .gallery-popup-content', 
+            { scale: 0.8, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }
+        );
+    }
+}
+
+function closeBanyaGallery() {
+    const popup = document.getElementById('banya-gallery-popup');
+    if (!popup) return;
+
+    const finishClose = () => {
+        popup.classList.remove('active');
+        popup.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    };
+
+    if (typeof gsap !== 'undefined') {
+        gsap.to('#banya-gallery-popup .gallery-popup-content', {
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.2,
+            ease: "power2.in",
+            onComplete: finishClose
+        });
+    } else {
+        finishClose();
+    }
+}
+
+function changeBanyaPopupImage(index) {
+    currentBanyaIndex = index;
+    const popupMain = document.getElementById('banya-popup-main');
+    const popupThumbs = document.querySelectorAll('#banya-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('banya-popup-counter');
+
+    if (!popupMain) return;
+
+    const updatePopupImage = () => {
+        popupMain.src = banyaImages[index];
+        if (popupCounter) popupCounter.textContent = `${index + 1} / ${banyaImages.length}`;
+
+        // Update active thumbnail with animation
+        popupThumbs.forEach((thumb, i) => {
+            if (i === index) {
+                thumb.classList.add('active');
+                if (typeof gsap !== 'undefined') {
+                    gsap.fromTo(thumb,
+                        { scale: 0.9 },
+                        { scale: 1.1, duration: 0.3, ease: "back.out(1.7)" }
+                    );
+                }
+            } else {
+                thumb.classList.remove('active');
+            }
+        });
+
+        if (typeof gsap !== 'undefined') {
+            // Fade in with scale
+            gsap.fromTo(popupMain,
+                { opacity: 0, scale: 1.05 },
+                { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
+            );
+        } else {
+            popupMain.style.opacity = '1';
+            popupMain.style.transform = 'scale(1)';
+        }
+    };
+
+    if (typeof gsap !== 'undefined') {
+        // Smooth fade transition with modern effects
+        gsap.to(popupMain, {
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.3,
+            ease: "power2.in",
+            onComplete: updatePopupImage
+        });
+    } else {
+        updatePopupImage();
+    }
+}
+
+function navigateBanyaPopup(direction) {
+    if (direction === 'prev') {
+        currentBanyaIndex = (currentBanyaIndex - 1 + banyaImages.length) % banyaImages.length;
+    } else {
+        currentBanyaIndex = (currentBanyaIndex + 1) % banyaImages.length;
+    }
+    changeBanyaPopupImage(currentBanyaIndex);
+}
+
+function openMangalGallery() {
+    const popup = document.getElementById('mangal-gallery-popup');
+    if (!popup) return;
+    const popupMain = document.getElementById('mangal-popup-main');
+    const popupThumbs = document.querySelectorAll('#mangal-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('mangal-popup-counter');
+    if (!popupMain) return;
+    popupMain.src = mangalImages[currentMangalIndex];
+    if (popupCounter) popupCounter.textContent = `${currentMangalIndex + 1} / ${mangalImages.length}`;
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => popup.classList.add('active'));
+    document.body.style.overflow = 'hidden';
+    popupThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === currentMangalIndex));
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo('#mangal-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" });
+    }
+}
+
+function closeMangalGallery() {
+    const popup = document.getElementById('mangal-gallery-popup');
+    if (!popup) return;
+    const finishClose = () => { popup.classList.remove('active'); popup.style.display = 'none'; document.body.style.overflow = 'auto'; };
+    if (typeof gsap !== 'undefined') {
+        gsap.to('#mangal-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in", onComplete: finishClose });
+    } else { finishClose(); }
+}
+
+function changeMangalPopupImage(index) {
+    currentMangalIndex = index;
+    const popupMain = document.getElementById('mangal-popup-main');
+    const popupThumbs = document.querySelectorAll('#mangal-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('mangal-popup-counter');
+    if (!popupMain) return;
+    popupMain.src = mangalImages[index];
+    if (popupCounter) popupCounter.textContent = `${index + 1} / ${mangalImages.length}`;
+    popupThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === index));
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo(popupMain, { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
+    }
+}
+
+function navigateMangalPopup(direction) {
+    currentMangalIndex = direction === 'prev' ? (currentMangalIndex - 1 + mangalImages.length) % mangalImages.length : (currentMangalIndex + 1) % mangalImages.length;
+    changeMangalPopupImage(currentMangalIndex);
+}
+
+function openBeachGallery() {
+    const popup = document.getElementById('beach-gallery-popup');
+    if (!popup) return;
+    const popupMain = document.getElementById('beach-popup-main');
+    const popupThumbs = document.querySelectorAll('#beach-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('beach-popup-counter');
+    if (!popupMain) return;
+    popupMain.src = beachImages[currentBeachIndex];
+    if (popupCounter) popupCounter.textContent = `${currentBeachIndex + 1} / ${beachImages.length}`;
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => popup.classList.add('active'));
+    document.body.style.overflow = 'hidden';
+    popupThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === currentBeachIndex));
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo('#beach-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" });
+    }
+}
+
+function closeBeachGallery() {
+    const popup = document.getElementById('beach-gallery-popup');
+    if (!popup) return;
+    const finishClose = () => { popup.classList.remove('active'); popup.style.display = 'none'; document.body.style.overflow = 'auto'; };
+    if (typeof gsap !== 'undefined') {
+        gsap.to('#beach-gallery-popup .gallery-popup-content', { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in", onComplete: finishClose });
+    } else { finishClose(); }
+}
+
+function changeBeachPopupImage(index) {
+    currentBeachIndex = index;
+    const popupMain = document.getElementById('beach-popup-main');
+    const popupThumbs = document.querySelectorAll('#beach-gallery-popup .gallery-popup-thumb');
+    const popupCounter = document.getElementById('beach-popup-counter');
+    if (!popupMain) return;
+    popupMain.src = beachImages[index];
+    if (popupCounter) popupCounter.textContent = `${index + 1} / ${beachImages.length}`;
+    popupThumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === index));
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo(popupMain, { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
+    }
+}
+
+function navigateBeachPopup(direction) {
+    currentBeachIndex = direction === 'prev' ? (currentBeachIndex - 1 + beachImages.length) % beachImages.length : (currentBeachIndex + 1) % beachImages.length;
+    changeBeachPopupImage(currentBeachIndex);
+}
+
+// Keyboard navigation for popup
+document.addEventListener('keydown', (e) => {
+    const banyaPopup = document.getElementById('banya-gallery-popup');
+    const mangalPopup = document.getElementById('mangal-gallery-popup');
+    const beachPopup = document.getElementById('beach-gallery-popup');
+    const volleyPopup = document.getElementById('volley-gallery-popup');
+    if (e.key === 'Escape') {
+        if (banyaPopup?.classList.contains('active')) closeBanyaGallery();
+        else if (mangalPopup?.classList.contains('active')) closeMangalGallery();
+        else if (beachPopup?.classList.contains('active')) closeBeachGallery();
+        else if (volleyPopup?.classList.contains('active')) closeVolleyGallery();
+        else if (document.getElementById('yoga-gallery-popup')?.classList.contains('active')) closeYogaGallery();
+        else if (document.getElementById('eventspace-gallery-popup')?.classList.contains('active')) closeEventSpaceGallery();
+    } else if (e.key === 'ArrowLeft') {
+        if (banyaPopup?.classList.contains('active')) navigateBanyaPopup('prev');
+        else if (mangalPopup?.classList.contains('active')) navigateMangalPopup('prev');
+        else if (beachPopup?.classList.contains('active')) navigateBeachPopup('prev');
+        else if (document.getElementById('yoga-gallery-popup')?.classList.contains('active')) navigateYogaPopup('prev');
+        else if (document.getElementById('eventspace-gallery-popup')?.classList.contains('active')) navigateEventSpacePopup('prev');
+    } else if (e.key === 'ArrowRight') {
+        if (banyaPopup?.classList.contains('active')) navigateBanyaPopup('next');
+        else if (mangalPopup?.classList.contains('active')) navigateMangalPopup('next');
+        else if (beachPopup?.classList.contains('active')) navigateBeachPopup('next');
+        else if (document.getElementById('yoga-gallery-popup')?.classList.contains('active')) navigateYogaPopup('next');
+        else if (document.getElementById('eventspace-gallery-popup')?.classList.contains('active')) navigateEventSpacePopup('next');
+    }
+});
+
+// Click on main image to open popup
+document.addEventListener('DOMContentLoaded', () => {
+    const banyaImg = document.getElementById('banya-main-img');
+    const mangalImg = document.getElementById('mangal-main-img');
+    const beachImg = document.getElementById('beach-main-img');
+    const volleyImg = document.getElementById('volley-main-img');
+    if (banyaImg) { banyaImg.style.cursor = 'pointer'; banyaImg.addEventListener('click', openBanyaGallery); }
+    if (mangalImg) { mangalImg.style.cursor = 'pointer'; mangalImg.addEventListener('click', openMangalGallery); }
+    if (beachImg) { beachImg.style.cursor = 'pointer'; beachImg.addEventListener('click', openBeachGallery); }
+    if (volleyImg) { volleyImg.style.cursor = 'pointer'; volleyImg.addEventListener('click', function() { if (volleyCurrentView === 0) openVolleyGallery(); }); }
+    const yogaImg = document.getElementById('yoga-main-img');
+    if (yogaImg) { yogaImg.style.cursor = 'pointer'; yogaImg.addEventListener('click', openYogaGallery); }
+    const eventspaceImg = document.getElementById('eventspace-main-img');
+    if (eventspaceImg) { eventspaceImg.style.cursor = 'pointer'; eventspaceImg.addEventListener('click', openEventSpaceGallery); }
+    
+    // Touch/swipe support for popups
+    function addPopupSwipe(popupEl, mainImgEl, navigateFn) {
+        if (!popupEl || !mainImgEl) return;
+        let touchStartX = 0;
+        mainImgEl.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        mainImgEl.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) navigateFn(diff > 0 ? 'next' : 'prev');
+        }, { passive: true });
+    }
+    addPopupSwipe(document.getElementById('banya-gallery-popup'), document.getElementById('banya-popup-main'), navigateBanyaPopup);
+    addPopupSwipe(document.getElementById('mangal-gallery-popup'), document.getElementById('mangal-popup-main'), navigateMangalPopup);
+    addPopupSwipe(document.getElementById('beach-gallery-popup'), document.getElementById('beach-popup-main'), navigateBeachPopup);
+    addPopupSwipe(document.getElementById('yoga-gallery-popup'), document.getElementById('yoga-popup-main'), navigateYogaPopup);
+    addPopupSwipe(document.getElementById('eventspace-gallery-popup'), document.getElementById('eventspace-popup-main'), navigateEventSpacePopup);
+    
+    // Swipe on main gallery thumbnails
+    const gallerySlider = document.getElementById('banya-gallery');
+    if (gallerySlider) {
+        let thumbTouchStartX = 0;
+        let thumbTouchEndX = 0;
+        
+        gallerySlider.addEventListener('touchstart', (e) => {
+            thumbTouchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        gallerySlider.addEventListener('touchend', (e) => {
+            thumbTouchEndX = e.changedTouches[0].screenX;
+            const thumbDiff = thumbTouchStartX - thumbTouchEndX;
+            const thumbSwipeThreshold = 50;
+            
+            if (Math.abs(thumbDiff) > thumbSwipeThreshold) {
+                if (thumbDiff > 0 && currentBanyaIndex < banyaImages.length - 1) {
+                    // Swipe left - next image
+                    changeBanyaImage(currentBanyaIndex + 1);
+                } else if (thumbDiff < 0 && currentBanyaIndex > 0) {
+                    // Swipe right - previous image
+                    changeBanyaImage(currentBanyaIndex - 1);
+                }
+            }
+        }, { passive: true });
+    }
+});
+    </script>
+
+    <!-- Banya Gallery Popup -->
+    <div id="banya-gallery-popup" class="gallery-popup" onclick="if(event.target === this) closeBanyaGallery()">
+        <div class="gallery-popup-content" onclick="event.stopPropagation()">
+            <button class="gallery-popup-close" onclick="closeBanyaGallery()" aria-label="Закрыть">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gallery-popup-counter" id="banya-popup-counter">1 / 4</div>
+            <div class="gallery-popup-image-area">
+                <button class="gallery-popup-nav prev" onclick="navigateBanyaPopup('prev')" aria-label="Предыдущее">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-popup-nav next" onclick="navigateBanyaPopup('next')" aria-label="Следующее">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <img src="images/Entertaiment/banya.webp" alt="Русская баня" class="gallery-popup-main" id="banya-popup-main">
+            </div>
+            <div class="gallery-popup-thumbnails">
+                <img src="images/Entertaiment/banya.webp" alt="Русская баня 1" class="gallery-popup-thumb active" onclick="changeBanyaPopupImage(0)" data-index="0">
+                <img src="images/Entertaiment/banya (1).webp" alt="Русская баня 2" class="gallery-popup-thumb" onclick="changeBanyaPopupImage(1)" data-index="1">
+                <img src="images/Entertaiment/banya (2).webp" alt="Русская баня 3" class="gallery-popup-thumb" onclick="changeBanyaPopupImage(2)" data-index="2">
+                <img src="images/Entertaiment/banya (3).webp" alt="Русская баня 4" class="gallery-popup-thumb" onclick="changeBanyaPopupImage(3)" data-index="3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Mangal Gallery Popup -->
+    <div id="mangal-gallery-popup" class="gallery-popup" onclick="if(event.target === this) closeMangalGallery()">
+        <div class="gallery-popup-content" onclick="event.stopPropagation()">
+            <button class="gallery-popup-close" onclick="closeMangalGallery()" aria-label="Закрыть">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gallery-popup-counter" id="mangal-popup-counter">1 / 2</div>
+            <div class="gallery-popup-image-area">
+                <button class="gallery-popup-nav prev" onclick="navigateMangalPopup('prev')" aria-label="Предыдущее">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-popup-nav next" onclick="navigateMangalPopup('next')" aria-label="Следующее">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <img src="images/Entertaiment/Mangal.webp" alt="Мангальная зона" class="gallery-popup-main" id="mangal-popup-main">
+            </div>
+            <div class="gallery-popup-thumbnails">
+                <img src="images/Entertaiment/Mangal.webp" alt="Мангальная зона 1" class="gallery-popup-thumb active" onclick="changeMangalPopupImage(0)" data-index="0">
+                <img src="images/Entertaiment/Mangal2.jfif" alt="Мангальная зона 2" class="gallery-popup-thumb" onclick="changeMangalPopupImage(1)" data-index="1">
+            </div>
+        </div>
+    </div>
+
+    <!-- Beach Gallery Popup -->
+    <div id="beach-gallery-popup" class="gallery-popup" onclick="if(event.target === this) closeBeachGallery()">
+        <div class="gallery-popup-content" onclick="event.stopPropagation()">
+            <button class="gallery-popup-close" onclick="closeBeachGallery()" aria-label="Закрыть">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gallery-popup-counter" id="beach-popup-counter">1 / 5</div>
+            <div class="gallery-popup-image-area">
+                <button class="gallery-popup-nav prev" onclick="navigateBeachPopup('prev')" aria-label="Предыдущее">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-popup-nav next" onclick="navigateBeachPopup('next')" aria-label="Следующее">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <img src="images/Entertaiment/Beach1.jfif" alt="Частный пляж" class="gallery-popup-main" id="beach-popup-main">
+            </div>
+            <div class="gallery-popup-thumbnails">
+                <img src="images/Entertaiment/Beach1.jfif" alt="Пляж 1" class="gallery-popup-thumb active" onclick="changeBeachPopupImage(0)" data-index="0">
+                <img src="images/Entertaiment/beach2.jfif" alt="Пляж 2" class="gallery-popup-thumb" onclick="changeBeachPopupImage(1)" data-index="1">
+                <img src="images/Entertaiment/beach3.jfif" alt="Пляж 3" class="gallery-popup-thumb" onclick="changeBeachPopupImage(2)" data-index="2">
+                <img src="images/Entertaiment/beach4.jfif" alt="Пляж 4" class="gallery-popup-thumb" onclick="changeBeachPopupImage(3)" data-index="3">
+                <img src="images/Entertaiment/beach5.jfif" alt="Пляж 5" class="gallery-popup-thumb" onclick="changeBeachPopupImage(4)" data-index="4">
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Space Gallery Popup -->
+    <div id="eventspace-gallery-popup" class="gallery-popup" onclick="if(event.target === this) closeEventSpaceGallery()">
+        <div class="gallery-popup-content" onclick="event.stopPropagation()">
+            <button class="gallery-popup-close" onclick="closeEventSpaceGallery()" aria-label="Закрыть">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gallery-popup-counter" id="eventspace-popup-counter">1 / 4</div>
+            <div class="gallery-popup-image-area">
+                <button class="gallery-popup-nav prev" onclick="navigateEventSpacePopup('prev')" aria-label="Предыдущее">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-popup-nav next" onclick="navigateEventSpacePopup('next')" aria-label="Следующее">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <img src="images/Entertaiment/eventspace1.jfif" alt="Площадка для мероприятий" class="gallery-popup-main" id="eventspace-popup-main">
+            </div>
+            <div class="gallery-popup-thumbnails">
+                <img src="images/Entertaiment/eventspace1.jfif" alt="Площадка 1" class="gallery-popup-thumb active" onclick="changeEventSpacePopupImage(0)" data-index="0">
+                <img src="images/Entertaiment/eventspace2.jfif" alt="Площадка 2" class="gallery-popup-thumb" onclick="changeEventSpacePopupImage(1)" data-index="1">
+                <img src="images/Entertaiment/eventspace4.jfif" alt="Площадка 4" class="gallery-popup-thumb" onclick="changeEventSpacePopupImage(2)" data-index="2">
+            </div>
+        </div>
+    </div>
+
+    <!-- Yoga Gallery Popup -->
+    <div id="yoga-gallery-popup" class="gallery-popup" onclick="if(event.target === this) closeYogaGallery()">
+        <div class="gallery-popup-content" onclick="event.stopPropagation()">
+            <button class="gallery-popup-close" onclick="closeYogaGallery()" aria-label="Закрыть">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gallery-popup-counter" id="yoga-popup-counter">1 / 4</div>
+            <div class="gallery-popup-image-area">
+                <button class="gallery-popup-nav prev" onclick="navigateYogaPopup('prev')" aria-label="Предыдущее">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-popup-nav next" onclick="navigateYogaPopup('next')" aria-label="Следующее">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <img src="images/Entertaiment/yoga1.jfif" alt="Йога на природе" class="gallery-popup-main" id="yoga-popup-main">
+            </div>
+            <div class="gallery-popup-thumbnails">
+                <img src="images/Entertaiment/yoga1.jfif" alt="Йога 1" class="gallery-popup-thumb active" onclick="changeYogaPopupImage(0)" data-index="0">
+                <img src="images/Entertaiment/yoga2.jfif" alt="Йога 2" class="gallery-popup-thumb" onclick="changeYogaPopupImage(1)" data-index="1">
+                <img src="images/Entertaiment/yoga3.jfif" alt="Йога 3" class="gallery-popup-thumb" onclick="changeYogaPopupImage(2)" data-index="2">
+                <img src="images/Entertaiment/yoga4.jfif" alt="Йога 4" class="gallery-popup-thumb" onclick="changeYogaPopupImage(3)" data-index="3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Volleyball Gallery Popup (1 image) -->
+    <div id="volley-gallery-popup" class="gallery-popup" onclick="if(event.target === this) closeVolleyGallery()">
+        <div class="gallery-popup-content" onclick="event.stopPropagation()">
+            <button class="gallery-popup-close" onclick="closeVolleyGallery()" aria-label="Закрыть">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gallery-popup-image-area">
+                <img src="images/Entertaiment/volleyball-net.jfif" alt="Волейбольная площадка" class="gallery-popup-main" id="volley-popup-img">
+            </div>
+        </div>
+    </div>
+t>

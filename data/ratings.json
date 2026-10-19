@@ -1,0 +1,22 @@
+{
+  "2gis": {
+    "rating": 4.2,
+    "ratingsCount": 103,
+    "reviewsCount": 54
+  },
+  "101hotels": {
+    "rating": null,
+    "ratingsCount": null,
+    "reviewsCount": null
+  },
+  "yandex": {
+    "rating": 4.4,
+    "ratingsCount": 499,
+    "reviewsCount": 186
+  },
+  "google": {
+    "rating": 4.2,
+    "ratingsCount": 97,
+    "reviewsCount": 97
+  }
+}

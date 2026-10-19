@@ -1,0 +1,40 @@
+/* 
+ * Золотые пески - Custom Styles
+ * База отдыха на озере Тургояк
+ */
+
+/* ===== MAIN STYLES (если требуются дополнительные стили) ===== */
+
+/* Все основные стили находятся в <style> тегах HTML файлов */
+/* Этот файл может использоваться для дополнительных кастомных стилей */
+
+/* Accommodation card animations */
+.accommodation-card {
+    transition: all 0.3s ease;
+}
+
+.accommodation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Loader animation improvements */
+@keyframes pulse-gold {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.pulse-gold {
+    animation: pulse-gold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Additional responsive helpers */
+@media (max-width: 640px) {
+    .accommodation-card {
+        margin-bottom: 1rem;
+    }
+}

@@ -1,0 +1,2824 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проживание | Золотые пески</title>
+    <meta name="description" content="Проживание на базе «Золотые пески»: коттеджи и номера на озере Тургояк. Цены, фото, бронирование онлайн. До 10+ человек в домике.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Проживание | Золотые пески">
+    <meta property="og:description" content="Коттеджи и номера на озере Тургояк. Бронирование онлайн и через Telegram.">
+    <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+    <meta property="og:url" content="https://bazaturgoyak.ru/accommodation.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Золотые пески">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="js/config.js"></script>
+    <script src="js/apply-config.js"></script>
+    <script src="js/booking-mode.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_gold.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Custom Styles -->
+    <style>
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4AF37; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b5952f; 
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+/* Hero Background Transition */
+#hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Villa Card Hover Effects */
+.villa-card:hover .villa-img {
+    transform: scale(1.1);
+}
+
+.villa-card {
+    overflow: hidden;
+}
+
+.villa-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating Icons */
+.floating-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.floating-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal Styles */
+#villa-modal {
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2; /* standard property for compatibility */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Lazy Loading Image Styles - Progressive Loading */
+.lazy-image {
+    filter: blur(20px);
+    transform: scale(1.05);
+    transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease-in-out;
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    background-size: 200% 200%;
+    animation: shimmer 2s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+.lazy-image.loading {
+    filter: blur(15px);
+    opacity: 0.9;
+}
+
+.lazy-image.loaded {
+    filter: blur(0);
+    transform: scale(1);
+    animation: none;
+    opacity: 1;
+}
+
+/* Shimmer animation for loading placeholder */
+@keyframes shimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Image container for aspect ratio preservation */
+.image-container {
+    position: relative;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.05) 0%, rgba(218, 165, 32, 0.1) 50%, rgba(218, 165, 32, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.image-container:hover::before {
+    opacity: 1;
+}
+
+/* Image placeholder with loading animation */
+.image-placeholder {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Mobile Menu Transition */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Заголовки секций должны быть видимы сразу (не ждать ScrollTrigger) */
+.section-title { opacity: 1; transform: none; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        max-height: 95vh;
+    }
+}
+
+/* Focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Button hover effects */
+button:hover,
+a.button:hover {
+    cursor: pointer;
+}
+
+/* Parallax effect for background images */
+.bg-fixed {
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll;
+    }
+}
+
+/* Tents slider: ensure images are not washed out (lazy-image adds blur + opacity) */
+#tents .image-slider .lazy-image {
+    opacity: 1;
+}
+#tents .image-slider .lazy-image.loaded {
+    opacity: 1;
+}
+
+/* ===== Image zoom (loupe) modal ===== */
+#image-zoom-modal { display: none; }
+#image-zoom-modal.open { display: flex; }
+
+/* ===== Tents map button (separate from slider images) ===== */
+#tents-map-btn {
+    backdrop-filter: blur(2px);
+}
+
+/* ===== Slider performance ===== */
+.image-slider .slider-image {
+    will-change: opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Invisible slides should not intercept pointer events */
+.image-slider .slider-image.opacity-0,
+.image-slider .slider-image[style*="opacity: 0"] {
+    pointer-events: none;
+}
+
+/* Camping: make slider transition snappier */
+#tents .image-slider .slider-image {
+    transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .image-slider .slider-image {
+        transition: none !important;
+    }
+}
+
+/* Safety: ensure tents card is not kept hidden by reveal animation state */
+#tents [data-no-reveal="true"]{
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* ===== Booking buttons (card CTA) ===== */
+.booking-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center; /* center buttons on wide screens */
+}
+.booking-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0; /* keep existing sharp style */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    font-size: 0.75rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    white-space: nowrap;
+    width: fit-content; /* shrink to text */
+    min-width: 240px;
+}
+.booking-actions .btn-online {
+    background: #D4AF37;
+    color: #fff;
+}
+.booking-actions .btn-online:hover {
+    background: #1a1a1a;
+}
+.booking-actions .btn-telegram {
+    background: #0088cc;
+    color: #fff;
+}
+.booking-actions .btn-telegram:hover {
+    background: #0077b3;
+}
+
+/* Telegram icon: restore original color (inherit from button text) */
+.booking-actions .btn-telegram i {
+    color: inherit;
+}
+
+.booking-actions .btn-max {
+    background: #6B4EFF;
+    color: #fff;
+}
+.booking-actions .btn-max:hover {
+    background: #5538E0;
+}
+
+/* If screen is narrow, stack buttons and keep centered */
+@media (max-width: 420px) {
+    .booking-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .booking-actions .btn {
+        width: 100%;
+        max-width: 320px;
+        min-width: 0;
+    }
+}
+
+/* ===== Booking consent modal ===== */
+#booking-consent-modal {
+    backdrop-filter: blur(5px);
+}
+/* ===== /Booking consent modal ===== */
+
+/* Flatpickr: выделение выбранного дня и диапазона золотым */
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.inRange {
+    background: #D4AF37 !important;
+    border-color: #D4AF37 !important;
+    color: #fff !important;
+}
+.flatpickr-day.today {
+    border-color: #D4AF37 !important;
+}
+.flatpickr-calendar {
+    font-family: 'Lato', sans-serif;
+    z-index: 99999 !important;
+}
+.flatpickr-input[readonly] {
+    background: #fff;
+    cursor: pointer;
+}
+
+/* Карточки проживания и панель дат: на iPhone поле не вылезает за сетку */
+.accommodation-card {
+    min-width: 0;
+    max-width: 100%;
+}
+.booking-dates-panel {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.accommodation-widget-dates {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Tent booking modal styles */
+#tent-date-range {
+    min-width: 0;
+    font-size: 1.08rem;
+    height: 48px;
+    padding-left: 3rem;
+    box-sizing: border-box;
+}
+#tent-date-range-labels {
+    text-align: left;
+    word-break: break-word;
+}
+.calendar-icon {
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.8em;
+    width: 1.8em;
+    display: flex;
+    align-items: center;
+    color: #D4AF37;
+    font-size: 1.45em;
+    z-index: 2;
+}
+@media (max-width: 640px) {
+    #tent-book-modal .p-8 { padding: 0.5rem !important; }
+    #tent-book-modal .text-2xl { font-size: 1.1rem; }
+    #tent-book-modal form > * { font-size: 0.98rem; }
+    #tent-date-range { font-size: 1.01rem; height: 42px; padding-left: 2.5rem; }
+    #tent-book-form button { font-size: 1rem; padding: 0.75rem 0; }
+    #tent-date-range-labels { font-size: 0.95rem; }
+    .calendar-icon { left: 0.5rem; font-size: 1.18em; height: 1.4em; width: 1.4em; }
+}
+@media (max-width: 400px) {
+    #tent-book-modal .max-w-md { max-width: 100vw !important; }
+    #tent-book-modal .rounded-lg { border-radius: 0.3rem !important; }
+    #tent-date-range { font-size: 0.93rem; height: 36px; padding-left: 2.1rem; }
+    #tent-date-range-labels { font-size: 0.9rem; }
+    .calendar-icon { left: 0.4rem; font-size: 1em; height: 1.1em; width: 1.1em; }
+}
+#tent-date-range::-webkit-input-placeholder { color: #b5952f99; }
+#tent-date-range::placeholder { color: #b5952f99; }
+#tent-date-range:focus { border-color: #D4AF37; box-shadow: 0 0 0 2px #D4AF3740; }
+
+    </style>
+    
+    <!-- Tailwind Config (корневой config.js не подключать — перезаписывает js/config.js) -->
+    <script>
+// Tailwind CSS Configuration
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'brand-gold': '#D4AF37',
+                'brand-dark': '#1a1a1a',
+                'brand-green': '#2C3E50',
+                'brand-cream': '#F9F9F5',
+            },
+            fontFamily: {
+                serif: ['"Playfair Display"', 'serif'],
+                sans: ['"Lato"', 'sans-serif'],
+            }
+        }
+    }
+}
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Resort",
+      "name": "Золотые пески",
+      "description": "Проживание на базе отдыха на озере Тургояк: коттеджи и номера. Бронирование онлайн.",
+      "url": "https://bazaturgoyak.ru/accommodation.html",
+      "image": "https://bazaturgoyak.ru/images/dom_14/1.webp",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Миасс",
+        "addressRegion": "Челябинская область",
+        "addressCountry": "RU"
+      },
+      "telephone": "+7-908-068-60-60",
+      "priceRange": "₽₽"
+    }
+    </script>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+
+    <!-- Image Zoom Modal (used by loupe buttons on cards) -->
+    <div id="image-zoom-modal" class="fixed inset-0 z-[10000] items-center justify-center bg-black/80 p-4" aria-hidden="true">
+        <button id="image-zoom-close" type="button" class="absolute top-4 right-4 text-white/90 hover:text-white text-3xl leading-none" aria-label="Закрыть">&times;</button>
+
+        <div class="relative w-full max-w-6xl">
+            <!-- arrows must be pinned to the image edges, not to the container -->
+            <div class="relative w-fit mx-auto">
+                <img id="image-zoom-img" alt="Просмотр изображения" class="block max-w-[95vw] max-h-[85vh] object-contain rounded-lg shadow-2xl" />
+
+                <button id="image-zoom-prev" type="button" class="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center z-10" aria-label="Предыдущее фото">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="image-zoom-next" type="button" class="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center z-10" aria-label="Следующее фото">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div id="image-zoom-dots" class="mt-4 flex justify-center gap-2"></div>
+        </div>
+    </div>
+
+    <!-- Booking consent modal -->
+    <div id="booking-consent-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 p-4">
+        <div class="w-full max-w-2xl bg-white text-brand-dark shadow-2xl">
+            <div class="flex items-start justify-between gap-4 px-6 py-5 border-b border-gray-200">
+                <h3 class="text-xl md:text-2xl font-serif">Перед бронированием нужно согласие</h3>
+                <button type="button" data-booking-consent-close class="text-gray-500 hover:text-brand-dark text-2xl leading-none" aria-label="Закрыть">
+                    &times;
+                </button>
+            </div>
+
+            <div class="px-6 py-6">
+                <div class="space-y-5 text-left">
+                    <label class="flex items-start gap-3">
+                        <input id="booking-consent-1" type="checkbox" class="mt-1 h-5 w-5 accent-[#D4AF37]">
+                        <span class="text-sm md:text-base text-gray-700 leading-relaxed">
+                            Ознакомлен(а) и принимаю
+                            <a class="text-brand-gold hover:underline" href="docs/Положение о бронировании.pdf" target="_blank" rel="noopener">Положение о бронировании</a>
+                            и
+                            <a class="text-brand-gold hover:underline" href="docs/Правила проживания и отдыха.pdf" target="_blank" rel="noopener">Правила проживания и отдыха</a>.
+                        </span>
+                    </label>
+
+                    <label class="flex items-start gap-3">
+                        <input id="booking-consent-2" type="checkbox" class="mt-1 h-5 w-5 accent-[#D4AF37]">
+                        <span class="text-sm md:text-base text-gray-700 leading-relaxed">
+                            Я принимаю пользовательское соглашение и подтверждаю, что ознакомлен и согласен с политикой конфиденциальности данного сайта.
+                            <a class="text-brand-gold hover:underline" href="docs/Публичная_оферта_базы_отдыха.pdf" target="_blank" rel="noopener">Публичная оферта</a>.
+                        </span>
+                    </label>
+                </div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:justify-end">
+                    <button type="button" data-booking-consent-cancel class="px-6 py-3 border-2 border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white transition-colors duration-300 uppercase tracking-widest font-bold text-xs">
+                        Отмена
+                    </button>
+                    <a href="#" data-config="widget" target="_blank" rel="noopener" id="booking-consent-continue" aria-disabled="true" data-booking-consent-continue class="px-6 py-3 bg-brand-gold text-white opacity-50 pointer-events-none transition-colors duration-300 uppercase tracking-widest font-bold text-xs inline-flex items-center justify-center">
+                        Продолжить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Booking consent modal -->
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="flex flex-col items-center">
+            <img src="images/logo.png" alt="Золотые пески логотип" class="w-24 h-24 mb-4 opacity-0" id="loader-logo">
+            <h1 class="text-brand-gold text-5xl font-serif mb-4 tracking-widest opacity-0" id="loader-text">ПРОЖИВАНИЕ</h1>
+            <div class="w-16 h-1 bg-brand-gold rounded-full transform scale-x-0" id="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Floating Contact Icons -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-4">
+        <a data-config="telegram" href="#" target="_blank" class="floating-icon w-14 h-14 bg-[#0088cc] rounded-full flex items-center justify-center text-white text-3xl" title="Telegram Bot">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a data-config="max" href="#" target="_blank" rel="noopener" class="floating-icon w-14 h-14 bg-[#6B4EFF] rounded-full flex items-center justify-center" title="Написать в MAX">
+            <img src="images/max-mess.png" alt="MAX" class="w-8 h-8 object-contain">
+        </a>
+        <a data-config="phone" href="#" class="floating-icon w-14 h-14 bg-brand-gold rounded-full flex items-center justify-center text-white text-2xl" title="Call Us">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <header class="relative h-screen w-full overflow-hidden pt-[88px] md:pt-28">
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('images/Accomodation.jpg');"></div>
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 h-full flex flex-col justify-center items-center text-center text-white">
+            <p class="text-brand-gold tracking-[0.3em] uppercase text-sm md:text-base mb-4 font-bold">Варианты размещения</p>
+            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif font-medium mb-6 leading-tight">
+                Проживание <br><span class="italic text-brand-gold">на базе отдыха Золотые пески, озеро Тургояк</span>
+            </h1>
+            <p class="max-w-xl mx-auto text-gray-200 text-lg font-light mb-10">
+                Выберите идеальный вариант размещения для комфортного отдыха у озера Тургояк.
+            </p>
+            <div class="mt-4">
+                <a href="#houses" class="group relative px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden inline-block">
+                    <span class="relative z-10">Посмотреть варианты</span>
+                    <div class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20"></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl opacity-70"></i>
+        </div>
+    </header>
+
+    <!-- Houses Section -->
+    <section id="houses" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-up section-title">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Домики</span>
+                <h2 class="text-4xl font-serif mt-2">Уютные домики</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>            
+            <div id="houses-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <!-- Карточки домиков подгружаются автоматически -->
+                <div class="col-span-full text-center text-gray-500 py-12">
+                    <i class="fas fa-spinner fa-spin text-4xl text-brand-gold mb-4"></i>
+                    <p>Загрузка домиков...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section id="rooms" class="py-24 bg-brand-cream">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-up section-title">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Номера</span>
+                <h2 class="text-4xl font-serif mt-2">Деревянные дачи</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>            
+            <div id="rooms-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <!-- Карточки номеров подгружаются автоматически -->
+                <div class="col-span-full text-center text-gray-500 py-12">
+                    <i class="fas fa-spinner fa-spin text-4xl text-brand-gold mb-4"></i>
+                    <p>Загрузка номеров...</p>
+                </div>            
+            </div>
+        </div>
+    </section>    <!-- Tents Section -->
+    <section id="tents" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-up section-title">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Палатки</span>
+                <h2 class="text-4xl font-serif mt-2">Размещение своей палатки на территории кемпинга</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div id="tents-container" class="flex flex-wrap justify-center gap-8">
+                <div class="w-full text-center text-gray-500 py-12">
+                    <i class="fas fa-spinner fa-spin text-4xl text-brand-gold mb-4"></i>
+                    <p>Загрузка палаток...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для бронирования палатки -->
+    <div id="tent-book-modal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center bg-black/60 p-4">
+        <div class="w-full max-w-md min-w-0 bg-white text-brand-dark shadow-2xl rounded-lg p-8 relative">
+            <button id="tent-book-close" class="absolute top-4 right-4 text-gray-500 hover:text-brand-dark text-2xl leading-none">&times;</button>
+            <h3 class="text-2xl font-serif mb-6 text-center">Бронирование палатки</h3>
+            <form id="tent-book-form" class="space-y-4">
+                <input type="text" name="guestName" id="tent-guestName" class="w-full border px-4 py-2 rounded" placeholder="ФИО" required>
+                <input type="tel" name="guestPhone" id="tent-guestPhone" class="w-full border px-4 py-2 rounded" placeholder="Телефон" required>
+                <input type="email" name="guestEmail" id="tent-guestEmail" class="w-full border px-4 py-2 rounded" placeholder="Ваша эл. почта" required>
+                <div class="flex flex-col gap-2 items-stretch">
+                    <div class="w-full relative">
+                        <label for="tent-date-range" class="block text-xs text-gray-500 mb-1">Выберите даты</label>
+                        <span class="calendar-icon absolute left-3 top-1/2 -translate-y-1/2 text-brand-gold pointer-events-none flex items-center h-full" style="height: 1.8em; width: 1.8em;"><i class="fa-regular fa-calendar"></i></span>
+                        <input type="text" id="tent-date-range" class="w-full border pl-12 pr-4 py-2 rounded flatpickr-input" style="height:48px; font-size:1.08rem;" placeholder="Даты проживания" autocomplete="off" required>
+                        <div id="tent-date-range-labels" class="mt-2 text-sm text-gray-600 font-medium hidden"></div>
+                    </div>
+                </div>
+                <div id="tent-price-display" class="hidden rounded-lg bg-amber-50 border border-amber-200 px-4 py-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Стоимость размещения:</span>
+                        <span id="tent-price-value" class="font-bold text-brand-gold text-lg"></span>
+                    </div>
+                    <div id="tent-price-nights" class="text-xs text-gray-400 text-right mt-0.5"></div>
+                </div>
+                <input type="number" name="guests" id="tent-guests" class="w-full border px-4 py-2 rounded" placeholder="Количество гостей" min="1" max="4" required>
+                <button type="submit" class="w-full bg-brand-gold text-white py-3 rounded font-bold text-lg">Забронировать</button>
+            </form>
+            <div id="tent-book-success" class="hidden mt-6 text-green-600 text-center font-bold"></div>
+            <div id="tent-book-error" class="hidden mt-6 text-red-600 text-center font-bold"></div>
+        </div>
+    </div>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+
+    <script>
+        (function() {
+            const tentModal = document.getElementById('tent-book-modal');
+            const tentClose = document.getElementById('tent-book-close');
+            const tentForm = document.getElementById('tent-book-form');
+            const tentSuccess = document.getElementById('tent-book-success');
+            const tentError = document.getElementById('tent-book-error');
+            let selectedTentObjectId = null; // id палатки из каталога (при клике)
+            const API_BASE_URL = (window.CONFIG && window.CONFIG.apiBaseUrl) || '/api';
+            const API_EMAIL = (window.CONFIG && window.CONFIG.apiEmail) || '';
+            const API_PASSWORD = (window.CONFIG && window.CONFIG.apiPassword) || '';
+            let apiToken = null;
+
+            function isValidServiceEmail(s) {
+                return typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
+            }
+
+            async function getApiToken() {
+                if (apiToken) return apiToken;
+                if (!isValidServiceEmail(API_EMAIL)) {
+                    throw new Error('Бронирование палаток с сайта сейчас недоступно: не настроен служебный вход для связи с системой бронирования. Обратитесь к администратору или забронируйте по телефону.');
+                }
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/auth/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: API_EMAIL, password: API_PASSWORD })
+                    });
+                    if (!resp.ok) {
+                        console.error('[TentBooking] Ошибка авторизации, статус:', resp.status);
+                        const text = await resp.text();
+                        console.error('[TentBooking] Ответ авторизации:', text);
+                        var hint = '';
+                        try {
+                            var j = JSON.parse(text);
+                            if (Array.isArray(j.message)) hint = j.message.join(', ');
+                            else if (typeof j.message === 'string') hint = j.message;
+                        } catch (_) { /* ignore */ }
+                        if (resp.status === 400 && hint && /email/i.test(hint)) {
+                            throw new Error('Служебный адрес электронной почты на сайте указан неверно. Обратитесь к администратору или забронируйте по телефону.');
+                        }
+                        throw new Error('Не удалось подключиться к системе бронирования');
+                    }
+                    const data = await resp.json();
+                    console.log('[TentBooking] Ответ авторизации (data):', data);
+                    apiToken = data.access_token || data.token || data.jwt || data.accessToken;
+                    if (!apiToken) {
+                        console.error('[TentBooking] Токен не найден в ответе:', data);
+                        throw new Error('Не удалось подтвердить бронирование. Попробуйте позже или позвоните на базу.');
+                    }
+                    return apiToken;
+                } catch (err) {
+                    console.error('[TentBooking] Ошибка при получении токена:', err);
+                    if (err && err.message && String(err.message).indexOf('настройках сайта') !== -1) {
+                        throw err;
+                    }
+                    throw new Error('Ошибка авторизации. Попробуйте позже.');
+                }
+            }
+
+            // Динамическое обновление цены палатки по выбранным датам
+            async function updateTentModalPrice(checkIn, checkOut) {
+                const priceDisplay = document.getElementById('tent-price-display');
+                const priceValue = document.getElementById('tent-price-value');
+                const priceNights = document.getElementById('tent-price-nights');
+                if (!priceDisplay || !priceValue) return;
+                if (!selectedTentObjectId) { priceDisplay.classList.add('hidden'); return; }
+
+                const dateStr = fpRange.formatDate(checkIn, 'Y-m-d');
+                priceDisplay.classList.remove('hidden');
+                priceValue.textContent = '...';
+                if (priceNights) priceNights.textContent = '';
+
+                try {
+                    const resp = await fetch(`${API_BASE_URL}/objects?isActive=true&displayPrice=${encodeURIComponent(dateStr)}`);
+                    if (!resp.ok) throw new Error();
+                    const items = await resp.json();
+                    const obj = Array.isArray(items) ? items.find(o => o.id === selectedTentObjectId) : null;
+                    if (!obj) { priceDisplay.classList.add('hidden'); return; }
+
+                    const dayPrice = obj.effectivePricePerDay != null ? Number(obj.effectivePricePerDay) : 0;
+                    const hourPrice = obj.effectivePricePerHour != null ? Number(obj.effectivePricePerHour) : 0;
+                    const unitPrice = dayPrice > 0 ? dayPrice : hourPrice;
+                    const unitLabel = dayPrice > 0 ? '/сутки' : (hourPrice > 0 ? '/час' : '');
+
+                    if (unitPrice > 0) {
+                        const fmt = new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                        priceValue.textContent = fmt.format(unitPrice) + unitLabel;
+                        if (priceNights && checkOut && dayPrice > 0) {
+                            const nights = Math.round((checkOut - checkIn) / 86400000);
+                            if (nights > 1) {
+                                const nightWord = nights >= 5 ? 'ночей' : (nights >= 2 ? 'ночи' : 'ночь');
+                                priceNights.textContent = nights + '\u00a0' + nightWord + ' — итого\u00a0' + fmt.format(unitPrice * nights);
+                            }
+                        }
+                    } else {
+                        priceValue.textContent = 'Цена по запросу';
+                    }
+                } catch (_) {
+                    priceDisplay.classList.add('hidden');
+                }
+            }
+
+            // Flatpickr для диапазона дат
+            flatpickr.localize(flatpickr.l10ns.ru);
+            const tentDateRangeInput = document.getElementById('tent-date-range');
+            const dateRangeLabels = document.getElementById('tent-date-range-labels');
+            const fpRange = flatpickr(tentDateRangeInput, {
+                mode: "range",
+                minDate: new Date().fp_incr(1),
+                dateFormat: "Y-m-d",
+                theme: "material_gold",
+                locale: "ru",
+                allowInput: true,
+                onChange: function(selectedDates, dateStr, instance) {
+                    if (selectedDates.length === 2) {
+                        // Форматировать в ДД.ММ.ГГГГ
+                        const format = d => instance.formatDate(d, "d.m.Y");
+                        dateRangeLabels.innerHTML = `<span class='font-normal text-gray-500'>Дата заезда:</span> <b>${format(selectedDates[0])}</b> <span class='mx-2 text-brand-gold'>→</span> <span class='font-normal text-gray-500'>Дата выезда:</span> <b>${format(selectedDates[1])}</b>`;
+                        dateRangeLabels.classList.remove('hidden');
+                        updateTentModalPrice(selectedDates[0], selectedDates[1]);
+                    } else {
+                        dateRangeLabels.classList.add('hidden');
+                        dateRangeLabels.innerHTML = '';
+                        const pd = document.getElementById('tent-price-display');
+                        if (pd) pd.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Открытие модального окна (кнопки подставляются динамически)
+            document.body.addEventListener('click', (e) => {
+                const btn = e.target.closest('.tent-book-btn');
+                if (!btn || !tentModal) return;
+                selectedTentObjectId = btn.getAttribute('data-object-id') || null;
+                if (!selectedTentObjectId && window.apiObjects) {
+                    const tents = window.apiObjects.filter(o => o.type && (String(o.type.slug || '').toLowerCase() === 'camping' || String(o.type.name || '').toLowerCase().includes('палатка')));
+                    if (tents.length) selectedTentObjectId = tents[0].id;
+                }
+                const start = new Date();
+                start.setDate(start.getDate() + 1);
+                const end = new Date(start);
+                end.setDate(end.getDate() + 1);
+                const format = d => fpRange.formatDate(d, "d.m.Y");
+                tentSuccess.classList.add('hidden');
+                tentError.classList.add('hidden');
+                tentForm.reset();
+                fpRange.setDate([start, end]);
+                dateRangeLabels.innerHTML = `<span class='font-normal text-gray-500'>Дата заезда:</span> <b>${format(start)}</b> <span class='mx-2 text-brand-gold'>→</span> <span class='font-normal text-gray-500'>Дата выезда:</span> <b>${format(end)}</b>`;
+                dateRangeLabels.classList.remove('hidden');
+                document.getElementById('tent-guests').value = '1';
+                updateTentModalPrice(start, end);
+                tentModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Закрытие модального окна
+            tentClose.addEventListener('click', () => {
+                tentModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+            tentModal.addEventListener('click', (e) => {
+                if (e.target === tentModal) {
+                    tentModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !tentModal.classList.contains('hidden')) {
+                    tentModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+            // Отправка формы
+            tentForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                tentSuccess.classList.add('hidden');
+                tentError.classList.add('hidden');
+                if (!selectedTentObjectId) {
+                    tentError.textContent = 'Не выбран объект для бронирования. Попробуйте обновить страницу.';
+                    tentError.classList.remove('hidden');
+                    return;
+                }
+                const guestName = document.getElementById('tent-guestName').value.trim();
+                const guestPhone = document.getElementById('tent-guestPhone').value.trim();
+                const guestEmail = document.getElementById('tent-guestEmail').value.trim();
+                const startDate = fpRange.selectedDates[0];
+                const endDate = fpRange.selectedDates[1];
+                if (!startDate || !endDate) {
+                    tentError.textContent = 'Выберите даты проживания.';
+                    tentError.classList.remove('hidden');
+                    return;
+                }
+                const guests = document.getElementById('tent-guests').value;
+                console.log('[TentBooking] Начало отправки формы');
+                try {
+                    // 0. Получить токен авторизации
+                    console.log('[TentBooking] Получение токена...');
+                    const token = await getApiToken();
+                    console.log('[TentBooking] Токен получен:', token);
+                    // 1. Создать/найти клиента с полем fullName
+                    const clientPayload = { fullName: guestName, phone: guestPhone, email: guestEmail };
+                    console.log('[TentBooking] Отправка find-or-create клиента:', clientPayload);
+                    const clientResp = await fetch(`${API_BASE_URL}/clients/find-or-create`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(clientPayload)
+                    });
+                    console.log('[TentBooking] Ответ клиента:', clientResp.status);
+                    if (!clientResp.ok) {
+                        const text = await clientResp.text();
+                        throw new Error('Ошибка создания клиента: ' + text);
+                    }
+                    const clientData = await clientResp.json();
+                    console.log('[TentBooking] Данные клиента:', clientData);
+                    let clientId = null;
+                    if (clientData.id || clientData.clientId) {
+                        clientId = clientData.id || clientData.clientId;
+                    } else if (clientData.client && (clientData.client.id || clientData.client.clientId)) {
+                        clientId = clientData.client.id || clientData.client.clientId;
+                    }
+                    if (!clientId) {
+                        throw new Error('Не удалось сохранить данные для бронирования. Попробуйте позже.');
+                    }
+                    console.log('[TentBooking] Клиент создан/найден, clientId:', clientId);
+                    // 2. Создать hold
+                    console.log('[TentBooking] Запрос на создание hold...');
+                    const holdResp = await fetch(`${API_BASE_URL}/bookings/hold`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ objectId: selectedTentObjectId, startDate, endDate, clientId })
+                    });
+                    console.log('[TentBooking] Ответ hold:', holdResp.status);
+                    if (!holdResp.ok) {
+                        const text = await holdResp.text();
+                        throw new Error('Ошибка создания бронирования: ' + text);
+                    }
+                    const holdData = await holdResp.json();
+                    tentForm.reset();
+                    let holdId = holdData?.hold?.id || holdData?.id;
+                    if (holdId) {
+                        tentSuccess.textContent = `Бронирование успешно! Номер заявки: ` + holdId;
+                        tentSuccess.classList.remove('hidden');
+                    } else {
+                        tentSuccess.textContent = 'Бронирование успешно, но номер заявки не получен.';
+                        tentSuccess.classList.remove('hidden');
+                    }
+                } catch (err) {
+                    tentError.textContent = err.message || 'Ошибка бронирования. Попробуйте позже.';
+                    tentError.classList.remove('hidden');
+                    console.error('[TentBooking] Ошибка:', err);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+    (function() {
+        function isoDate(d) {
+            var y = d.getFullYear();
+            var m = String(d.getMonth() + 1).padStart(2, '0');
+            var day = String(d.getDate()).padStart(2, '0');
+            return y + '-' + m + '-' + day;
+        }
+        window.accommodationOpenBookingDates = function(link) {
+            var card = link.closest('.accommodation-card');
+            if (!card) return;
+            var panel = card.querySelector('.booking-dates-panel');
+            if (!panel) return;
+            panel.classList.remove('hidden');
+            try {
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } catch (err) { /* ignore */ }
+            var input = card.querySelector('.accommodation-widget-dates');
+            if (input && input._flatpickr) {
+                input._flatpickr.open();
+            }
+        };
+        window.initAccommodationWidgetDatepickers = function() {
+            if (typeof flatpickr === 'undefined') return;
+            flatpickr.localize(flatpickr.l10ns.ru);
+            var minTomorrow = new Date();
+            minTomorrow.setHours(0, 0, 0, 0);
+            minTomorrow.setDate(minTomorrow.getDate() + 1);
+            document.querySelectorAll('.accommodation-widget-dates:not([data-accommodation-fp])').forEach(function(input) {
+                input.setAttribute('data-accommodation-fp', '1');
+                var card = input.closest('.accommodation-card');
+                var link = card && card.querySelector('a[data-booking-widget-link][data-widget-object-id]');
+                flatpickr(input, {
+                    mode: 'range',
+                    minDate: minTomorrow,
+                    dateFormat: 'Y-m-d',
+                    locale: 'ru',
+                    allowInput: false,
+                    onChange: function(selectedDates) {
+                        if (!link) return;
+                        if (selectedDates.length === 2) {
+                            link.setAttribute('data-widget-check-in', isoDate(selectedDates[0]));
+                            link.setAttribute('data-widget-check-out', isoDate(selectedDates[1]));
+                        } else {
+                            link.removeAttribute('data-widget-check-in');
+                            link.removeAttribute('data-widget-check-out');
+                        }
+                        if (typeof window.refreshWidgetBookingHrefForLink === 'function') {
+                            link.setAttribute('href', window.refreshWidgetBookingHrefForLink(link));
+                        }
+                    }
+                });
+            });
+        };
+    })();
+    </script>
+
+    <!-- Glamping Section -->
+    <section id="glamping" class="py-24 bg-brand-cream">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-up section-title">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Глэмпинг</span>
+                <h2 class="text-4xl font-serif mt-2">Роскошный глэмпинг на берегу озера</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <!-- Coming Soon Placeholder -->
+            <div class="max-w-2xl mx-auto text-center bg-white rounded-lg shadow-xl p-12">
+                <div class="mb-6">
+                    <i class="fas fa-hard-hat text-brand-gold text-6xl mb-4"></i>
+                </div>
+                <h3 class="text-3xl font-serif text-brand-dark mb-4">Скоро будет доступно</h3>
+                <p class="text-gray-600 text-lg mb-6">
+                    Мы работаем над созданием уникального глэмпинга на берегу озера Тургояк. 
+                    Совсем скоро вы сможете насладиться роскошным отдыхом на природе с полным комфортом.
+                </p>
+                <div class="flex justify-center gap-4 text-sm text-gray-500">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-brand-gold mr-2"></i>
+                        <span>Премиум комфорт</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-brand-gold mr-2"></i>
+                        <span>Вид на озеро</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-brand-gold mr-2"></i>
+                        <span>Полный сервис</span>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <a href="contacts.html" class="inline-block px-8 py-3 bg-brand-gold text-white hover:bg-brand-dark transition-colors duration-300 uppercase tracking-widest font-bold text-xs">
+                        Узнать подробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Бронирование</span>
+                <h2 class="text-4xl font-serif mt-2 text-brand-dark">Уединённый отдых на заповедном озере Тургояк</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-600 text-base md:text-lg mb-8 max-w-2xl mx-auto">Выберите идеальное проживание для вашего отдыха — от уютных комнат до просторных коттеджей с видом на озеро. Свяжитесь с нами для бронирования.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#" data-config="widget" data-booking-widget-link data-widget-period="daily" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать онлайн <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a data-config="telegram" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#0088cc] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#0088cc]/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать через Telegram <i class="fab fa-telegram-plane text-sm"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a data-config="max" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#6B4EFF] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#6B4EFF]/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2"><img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX</span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script>
+// Contact Information (deprecated — use window.CONFIG)
+const contactInfo = {
+    phone: window.CONFIG?.phone || '+79080686060',
+    email: window.CONFIG?.email || 'bazaturgoyak@mail.ru',
+    address: window.CONFIG?.address || 'Челябинская область, г. Миасс, озеро Тургояк'
+};
+    </script>
+    <script>
+// Utility Functions for Золотые пески Website
+
+// Telegram Bot Message Sender
+function sendWhatsapp() {
+    const name = document.getElementById('contact-name').value;
+    const phone = document.getElementById('contact-phone').value;
+    const date = document.getElementById('contact-date').value;
+    const villa = document.getElementById('contact-villa').value;
+    
+    // Get optional fields if they exist
+    const email = document.getElementById('contact-email')?.value || '';
+    const checkout = document.getElementById('contact-checkout')?.value || '';
+    const guests = document.getElementById('contact-guests')?.value || '';
+    const message = document.getElementById('contact-message')?.value || '';
+
+    // Validation
+    if (!name || !phone || !date) {
+        alert("Пожалуйста, заполните Имя, Телефон и Дату заезда.");
+        return;
+    }
+
+    if (!villa) {
+        alert("Пожалуйста, выберите вариант размещения.");
+        return;
+    }
+
+    // Build Telegram message
+    let telegramMessage = `Здравствуйте, База отдыха "Золотые пески"!%0A%0AХочу уточнить доступность для бронирования.%0A%0A*Имя:* ${name}%0A*Телефон:* ${phone}`;
+      if (email) {
+        telegramMessage += `%0A*Email:* ${email}`;
+    }
+    
+    if (guests) {
+        telegramMessage += `%0A*Количество гостей:* ${guests}`;
+    }
+    
+    telegramMessage += `%0A*Дата заезда:* ${date}`;
+    
+    if (checkout) {
+        telegramMessage += `%0A*Дата выезда:* ${checkout}`;
+    }
+    
+    telegramMessage += `%0A*Интересующий вариант:* ${villa}`;
+    
+    if (message) {
+        telegramMessage += `%0A*Особые пожелания:* ${message}`;
+    }
+    
+    telegramMessage += `%0A%0AПожалуйста, сообщите детали.`;
+
+    const telegramBase = (window.CONFIG && window.CONFIG.telegramBot) ? window.CONFIG.telegramBot.replace(/\/+$/, '') : ('https://t.me/' + contactInfo.telegram);
+    window.open(telegramBase + '?text=' + telegramMessage, '_blank');
+}
+
+// Modal Functions (villaData заполняется из API в loadAccommodations)
+function openModal(villaId) {
+    const data = (window.villaData || {})[villaId];
+    if (!data) return;
+
+    // Populate Text
+    document.getElementById('modal-title').innerText = data.title;
+    document.getElementById('modal-price').innerHTML = `${data.price}<span class="text-sm font-normal text-gray-500">/night</span>`;
+    document.getElementById('modal-desc').innerText = data.desc;
+    document.getElementById('modal-tag').innerText = data.tag;
+    document.getElementById('modal-beds').innerText = data.beds;
+    document.getElementById('modal-baths').innerText = data.baths;
+    document.getElementById('modal-guests').innerText = data.guests;
+    
+    // Set contact dropdown if on booking page
+    const villaDropdown = document.getElementById('contact-villa');
+    if (villaDropdown) {
+        // Store the villa title for later use
+        window.selectedVillaTitle = data.title;
+    }
+
+    // Populate Images
+    const mainImg = document.getElementById('modal-main-img');
+    const thumbContainer = document.getElementById('modal-thumbnails');
+    
+    mainImg.src = data.images[0];
+    thumbContainer.innerHTML = ''; // Clear previous thumbnails
+
+    data.images.forEach((imgSrc, index) => {
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.className = `w-20 h-20 md:w-24 md:h-24 object-cover rounded cursor-pointer border-2 hover:border-brand-gold transition-all ${index === 0 ? 'border-brand-gold' : 'border-transparent'}`;
+        thumb.onclick = () => {
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = imgSrc;
+                mainImg.style.opacity = '1';
+            }, 300);
+            // Update borders
+            Array.from(thumbContainer.children).forEach(child => {
+                child.classList.remove('border-brand-gold');
+                child.classList.add('border-transparent');
+            });
+            thumb.classList.remove('border-transparent');
+            thumb.classList.add('border-brand-gold');
+        };
+        thumbContainer.appendChild(thumb);
+    });
+
+    const modal = document.getElementById('villa-modal');
+    modal.classList.remove('hidden');
+    gsap.fromTo(".modal-content", 
+        { y: 50, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }
+    );
+    document.body.style.overflow = 'hidden'; // Stop background scroll
+}
+
+function closeModal() {
+    const modal = document.getElementById('villa-modal');
+    gsap.to(".modal-content", { 
+        y: 50, 
+        opacity: 0, 
+        duration: 0.3, 
+        ease: "power2.in", 
+        onComplete: () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Set selected villa in booking form when coming from modal
+function setSelectedVilla() {
+    if (window.selectedVillaTitle) {
+        // This will be called when user clicks "Book This Villa" in modal
+        setTimeout(() => {
+            const villaDropdown = document.getElementById('contact-villa');
+            if (villaDropdown) {
+                const options = villaDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].text.includes(window.selectedVillaTitle)) {
+                        villaDropdown.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }, 100);
+    }
+}
+
+// Lonavala Slider Scroll Function
+function scrollLonavala(direction) {
+    const slider = document.getElementById('lonavala-slider');
+    if (!slider) return;
+    
+    const scrollAmount = 300;
+    if (direction === 'left') {
+        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+}
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+    }
+}
+
+// Scroll to section with offset for fixed navbar
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offset = 100; // Navbar height
+        const sectionPosition = section.offsetTop - offset;
+        window.scrollTo({
+            top: sectionPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+    </script>
+    <script>
+// Main JavaScript for Золотые пески Website
+
+// Hero Image Slider (only for home page)
+let currentHeroIndex = 0;
+const heroBg = document.getElementById('hero-bg');
+
+if (heroBg) {
+    setInterval(() => {
+        currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+        heroBg.style.backgroundImage = heroImages[currentHeroIndex];
+    }, 3000);
+}
+
+// Loader & GSAP Initialization
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    if (!loader) return;
+
+    // Если прелоадер уже был скрыт (например, по тайм-ауту) — не запускаем анимацию
+    if (loader.dataset.hidden === 'true') return;
+
+    const tl = gsap.timeline({
+        onComplete: () => {
+            loader.dataset.hidden = 'true';
+            // GSAP уводит вверх, но оставляем элемент невидимым и не мешающим кликам
+            loader.style.display = 'none';
+        }
+    });
+
+    tl.to("#loader-logo", { opacity: 1, duration: 0.8, ease: "power2.out" })
+      .to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
+      .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" })
+      .to("#loader", { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut" });
+    
+    // Only animate hero elements if they exist (on home page)
+    const heroElems = document.querySelectorAll('.gsap-hero-elem');
+    if (heroElems.length > 0) {
+        tl.from(".gsap-hero-elem", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        }, "-=0.5");
+    }
+});
+
+// Register GSAP ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Navbar Scroll Effect
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    
+    if (navbar) {
+        if (currentScroll > 100) {
+            navbar.classList.remove('bg-transparent', 'py-6');
+            navbar.classList.add('bg-brand-dark', 'shadow-lg', 'py-4');
+        } else {
+            navbar.classList.add('bg-transparent', 'py-6');
+            navbar.classList.remove('bg-brand-dark', 'shadow-lg', 'py-4');
+        }
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Reveal Animations
+// Не анимируем заголовки секций (.section-title)
+gsap.utils.toArray('.reveal-up').forEach(elem => {
+    if (elem.classList.contains('section-title')) return;
+
+    // Кемпинг (Tents) должен быть видим сразу и не зависеть от ScrollTrigger,
+    // иначе на некоторых устройствах/браузерах карточка может оставаться
+    // в начальном состоянии (opacity:0/transform) до нескольких прокруток.
+    if (elem.closest && elem.closest('#tents')) {
+        elem.style.opacity = '1';
+        elem.style.transform = 'none';
+        return;
+    }
+
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-left').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: -60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-right').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+// Mobile Menu Functionality
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Toggle icon
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        } else {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        }
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    }
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('villa-modal');
+    if (modal && e.target === modal) {
+        closeModal();
+    }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('villa-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    }
+});
+
+// Form validation for booking
+const bookingForm = document.getElementById('booking-form');
+if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendWhatsapp();
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Only handle real in-page anchor links like #section-id
+        if (!href || href.charAt(0) !== '#' || href.length <= 1) return;
+        
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const offset = 100;
+            const targetPosition = targetElement.offsetTop - offset;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Lazy loading for images with Intersection Observer - Progressive Loading
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+
+            const img = entry.target;
+            const src = img.dataset.src;
+            const candidatesRaw = img.getAttribute('data-src-candidates') || '';
+            const candidates = candidatesRaw ? candidatesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+            img.classList.add('loading');
+
+            const finalize = (finalSrc) => {
+                if (finalSrc) img.src = finalSrc;
+                img.classList.remove('loading');
+                img.classList.add('loaded');
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            };
+
+            if (candidates.length) {
+                pickFastestAvailableSrc(candidates).then(best => {
+                    finalize(best || src);
+                });
+            } else if (src) {
+                // old path
+                const tempImg = new Image();
+                tempImg.onload = () => finalize(src);
+                tempImg.onerror = () => {
+                    console.error('Ошибка загрузки изображения:', src);
+                    finalize('images/Фон.jpg');
+                };
+                tempImg.src = src;
+            } else {
+                img.classList.remove('loading');
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0.01
+    });
+
+    const observeImages = () => {
+        document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+    };
+
+    observeImages();
+
+    const mutationObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType !== 1) return;
+                const images = node.tagName === 'IMG' && node.dataset.src
+                    ? [node]
+                    : node.querySelectorAll ? node.querySelectorAll('img[data-src]') : [];
+                images.forEach(img => imageObserver.observe(img));
+            });
+        });
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+} else {
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        const candidatesRaw = img.getAttribute('data-src-candidates') || '';
+        const candidates = candidatesRaw ? candidatesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+        if (candidates.length) {
+            pickFastestAvailableSrc(candidates).then(best => {
+                if (best) img.src = best;
+                else if (img.dataset.src) img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                img.classList.add('loaded');
+            });
+        } else {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            img.classList.add('loaded');
+        }
+    });
+}
+
+// Performance: Throttle scroll events
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(() => {
+        // Scroll-based functionality here
+    });
+}, { passive: true });
+
+// ===== Загрузка проживания с сервера бронирований =====
+const API_BASE_URL = (window.CONFIG && window.CONFIG.apiBaseUrl) || '/api';
+// Дата для витринных цен: всегда 1 июня текущего года (UTC, без сдвига таймзоны)
+const SEASON_PRICE_DATE = String(new Date().getFullYear()) + '-06-01';
+
+// ==================== LOW-RES PLACEHOLDERS ====================
+// Low-res placeholder generator - создаёт SVG placeholder с blur-эффектом
+function generateLowResPlaceholder(dominantColor = '#daa520', secondaryColor = '#f5f5f5') {
+    const svg = `
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'>
+            <defs>
+                <linearGradient id='grad-${dominantColor.replace('#', '')}' x1='0%' y1='0%' x2='100%' y2='100%'>
+                    <stop offset='0%' style='stop-color:${secondaryColor};stop-opacity:1' />
+                    <stop offset='40%' style='stop-color:${dominantColor};stop-opacity:0.4' />
+                    <stop offset='100%' style='stop-color:${secondaryColor};stop-opacity:1' />
+                </linearGradient>
+                <filter id='blur-${dominantColor.replace('#', '')}'>
+                    <feGaussianBlur in='SourceGraphic' stdDeviation='2' />
+                </filter>
+            </defs>
+            <rect width='40' height='30' fill='url(#grad-${dominantColor.replace('#', '')})' filter='url(#blur-${dominantColor.replace('#', '')})'/>
+        </svg>
+    `.trim().replace(/\s+/g, ' ');
+    
+    return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+}
+
+// Low-res placeholders library для разных типов изображений
+const placeholderLibrary = {
+    'house': generateLowResPlaceholder('#8b7355', '#f5f5dc'), // Коричневые тона для домиков
+    'room': generateLowResPlaceholder('#d4af37', '#fff8dc'),  // Золотистые тона для номеров
+    'tent': generateLowResPlaceholder('#7cb342', '#f1f8e9'),  // Зелёные тона для палаток
+    'default': generateLowResPlaceholder('#daa520', '#f5f5f5') // Золотой по умолчанию
+};
+
+// Определяем тип изображения и возвращаем подходящий placeholder
+function getPlaceholderForImage(imagePath) {
+    if (!imagePath) return placeholderLibrary.default;
+    
+    const path = imagePath.toLowerCase();
+    if (path.includes('dom_') || path.includes('house')) {
+        return placeholderLibrary.house;
+    } else if (path.includes('rooms_') || path.includes('room')) {
+        return placeholderLibrary.room;
+    } else if (path.includes('tent')) {
+        return placeholderLibrary.tent;
+    }
+    return placeholderLibrary.default;
+}
+// ==================== END PLACEHOLDERS ====================
+
+// ===== Responsive image helpers (AVIF/WEBP/JPG/PNG fallbacks) =====
+function buildPreferredSources(originalPath) {
+    if (!originalPath) return [];
+    const safe = String(originalPath);
+    const dot = safe.lastIndexOf('.');
+    if (dot < 0) return [safe];
+
+    const base = safe.slice(0, dot);
+    const ext = safe.slice(dot + 1).toLowerCase();
+
+    if (ext === 'svg') return [safe];
+
+    // prefer AVIF -> WEBP -> original
+    return [`${base}.avif`, `${base}.webp`, safe];
+}
+
+function pickFastestAvailableSrc(candidates) {
+    return new Promise((resolve) => {
+        if (!candidates || !candidates.length) return resolve(null);
+        let i = 0;
+        const tryNext = () => {
+            if (i >= candidates.length) return resolve(null);
+            const src = candidates[i++];
+            const t = new Image();
+            t.onload = () => resolve(src);
+            t.onerror = () => tryNext();
+            t.src = src;
+        };
+        tryNext();
+    });
+}
+// ===== End responsive image helpers =====
+
+// Image mapping for objects
+const objectImages = {
+    // Домики
+    'H-08': ['images/rooms_8/1.webp', 'images/rooms_8/2.webp', 'images/rooms_8/3.webp'],
+    'H-09': ['images/rooms_9/1.webp', 'images/rooms_9/2.webp', 'images/rooms_9/3.webp'],
+    'H-10': ['images/rooms_10/1.jpg', 'images/rooms_10/2.webp', 'images/rooms_10/3.webp'],
+    'H-11': ['images/rooms_11/1.webp', 'images/rooms_11/2.webp', 'images/rooms_11/3.webp'],
+    'H-12': ['images/rooms_12/1.webp', 'images/rooms_12/2.webp', 'images/rooms_12/3.webp'],
+    'H-13': ['images/rooms_13/1.webp', 'images/rooms_13/2.webp', 'images/rooms_13/3.webp'],
+    'H-14': ['images/dom_14/1.webp', 'images/dom_14/2.webp', 'images/dom_14/3.webp', 'images/dom_14/4.webp'],
+    
+    // Номера корпус 1
+    'R-101': ['images/rooms_1/1.webp', 'images/rooms_1/2.webp', 'images/rooms_1/3.webp'],
+    'R-102': ['images/rooms_1/1.webp', 'images/rooms_1/2.webp', 'images/rooms_1/3.webp'],
+    'R-103': ['images/rooms_1/1.webp', 'images/rooms_1/2.webp', 'images/rooms_1/3.webp'],
+    'R-104': ['images/rooms_1/1.webp', 'images/rooms_1/2.webp', 'images/rooms_1/3.webp'],
+    'R-105': ['images/rooms_1/1.webp', 'images/rooms_1/2.webp', 'images/rooms_1/3.webp'],
+    
+    // Номера корпус 2
+    'R-201': ['images/rooms_2/1.webp', 'images/rooms_2/2.webp', 'images/rooms_2/3.webp'],
+    'R-202': ['images/rooms_2/1.webp', 'images/rooms_2/2.webp', 'images/rooms_2/3.webp'],
+    'R-203': ['images/rooms_2/1.webp', 'images/rooms_2/2.webp', 'images/rooms_2/3.webp'],
+    'R-204': ['images/rooms_2/1.webp', 'images/rooms_2/2.webp', 'images/rooms_2/3.webp'],
+    'R-205': ['images/rooms_2/1.webp', 'images/rooms_2/2.webp', 'images/rooms_2/3.webp'],
+    
+    // Номера корпус 4
+    'R-401': ['images/rooms_4/1.webp', 'images/rooms_4/2.webp', 'images/rooms_4/3.webp'],
+    'R-402': ['images/rooms_4/1.webp', 'images/rooms_4/2.webp', 'images/rooms_4/3.webp'],
+    'R-403': ['images/rooms_4/1.webp', 'images/rooms_4/2.webp', 'images/rooms_4/3.webp'],
+    'R-404': ['images/rooms_4/1.webp', 'images/rooms_4/2.webp', 'images/rooms_4/3.webp'],
+    
+    // Номера корпус 6
+    'R-601': ['images/rooms_6/1.webp', 'images/rooms_6/2.webp', 'images/rooms_6/3.webp'],
+    'R-602': ['images/rooms_6/1.webp', 'images/rooms_6/2.webp', 'images/rooms_6/3.webp'],
+    'R-603': ['images/rooms_6/1.webp', 'images/rooms_6/2.webp', 'images/rooms_6/3.webp'],
+    'R-604': ['images/rooms_6/1.webp', 'images/rooms_6/2.webp', 'images/rooms_6/3.webp'],
+    'R-605': ['images/rooms_6/1.webp', 'images/rooms_6/2.webp', 'images/rooms_6/3.webp'],
+    'R-606': ['images/rooms_6/1.webp', 'images/rooms_6/2.webp', 'images/rooms_6/3.webp'],
+    
+    // Номера корпус 11
+    'R-1101': ['images/rooms_11/1.webp', 'images/rooms_11/2.webp', 'images/rooms_11/3.webp'],
+    'R-1102': ['images/rooms_11/1.webp', 'images/rooms_11/2.webp', 'images/rooms_11/3.webp'],
+    'R-1103': ['images/rooms_11/1.webp', 'images/rooms_11/2.webp', 'images/rooms_11/3.webp'],
+    'R-1104': ['images/rooms_11/1.webp', 'images/rooms_11/2.webp', 'images/rooms_11/3.webp'],
+    'R-1105': ['images/rooms_11/1.webp', 'images/rooms_11/2.webp', 'images/rooms_11/3.webp'],
+    
+    // Номера корпус 13
+    'R-1301': ['images/rooms_13/1.webp', 'images/rooms_13/2.webp', 'images/rooms_13/3.webp'],
+    'R-1302': ['images/rooms_13/1.webp', 'images/rooms_13/2.webp', 'images/rooms_13/3.webp'],
+    'R-1303': ['images/rooms_13/1.webp', 'images/rooms_13/2.webp', 'images/rooms_13/3.webp'],
+    'R-1304': ['images/rooms_13/1.webp', 'images/rooms_13/2.webp', 'images/rooms_13/3.webp'],
+    'R-1305': ['images/rooms_13/1.webp', 'images/rooms_13/2.webp', 'images/rooms_13/3.webp'],
+    'R-1306': ['images/rooms_13/1.webp', 'images/rooms_13/2.webp', 'images/rooms_13/3.webp'],
+    
+    // Палатки
+    'TENT-1': ['images/camping/1.webp', 'images/camping/2.webp', 'images/camping/3.webp', 'images/camping/4.webp', 'images/camping/6.webp', 'images/camping/7.jfif', 'images/camping/8.jfif', 'images/camping/9.jfif'],
+    
+    'default': ['images/Фон.jpg']
+};
+
+// Format price to Russian currency
+function formatPrice(price) {
+    return new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency: 'RUB',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(price);
+}
+
+// Актуальная цена только из effectivePricePerDay / effectivePricePerHour (не basePricePerDay)
+function getDisplayPrice(obj) {
+    const day = obj.effectivePricePerDay != null ? Number(obj.effectivePricePerDay) : null;
+    const hour = obj.effectivePricePerHour != null ? Number(obj.effectivePricePerHour) : null;
+    if (day != null && day > 0) return { value: day, unit: '/сутки' };
+    if (hour != null && hour > 0) return { value: hour, unit: '/час' };
+    return { value: 0, unit: '' };
+}
+
+// Склонение числительных для русского языка
+function pluralize(number, one, few, many) {
+    const mod10 = number % 10;
+    const mod100 = number % 100;
+    
+    if (mod10 === 1 && mod100 !== 11) {
+        return `${number} ${one}`;
+    } else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) {
+        return `${number} ${few}`;
+    } else {
+        return `${number} ${many}`;
+    }
+}
+
+// Get images for object: prefer API photoUrls, fallback to objectImages by internalCode
+function getObjectImage(obj) {
+    if (obj && obj.photoUrls && Array.isArray(obj.photoUrls) && obj.photoUrls.length > 0) {
+        const resolve = typeof window.resolveApiUploadUrl === 'function' ? window.resolveApiUploadUrl : function(x) { return x; };
+        return obj.photoUrls.map(function(u) { return resolve(u); });
+    }
+    const code = (obj && obj.internalCode) ? obj.internalCode : obj;
+    return objectImages[code] || objectImages['default'];
+}
+
+// Render houses
+function renderHouses(houses) {
+    const container = document.getElementById('houses-container');
+    if (!container) return;
+
+    if (houses.length === 0) {
+        container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-12"><p>Домики временно недоступны</p></div>';
+        return;
+    }
+
+    container.innerHTML = houses.map(house => {
+        const images = getObjectImage(house);
+        const { value: price, unit: priceUnit } = getDisplayPrice(house);
+        const capacity = house.capacity || 'Уточняйте';
+
+        return `
+            <div class="accommodation-card bg-white shadow-xl group reveal-up">
+                <div class="relative h-64 overflow-hidden image-container">
+                    <div class="image-slider relative w-full h-full" data-active-index="0">
+                        <button type="button" class="image-zoom-btn absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center z-10" aria-label="Увеличить фото">
+                            <i class="fas fa-magnifying-glass-plus text-sm"></i>
+                        </button>
+                        ${images.map((img, idx) => {
+                            const candidates = buildPreferredSources(img);
+                            return `
+                                <img data-src="${img}"
+                                     data-src-candidates="${candidates.join(',')}"
+                                     src="${getPlaceholderForImage(img)}"
+                                     alt="${house.name || 'Домик'}"
+                                     class="slider-image lazy-image w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}"
+                                     data-index="${idx}"
+                                     loading="${idx === 0 ? 'eager' : 'lazy'}"
+                                     decoding="${idx === 0 ? 'sync' : 'async'}">
+                            `;
+                        }).join('')}
+                        ${images.length > 1 ? `
+                            <button class="slider-prev absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center z-10">
+                                <i class="fas fa-chevron-left text-sm"></i>
+                            </button>
+                            <button class="slider-next absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center z-10">
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+                            <div class="slider-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                                ${images.map((_, idx) => `
+                                    <button class="slider-dot w-2 h-2 rounded-full transition-all ${idx === 0 ? 'bg-brand-gold w-6' : 'bg-white/70'}" data-index="${idx}"></button>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    ${house.type && house.type.name ? `<span class="absolute top-4 left-4 bg-brand-gold text-white px-3 py-1 text-xs uppercase tracking-wider z-20">${house.type.name}</span>` : ''}
+                </div>
+
+                <div class="p-6">
+                    <h3 class="text-2xl font-serif text-brand-dark mb-2">${house.name}</h3>
+                    <div class="description-container mb-4">
+                        <p class="description-text text-gray-500 text-sm line-clamp-2">${house.description || 'Комфортный домик для вашего отдыха'}</p>
+                        <button class="show-more-btn text-brand-gold text-xs mt-1 hover:underline">Показать больше</button>
+                    </div>
+
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-brand-gold mr-2"></i>
+                            <span class="text-sm text-gray-600">до ${capacity} человек</span>
+                        </div>
+                    </div>
+
+                    <div class="text-brand-gold font-bold text-2xl mb-4">
+                        ${price > 0 ? `от ${formatPrice(price)}${priceUnit}` : 'Цена по запросу'}
+                    </div>
+
+                    <div class="booking-dates-panel hidden mt-4 mb-3 p-3 bg-amber-50/90 rounded-lg border border-brand-gold/30">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Даты проживания</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-brand-gold pointer-events-none z-[1]" aria-hidden="true"><i class="fa-regular fa-calendar"></i></span>
+                            <input type="text" class="accommodation-widget-dates w-full border border-gray-200 bg-white pl-10 pr-3 py-2 rounded text-sm" placeholder="Заезд — выезд" readonly autocomplete="off">
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 leading-snug">Выберите даты, затем снова нажмите «Забронировать онлайн» — откроется согласие и форма бронирования.</p>
+                    </div>
+
+                    <div class="booking-actions">
+                        <a href="#" data-config="widget" data-booking-widget-link data-widget-period="daily" data-widget-object-id="${house.id || ''}" class="btn btn-online">Забронировать онлайн</a>
+                        <a data-config="telegram" href="#" target="_blank" rel="noopener" class="btn btn-telegram">
+                            Забронировать через
+                            <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+                        </a>
+                        <a data-config="max" href="#" target="_blank" rel="noopener" class="btn btn-max">
+                            <img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+    if (typeof window.applyConfig === 'function') window.applyConfig();
+    if (typeof window.initAccommodationWidgetDatepickers === 'function') window.initAccommodationWidgetDatepickers();
+}
+
+// Номера в корпусе: первый код карточки → все internalCode этого корпуса (для кнопок выбора номера).
+// Если в админке не заполнен internalCode, группировка идёт по префиксу имени до слова «комната» (см. roomBuildingGroupKey в loadAccommodations).
+var ROOM_BUILDING_UNIT_CODES = {
+    'R-101': ['R-101', 'R-102', 'R-103', 'R-104', 'R-105'],
+    'R-201': ['R-201', 'R-202', 'R-203', 'R-204', 'R-205'],
+    'R-401': ['R-401', 'R-402', 'R-403', 'R-404'],
+    'R-601': ['R-601', 'R-602', 'R-603', 'R-604', 'R-605', 'R-606'],
+    'R-1101': ['R-1101', 'R-1102', 'R-1103', 'R-1104', 'R-1105', 'R-1106'],
+    'R-1301': ['R-1301', 'R-1302', 'R-1303', 'R-1304', 'R-1305', 'R-1306']
+};
+
+function getRoomUnitsForCard(leaderInternalCode, apiObjects) {
+    var codes = ROOM_BUILDING_UNIT_CODES[leaderInternalCode];
+    if (!codes || !apiObjects || !apiObjects.length) return [];
+    var byCode = {};
+    apiObjects.forEach(function (o) {
+        if (o && o.internalCode) byCode[o.internalCode] = o;
+    });
+    return codes.map(function (c) { return byCode[c]; }).filter(Boolean);
+}
+
+function roomUnitButtonLabel(obj) {
+    if (!obj) return '—';
+    var m = (obj.internalCode || '').match(/^R-(.+)$/);
+    if (m) return '№' + m[1];
+    return (obj.name && String(obj.name).trim()) ? String(obj.name).trim() : (obj.internalCode || '—');
+}
+
+// Render rooms (rooms: массив { leader, units } из API)
+function renderRooms(rooms) {
+    const container = document.getElementById('rooms-container');
+    if (!container) return;
+
+    if (rooms.length === 0) {
+        container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-12"><p>Номера временно недоступны</p></div>';
+        return;
+    }
+
+    container.innerHTML = rooms.map(group => {
+        const room = group.leader;
+        const roomUnits = (group.units && group.units.length) ? group.units : [room];
+        const images = getObjectImage(room);
+        const { value: price, unit: priceUnit } = getDisplayPrice(room);
+        const capacity = room.capacity || 'Уточняйте';
+
+        // Убираем "комната X" и все что после нее из названия
+        let roomName = room.name;
+        if (roomName && roomName.toLowerCase().includes('комната')) {
+            roomName = roomName.split(/комната/i)[0].trim();
+        }
+
+        const roomsCount = {
+            'R-101': 5, 'R-201': 5, 'R-401': 4, 'R-601': 6, 'R-1101': 6, 'R-1301': 6
+        };
+        const totalRooms = roomsCount[room.internalCode] || roomUnits.length || 0;
+        const roomPickerHtml = roomUnits.length >= 1 ? `
+                        <div class="booking-room-units mt-3">
+                            <span class="block text-xs font-medium text-gray-600 mb-2">Выберите номер</span>
+                            <div class="flex flex-wrap gap-2" role="group" aria-label="Номер в корпусе">
+                                ${roomUnits.map(function (u) {
+                                    var active = String(u.id) === String(room.id);
+                                    return '<button type="button" class="accommodation-room-unit-btn px-3 py-1.5 rounded border text-sm transition-colors ' + (active ? 'bg-brand-gold text-white border-brand-gold' : 'bg-white text-brand-dark border-gray-200 hover:border-brand-gold') + '" data-object-id="' + (u.id || '') + '">' + roomUnitButtonLabel(u).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;') + '</button>';
+                                }).join('')}
+                            </div>
+                        </div>` : '';
+
+        return `
+            <div class="accommodation-card bg-white shadow-xl group reveal-up">
+                <div class="relative h-64 overflow-hidden image-container">
+                    <div class="image-slider relative w-full h-full" data-active-index="0">
+                        <button type="button" class="image-zoom-btn absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center z-10" aria-label="Увеличить фото">
+                            <i class="fas fa-magnifying-glass-plus text-sm"></i>
+                        </button>
+                        ${images.map((img, idx) => {
+                            const candidates = buildPreferredSources(img);
+                            return `
+                                <img data-src="${img}"
+                                     data-src-candidates="${candidates.join(',')}"
+                                     src="${getPlaceholderForImage(img)}"
+                                     alt="${roomName}"
+                                     class="slider-image lazy-image w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}"
+                                     data-index="${idx}"
+                                     loading="${idx === 0 ? 'eager' : 'lazy'}"
+                                     decoding="${idx === 0 ? 'sync' : 'async'}">
+                            `;
+                        }).join('')}
+                        ${images.length > 1 ? `
+                            <button class="slider-prev absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center z-10">
+                                <i class="fas fa-chevron-left text-sm"></i>
+                            </button>
+                            <button class="slider-next absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center z-10">
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+                            <div class="slider-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                                ${images.map((_, idx) => `
+                                    <button class="slider-dot w-2 h-2 rounded-full transition-all ${idx === 0 ? 'bg-brand-gold w-6' : 'bg-white/70'}" data-index="${idx}"></button>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    ${room.type && room.type.name ? `<span class="absolute top-4 left-4 bg-brand-gold text-white px-3 py-1 text-xs uppercase tracking-wider z-20">${room.type.name}</span>` : ''}
+                </div>
+
+                <div class="p-6">
+                    <h3 class="text-2xl font-serif text-brand-dark mb-2">${roomName}</h3>
+                    <div class="description-container mb-4">
+                        <p class="description-text text-gray-500 text-sm line-clamp-2">${room.description || 'Уютный номер для комфортного проживания'}</p>
+                        <button class="show-more-btn text-brand-gold text-xs mt-1 hover:underline">Показать больше</button>
+                    </div>
+
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-brand-gold mr-2"></i>
+                            <span class="text-sm text-gray-600">до ${capacity} человек</span>
+                        </div>
+                        ${totalRooms > 0 ? `
+                            <div class="flex items-center">
+                                <i class="fas fa-door-open text-brand-gold mr-2"></i>
+                                <span class="text-sm text-gray-600">${pluralize(totalRooms, 'комната', 'комнаты', 'комнат')} в корпусе</span>
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="text-brand-gold font-bold text-2xl mb-4">
+                        ${price > 0 ? `от ${formatPrice(price)}${priceUnit}` : 'Цена по запросу'}
+                    </div>
+
+                    <div class="booking-dates-panel hidden mt-4 mb-3 p-3 bg-amber-50/90 rounded-lg border border-brand-gold/30">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Даты проживания</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-brand-gold pointer-events-none z-[1]" aria-hidden="true"><i class="fa-regular fa-calendar"></i></span>
+                            <input type="text" class="accommodation-widget-dates w-full border border-gray-200 bg-white pl-10 pr-3 py-2 rounded text-sm" placeholder="Заезд — выезд" readonly autocomplete="off">
+                        </div>
+                        ${roomPickerHtml}
+                        <p class="text-xs text-gray-500 mt-2 leading-snug">Выберите даты и при необходимости номер, затем снова нажмите «Забронировать онлайн» — откроется согласие и форма бронирования.</p>
+                    </div>
+
+                    <div class="booking-actions">
+                        <a href="#" data-config="widget" data-booking-widget-link data-widget-period="daily" data-widget-object-id="${room.id || ''}" class="btn btn-online">Забронировать онлайн</a>
+                        <a data-config="telegram" href="#" target="_blank" rel="noopener" class="btn btn-telegram">
+                            Забронировать через
+                            <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+                        </a>
+                        <a data-config="max" href="#" target="_blank" rel="noopener" class="btn btn-max">
+                            <img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+    if (typeof window.applyConfig === 'function') window.applyConfig();
+    if (typeof window.initAccommodationWidgetDatepickers === 'function') window.initAccommodationWidgetDatepickers();
+}
+
+// Render tents from API
+function renderTents(tents) {
+    const container = document.getElementById('tents-container');
+    if (!container) return;
+
+    if (tents.length === 0) {
+        container.innerHTML = '<div class="w-full text-center text-gray-500 py-12"><p>Палатки временно недоступны</p></div>';
+        return;
+    }
+
+    container.innerHTML = tents.map(tent => {
+        const images = getObjectImage(tent);
+        const { value: price, unit: priceUnit } = getDisplayPrice(tent);
+        const capacity = tent.capacity || 'Уточняйте';
+
+        return `
+            <div class="accommodation-card bg-white shadow-xl group reveal-up w-full max-w-sm flex flex-col">
+                <div class="relative h-64 overflow-hidden image-container">
+                    <div class="image-slider relative w-full h-full" data-active-index="0">
+                        <button type="button" class="image-zoom-btn absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center z-10" aria-label="Увеличить фото">
+                            <i class="fas fa-magnifying-glass-plus text-sm"></i>
+                        </button>
+                        ${images.map((img, idx) => {
+                            const candidates = buildPreferredSources(img);
+                            return `
+                                <img data-src="${img}"
+                                     data-src-candidates="${candidates.join(',')}"
+                                     src="${getPlaceholderForImage(img)}"
+                                     alt="${tent.name || 'Палатка'}"
+                                     class="slider-image lazy-image w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}"
+                                     data-index="${idx}"
+                                     loading="${idx === 0 ? 'eager' : 'lazy'}"
+                                     decoding="${idx === 0 ? 'sync' : 'async'}">
+                            `;
+                        }).join('')}
+                        ${images.length > 1 ? `
+                            <button class="slider-prev absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center z-10">
+                                <i class="fas fa-chevron-left text-sm"></i>
+                            </button>
+                            <button class="slider-next absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center z-10">
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+                            <div class="slider-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                                ${images.map((_, idx) => `
+                                    <button class="slider-dot w-2 h-2 rounded-full transition-all ${idx === 0 ? 'bg-brand-gold w-6' : 'bg-white/70'}" data-index="${idx}"></button>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <a href="images/camping/%D0%91%D0%9E%20%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D1%8B%D0%B5%20%D0%BF%D0%B5%D1%81%D0%BA%D0%B8%20%D0%B2%D0%B0%D1%80%D0%B8%D0%B0%D0%BD%D1%82%201.pdf" target="_blank" rel="noopener" class="absolute bottom-2 right-2 bg-black/50 hover:bg-black/70 text-white px-3 py-2 rounded-lg text-xs flex items-center gap-2 z-10">
+                        <i class="fas fa-map"></i>
+                        <span>Карта</span>
+                    </a>
+                </div>
+
+                <div class="p-6 flex flex-col flex-1">
+                    <h3 class="text-2xl font-serif text-brand-dark mb-2 min-h-[4rem]">${tent.name || 'Размещение палатки'}</h3>
+                    <div class="description-container mb-4">
+                        <p class="description-text text-gray-500 text-sm line-clamp-2">${tent.description || 'Удобные палатки с матрасами и всем необходимым для комфортного отдыха на природе.'}</p>
+                        <button class="show-more-btn text-brand-gold text-xs mt-1 hover:underline">Показать больше</button>
+                    </div>
+
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-brand-gold mr-2"></i>
+                            <span class="text-sm text-gray-600">до ${capacity} человек</span>
+                        </div>
+                    </div>
+
+                    <div class="text-brand-gold font-bold text-2xl mb-4 mt-auto">
+                        ${price > 0 ? `от ${formatPrice(price)}${priceUnit}` : 'Цена по запросу'}
+                    </div>
+
+                    <div class="booking-actions">
+                        <a data-config="phone-tents" href="#" class="btn btn-online">
+                            <i class="fas fa-phone-alt mr-2"></i>Позвонить
+                        </a>
+                        <a data-config="max" href="#" target="_blank" rel="noopener" class="btn btn-max">
+                            <img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+    if (typeof window.applyConfig === 'function') window.applyConfig();
+}
+
+// Initialize image sliders for accommodation cards
+function initializeImageSliders() {
+    // helper: ensure image is actually loaded (supports data-src / data-src-candidates)
+    const ensureSliderImageLoaded = (img) => {
+        if (!img) return;
+
+        // already real image
+        const currentSrc = img.getAttribute('src') || '';
+        const hasRealSrc = currentSrc && !currentSrc.startsWith('data:image');
+        if (hasRealSrc && !img.hasAttribute('data-src')) return;
+
+        const src = img.dataset.src;
+        const candidatesRaw = img.getAttribute('data-src-candidates') || '';
+        const candidates = candidatesRaw ? candidatesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+        // If no lazy attrs - nothing to do
+        if (!src && !candidates.length) return;
+
+        const apply = (finalSrc) => {
+            if (!finalSrc) return;
+            img.classList.add('loading');
+
+            const temp = new Image();
+            temp.onload = () => {
+                img.src = finalSrc;
+                img.classList.remove('loading');
+                img.classList.add('loaded');
+                img.removeAttribute('data-src');
+            };
+            temp.onerror = () => {
+                // keep placeholder on error
+                img.classList.remove('loading');
+            };
+            temp.src = finalSrc;
+        };
+
+        if (candidates.length && typeof pickFastestAvailableSrc === 'function') {
+            pickFastestAvailableSrc(candidates).then(best => apply(best || src));
+        } else {
+            apply(src);
+        }
+    };
+
+    const preloadAround = (images, activeIndex) => {
+        if (!images || images.length === 0) return;
+        ensureSliderImageLoaded(images[activeIndex]);
+        if (images.length > 1) {
+            ensureSliderImageLoaded(images[(activeIndex + 1) % images.length]);
+            ensureSliderImageLoaded(images[(activeIndex - 1 + images.length) % images.length]);
+        }
+    };
+
+    document.querySelectorAll('.image-slider').forEach(slider => {
+        const images = Array.from(slider.querySelectorAll('.slider-image'));
+        const prevBtn = slider.querySelector('.slider-prev');
+        const nextBtn = slider.querySelector('.slider-next');
+        const dots = Array.from(slider.querySelectorAll('.slider-dot'));
+
+        if (!prevBtn || !nextBtn || images.length <= 1) return;
+
+        let currentIndex = Number(slider.dataset.activeIndex || 0);
+
+        function applyActive(index) {
+            currentIndex = index;
+            slider.dataset.activeIndex = String(index);
+
+            // IMPORTANT: load the current (and adjacent) images immediately
+            preloadAround(images, currentIndex);
+
+            images.forEach((img, i) => {
+                const isActive = i === index;
+                img.style.opacity = isActive ? '1' : '0';
+                img.classList.toggle('opacity-100', isActive);
+                img.classList.toggle('opacity-0', !isActive);
+            });
+
+            dots.forEach((dot, i) => {
+                const isActive = i === index;
+                dot.classList.toggle('bg-brand-gold', isActive);
+                dot.classList.toggle('w-6', isActive);
+                dot.classList.toggle('bg-white/70', !isActive);
+            });
+        }
+
+        // preload once on init as well
+        preloadAround(images, currentIndex);
+        applyActive(currentIndex);
+
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            applyActive((currentIndex - 1 + images.length) % images.length);
+        });
+
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            applyActive((currentIndex + 1) % images.length);
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                applyActive(index);
+            });
+        });
+
+        // Preload on first user interaction with slider (works for static tents too)
+        const onFirstInteract = () => {
+            preloadAround(images, currentIndex);
+            slider.removeEventListener('pointerdown', onFirstInteract);
+            slider.removeEventListener('mouseenter', onFirstInteract);
+            slider.removeEventListener('touchstart', onFirstInteract);
+        };
+        slider.addEventListener('pointerdown', onFirstInteract, { passive: true });
+        slider.addEventListener('mouseenter', onFirstInteract, { passive: true });
+        slider.addEventListener('touchstart', onFirstInteract, { passive: true });
+    });
+
+    // Initialize "Show more" buttons
+    document.querySelectorAll('.show-more-btn').forEach(btn => {
+        const container = btn.closest('.description-container');
+        const text = container.querySelector('.description-text');
+        
+        // Проверяем, обрезается ли текст
+        // Используем scrollHeight vs clientHeight для более точной проверки
+        const isOverflowing = text.scrollHeight > text.clientHeight;
+        
+        // Если текст не обрезается, скрываем кнопку
+        if (!isOverflowing) {
+            btn.style.display = 'none';
+        } else {
+            btn.style.display = 'inline';
+            
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                if (text.classList.contains('line-clamp-2')) {
+                    text.classList.remove('line-clamp-2');
+                    btn.textContent = 'Показать меньше';
+                } else {
+                    text.classList.add('line-clamp-2');
+                    btn.textContent = 'Показать больше';
+                }
+            });
+        }
+    });
+}
+
+// Load accommodations from booking server
+async function loadAccommodations() {
+    try {
+        // Берём только активные объекты и эффективные цены на фиксированную дату (1 июня текущего года)
+        const response = await fetch(`${API_BASE_URL}/objects?isActive=true&displayPrice=${encodeURIComponent(SEASON_PRICE_DATE)}`);
+        if (!response.ok) {
+            throw new Error(`Ошибка загрузки: ${response.status}`);
+        }
+        const data = await response.json();
+        // Store for villaData and contact dropdown
+        window.apiObjects = data;
+        // Filter by type - only from API
+        const houses = data.filter(obj => {
+            if (!obj || !obj.type || !obj.type.name) return false;
+            const typeName = String(obj.type.name).toLowerCase();
+            const slug = (obj.type.slug || '').toLowerCase();
+            return typeName.includes('домик') || typeName.includes('коттедж') || typeName.includes('дом') || slug === 'domik';
+        });
+        function isRoomObject(obj) {
+            if (!obj || !obj.type) return false;
+            const typeName = String(obj.type.name || '').toLowerCase();
+            const slug = (obj.type.slug || '').toLowerCase();
+            return typeName.includes('номер') || typeName.includes('комната') || slug === 'rooms';
+        }
+        const roomObjs = data.filter(isRoomObject);
+        function roomBuildingGroupKey(obj) {
+            const code = (obj && obj.internalCode) ? String(obj.internalCode).trim() : '';
+            const map = typeof ROOM_BUILDING_UNIT_CODES !== 'undefined' ? ROOM_BUILDING_UNIT_CODES : {};
+            if (code) {
+                for (const L in map) {
+                    if (Object.prototype.hasOwnProperty.call(map, L) && map[L].indexOf(code) >= 0) return L;
+                }
+            }
+            // Дачи/номера без internalCode (или с опечаткой в названии): стабильный ключ «Дача "Эконом" №N» без лишних кавычек
+            const name = (obj && obj.name) ? String(obj.name) : '';
+            const economM = name.match(/Дача\s+"Эконом"\s+№\d+/i);
+            if (economM) return 'name:' + economM[0].replace(/\s+/g, ' ').trim();
+            if (name && /комната/i.test(name)) {
+                const prefix = name.split(/комната/i)[0].trim().replace(/\s+/g, ' ');
+                if (prefix) return 'name:' + prefix;
+            }
+            return 'solo:' + (obj.id || code || '');
+        }
+        const roomGroupsMap = {};
+        roomObjs.forEach(o => {
+            const k = roomBuildingGroupKey(o);
+            if (!roomGroupsMap[k]) roomGroupsMap[k] = [];
+            roomGroupsMap[k].push(o);
+        });
+        const rooms = Object.keys(roomGroupsMap).map(k => {
+            const units = roomGroupsMap[k].slice().sort((a, b) => {
+                const ca = String(a.internalCode || '').trim();
+                const cb = String(b.internalCode || '').trim();
+                if (ca !== cb) return ca.localeCompare(cb);
+                return String(a.name || '').localeCompare(String(b.name || ''), 'ru');
+            });
+            return { leader: units[0], units };
+        });
+        const tents = data.filter(obj => {
+            if (!obj || !obj.type) return false;
+            const typeName = String(obj.type.name || '').toLowerCase();
+            const slug = (obj.type.slug || '').toLowerCase();
+            return typeName.includes('палатка') || slug === 'camping';
+        });
+        // Build villaData from API for modal/dropdown
+        window.villaData = {};
+        data.forEach(obj => {
+            if (!obj || !obj.id) return;
+            const priceDay = (obj.effectivePricePerDay != null) ? Number(obj.effectivePricePerDay) : 0;
+            const priceHour = (obj.effectivePricePerHour != null) ? Number(obj.effectivePricePerHour) : null;
+            let priceStr = priceDay > 0 ? `от ${formatPrice(priceDay)}/сутки` : (priceHour != null ? `от ${formatPrice(priceHour)}/час` : 'Цена по запросу');
+            window.villaData[obj.id] = {
+                title: obj.name || '',
+                price: priceStr,
+                desc: obj.description || '',
+                tag: obj.type ? obj.type.name : '',
+                beds: '-',
+                baths: '-',
+                guests: obj.capacity ? `до ${obj.capacity} человек` : '',
+                images: getObjectImage(obj)
+            };
+        });
+        // Populate contact-villa dropdown if exists
+        const villaDropdown = document.getElementById('contact-villa');
+        if (villaDropdown && data.length) {
+            const accommodationOnly = data.filter(o => o.type && o.type.isAccommodations);
+            villaDropdown.innerHTML = '<option value="">Выберите вариант размещения</option>' +
+                accommodationOnly.map(o => {
+                    const priceDay = (o.effectivePricePerDay != null) ? Number(o.effectivePricePerDay) : 0;
+                    const priceHour = (o.effectivePricePerHour != null) ? Number(o.effectivePricePerHour) : null;
+                    const priceLabel = priceDay > 0
+                      ? `${formatPrice(priceDay)}/сутки`
+                      : (priceHour != null ? `${formatPrice(priceHour)}/час` : '');
+                    return `<option value="${o.name}">${o.name}${priceLabel ? ' — ' + priceLabel : ''}</option>`;
+                }).join('');
+        }
+        // Render
+        renderHouses(houses);
+        renderRooms(rooms);
+        renderTents(tents);
+        // Initialize image sliders
+        initializeImageSliders();
+        // Re-trigger GSAP animations for newly added elements
+        gsap.utils.toArray('.reveal-up').forEach(elem => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 60,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+    } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
+        const errorHTML = '<div class="col-span-full text-center text-red-500 py-12"><i class="fas fa-exclamation-triangle text-4xl mb-4"></i><p>Ошибка загрузки данных. Попробуйте обновить страницу.</p></div>';
+        const housesContainer = document.getElementById('houses-container');
+        const roomsContainer = document.getElementById('rooms-container');
+        const tentsContainer = document.getElementById('tents-container');
+        if (housesContainer) housesContainer.innerHTML = errorHTML;
+        if (roomsContainer) roomsContainer.innerHTML = errorHTML;
+        if (tentsContainer) tentsContainer.innerHTML = errorHTML;
+    }
+}
+
+// Консервация (bookingMode=placeholder): вместо каталога из API — заглушка с контактами.
+function showAccommodationApiPlaceholder() {
+    const note = '<div class="col-span-full w-full max-w-2xl mx-auto text-center bg-brand-cream rounded-lg shadow-md p-8">'
+        + '<i class="fas fa-phone-alt text-brand-gold text-3xl mb-4"></i>'
+        + '<p class="text-gray-600">Актуальный перечень размещения и цены уточняйте по телефону или в мессенджере — мы быстро ответим.</p>'
+        + '<div class="mt-4 flex flex-wrap justify-center gap-3">'
+        + (window.GSBooking ? window.GSBooking.contactsHtml() : '')
+        + '</div></div>';
+    ['houses-container', 'rooms-container', 'tents-container'].forEach(function(id) {
+        const container = document.getElementById(id);
+        if (container) container.innerHTML = note;
+    });
+}
+
+// Initialize API loading when page is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // 1) Сначала инициализируем слайдеры на статичном HTML (кемпинг и т.п.)
+    try { initializeImageSliders(); } catch (_) {}
+
+    if (!window.__accommodationRoomUnitClickBound) {
+        window.__accommodationRoomUnitClickBound = true;
+        document.body.addEventListener('click', function (e) {
+            var btn = e.target.closest('.accommodation-room-unit-btn');
+            if (!btn) return;
+            var card = btn.closest('.accommodation-card');
+            if (!card) return;
+            var link = card.querySelector('a[data-booking-widget-link][data-widget-object-id]');
+            if (!link) return;
+            var id = btn.getAttribute('data-object-id');
+            if (!id) return;
+            card.querySelectorAll('.accommodation-room-unit-btn').forEach(function (b) {
+                var on = b === btn;
+                b.classList.toggle('bg-brand-gold', on);
+                b.classList.toggle('text-white', on);
+                b.classList.toggle('border-brand-gold', on);
+                b.classList.toggle('bg-white', !on);
+                b.classList.toggle('text-brand-dark', !on);
+                b.classList.toggle('border-gray-200', !on);
+            });
+            link.setAttribute('data-widget-object-id', id);
+            if (typeof window.refreshWidgetBookingHrefForLink === 'function') {
+                link.setAttribute('href', window.refreshWidgetBookingHrefForLink(link));
+            }
+        });
+    }
+
+    // 2) Затем грузим API (после рендера вызывается initializeImageSliders() ещё раз).
+    // В режиме placeholder (консервация) API не дёргаем — контейнеры получают заглушку с контактами.
+    if (window.GSBooking && !window.GSBooking.isLive()) {
+        showAccommodationApiPlaceholder();
+    } else {
+        loadAccommodations();
+    }
+});
+
+// Fast preloader fallback: не скрываем прелоадер мгновенно — ставим страховочный таймер
+document.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById('loader');
+    if (!loader) return;
+
+    // Если window.load по каким-то причинам долго не наступает (медленные/битые ресурсы),
+    // показываем контент через небольшой тайм-аут.
+    const FALLBACK_HIDE_AFTER_MS = 1200;
+
+    setTimeout(() => {
+        if (loader.dataset.hidden === 'true') return;
+
+        loader.style.transition = 'opacity 0.45s ease';
+        loader.style.opacity = '0';
+
+        setTimeout(() => {
+            loader.style.display = 'none';
+            loader.dataset.hidden = 'true';
+        }, 500);
+    }, FALLBACK_HIDE_AFTER_MS);
+});
+
+// Устанавливаем маркер, когда окно полностью загрузилось
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    if (loader) loader.dataset.hidden = 'true';
+});
+
+// ===== Image Zoom (Loupe): fullscreen slider =====
+(function initImageZoom() {
+    const modal = document.getElementById('image-zoom-modal');
+    const modalImg = document.getElementById('image-zoom-img');
+    const closeBtn = document.getElementById('image-zoom-close');
+    const prevBtn = document.getElementById('image-zoom-prev');
+    const nextBtn = document.getElementById('image-zoom-next');
+    const dotsWrap = document.getElementById('image-zoom-dots');
+    if (!modal || !modalImg || !closeBtn || !prevBtn || !nextBtn || !dotsWrap) return;
+
+    let images = [];
+    let currentIndex = 0;
+
+    function ensureLoupeButtons() {
+        document.querySelectorAll('.image-slider').forEach(slider => {
+            // Skip if a zoom button already exists
+            if (slider.querySelector('.image-zoom-btn')) return;
+
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'image-zoom-btn absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center z-10';
+            btn.setAttribute('aria-label', 'Увеличить фото');
+            btn.innerHTML = '<i class="fas fa-magnifying-glass-plus text-sm"></i>';
+            slider.appendChild(btn);
+        });
+    }
+
+    function getActiveIndex(sliderImages, slider) {
+        const fromDataset = slider && slider.dataset ? Number(slider.dataset.activeIndex) : NaN;
+        if (!Number.isNaN(fromDataset) && fromDataset >= 0) return fromDataset;
+        const idx = sliderImages.findIndex(img => window.getComputedStyle(img).opacity === '1');
+        return idx >= 0 ? idx : 0;
+    }
+
+    function getImageSrc(img) {
+        const src = img.getAttribute('src') || '';
+        if (src && !src.startsWith('data:')) return src;
+        return img.dataset.src || src;
+    }
+
+    function isPlaceholderSrc(src) {
+        return !src || src.startsWith('data:image/svg+xml');
+    }
+
+    function isMapSlide(src) {
+        return typeof src === 'string' && src.toLowerCase().includes('map.svg');
+    }
+
+    function ensureImageLoaded(img) {
+        // If lazy image still has data-src, force it to load before opening modal
+        const ds = img.dataset && img.dataset.src;
+        const current = img.getAttribute('src') || '';
+
+        if (ds && (isPlaceholderSrc(current) || !current)) {
+            img.classList.add('loading');
+            const temp = new Image();
+            temp.onload = () => {
+                img.src = ds;
+                img.classList.remove('loading');
+                img.classList.add('loaded');
+                img.removeAttribute('data-src');
+            };
+            temp.onerror = () => {
+                // Keep current src (placeholder) on error
+                img.classList.remove('loading');
+            };
+            temp.src = ds;
+        }
+    }
+
+    function openFromSlider(slider) {
+        const sliderImgs = Array.from(slider.querySelectorAll('img.slider-image'));
+
+        // Force-load images so card and modal use same real sources
+        sliderImgs.forEach(ensureImageLoaded);
+
+        images = sliderImgs
+            .map(getImageSrc)
+            .filter(src => src && !isPlaceholderSrc(src) && !isMapSlide(src));
+
+        const activeIdx = getActiveIndex(sliderImgs, slider);
+        const activeSrc = getImageSrc(sliderImgs[activeIdx]);
+        currentIndex = Math.max(0, images.indexOf(activeSrc));
+
+        if (!images.length) return;
+
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        show();
+    }
+
+    function renderDots() {
+        dotsWrap.innerHTML = '';
+        images.forEach((_, idx) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'w-2 h-2 rounded-full transition-all ' + (idx === currentIndex ? 'bg-[#D4AF37] w-6' : 'bg-white/70');
+            dot.setAttribute('aria-label', `Фото ${idx + 1}`);
+            dot.addEventListener('click', () => {
+                currentIndex = idx;
+                show();
+            });
+            dotsWrap.appendChild(dot);
+        });
+    }
+
+    function show() {
+        const src = images[currentIndex];
+        if (!src) return;
+        modalImg.src = src;
+        renderDots();
+    }
+
+    function close() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.removeAttribute('src');
+        dotsWrap.innerHTML = '';
+        images = [];
+        currentIndex = 0;
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.image-zoom-btn');
+        if (!btn) return;
+        const slider = btn.closest('.image-slider');
+        if (!slider) return;
+        openFromSlider(slider);
+    });
+
+    prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!images.length) return;
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        show();
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!images.length) return;
+        currentIndex = (currentIndex + 1) % images.length;
+        show();
+    });
+
+    closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        close();
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+    });
+
+    // Initial + dynamic content support (API renders cards later)
+    ensureLoupeButtons();
+    const mo = new MutationObserver(() => ensureLoupeButtons());
+    mo.observe(document.body, { childList: true, subtree: true });
+})();
+
+// ===== Booking consent modal logic =====
+(function() {
+    function getWidgetBaseUrl() {
+        var u = (window.CONFIG && window.CONFIG.widgetUrl) || '';
+        u = String(u).trim();
+        if (!u) return '';
+        return u.replace(/\/+$/, '') + '/';
+    }
+    var WIDGET_URL = getWidgetBaseUrl();
+
+    function resolveWidgetTargetUrl(href) {
+        var h = (href || '').trim();
+        if (!h || h === '#' || h.toLowerCase().indexOf('javascript:') === 0) return getWidgetBaseUrl() || WIDGET_URL;
+        return h;
+    }
+    const modal = document.getElementById('booking-consent-modal');
+    const btnClose = document.querySelector('[data-booking-consent-close]');
+    const btnCancel = document.querySelector('[data-booking-consent-cancel]');
+    const consent1 = document.getElementById('booking-consent-1');
+    const consent2 = document.getElementById('booking-consent-2');
+    const btnContinue = document.getElementById('booking-consent-continue');
+
+    if (!modal || !btnContinue || !consent1 || !consent2) return;
+
+    let pendingUrl = WIDGET_URL;
+
+    function setContinueState() {
+        const ok = !!(consent1.checked && consent2.checked);
+        btnContinue.classList.toggle('pointer-events-none', !ok);
+        btnContinue.classList.toggle('opacity-50', !ok);
+        btnContinue.setAttribute('aria-disabled', String(!ok));
+    }
+
+    function openModal(url) {
+        pendingUrl = resolveWidgetTargetUrl(url);
+        btnContinue.setAttribute('href', pendingUrl);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        setContinueState();
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+
+    // Direct redirect to widget for booking links (skip consent modal)
+    document.addEventListener('click', (e) => {
+        const base = getWidgetBaseUrl();
+        var link = e.target && e.target.closest && e.target.closest('a[data-booking-widget-link]');
+        if (!link && base) {
+            link = e.target && e.target.closest && e.target.closest('a[href="' + base + '"]');
+        }
+        if (!link) return;
+
+        // allow cmd/ctrl click to behave normally
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+        e.preventDefault();
+        var oid = (link.getAttribute('data-widget-object-id') || '').trim();
+        if (oid) {
+            var ci = (link.getAttribute('data-widget-check-in') || '').trim();
+            var co = (link.getAttribute('data-widget-check-out') || '').trim();
+            var iso = /^\d{4}-\d{2}-\d{2}$/;
+            if (!iso.test(ci) || !iso.test(co) || ci >= co) {
+                if (typeof window.accommodationOpenBookingDates === 'function') {
+                    window.accommodationOpenBookingDates(link);
+                }
+                return;
+            }
+        }
+        if (typeof window.refreshWidgetBookingHrefForLink === 'function') {
+            link.setAttribute('href', window.refreshWidgetBookingHrefForLink(link));
+        }
+        const url = link.getAttribute('href') || WIDGET_URL;
+        if (url && url !== '#') {
+            window.open(url, '_blank', 'noopener');
+        }
+    });
+
+    // Explicit navigation on "Continue"
+    btnContinue.addEventListener('click', (e) => {
+        const ok = !!(consent1.checked && consent2.checked);
+        if (!ok) {
+            e.preventDefault();
+            setContinueState();
+            return;
+        }
+
+        e.preventDefault();
+        const url = resolveWidgetTargetUrl(btnContinue.getAttribute('href') || pendingUrl || getWidgetBaseUrl());
+        if (!url) return;
+        closeModal();
+        window.open(url, '_blank', 'noopener');
+    });
+
+    // Enable/disable continue
+    consent1.addEventListener('change', setContinueState);
+    consent2.addEventListener('change', setContinueState);
+
+    // Close handlers
+    if (btnClose) btnClose.addEventListener('click', closeModal);
+    if (btnCancel) btnCancel.addEventListener('click', closeModal);
+
+    // Close when clicking on backdrop
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // ESC closes
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+})();
+// ===== /Booking consent modal logic =====
+
+    // Динамическая подгрузка header и footer
+    function loadInclude(id, url) {
+      fetch(url)
+        .then(r => r.text())
+        .then(html => {
+          const container = document.getElementById(id);
+          container.innerHTML = html;
+          container.querySelectorAll('script').forEach(oldScript => {
+            const newScript = document.createElement('script');
+            if (oldScript.src) {
+              newScript.src = oldScript.src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            Array.from(oldScript.attributes).forEach(attr => {
+              newScript.setAttribute(attr.name, attr.value);
+            });
+            oldScript.replaceWith(newScript);
+          });
+        });
+    }
+    loadInclude('header-placeholder', 'header.html');
+    loadInclude('footer-placeholder', 'footer.html');
+    </script>
+</body>
+</html>
+``` 

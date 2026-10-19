@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты | Золотые пески</title>
+    <meta name="description" content="Контакты базы отдыха «Золотые пески» на Тургояке: телефон, Telegram-бот для бронирования, адрес, как доехать. Миасс, Челябинская область.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Контакты | Золотые пески">
+    <meta property="og:description" content="Телефон, Telegram, адрес. Свяжитесь с нами для бронирования.">
+    <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+    <meta property="og:url" content="https://bazaturgoyak.ru/contacts.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Золотые пески">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/config.js"></script>
+    <script src="js/apply-config.js"></script>
+    <script src="js/booking-mode.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4AF37; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b5952f; 
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+/* Hero Background Transition */
+#hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Villa Card Hover Effects */
+.villa-card:hover .villa-img {
+    transform: scale(1.1);
+}
+
+.villa-card {
+    overflow: hidden;
+}
+
+.villa-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating Icons */
+.floating-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.floating-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal Styles */
+#villa-modal {
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Transition */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        max-height: 95vh;
+    }
+}
+
+/* Focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Button hover effects */
+button:hover,
+a.button:hover {
+    cursor: pointer;
+}
+
+/* Parallax effect for background images */
+.bg-fixed {
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll;
+    }
+}
+
+/* Адаптивность: контакты */
+.contacts-map-iframe {
+    min-height: 280px;
+    height: 280px;
+}
+@media (min-width: 640px) {
+    .contacts-map-iframe { height: 350px; }
+}
+@media (min-width: 768px) {
+    .contacts-map-iframe { height: 450px; }
+}
+.contacts-long-text {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+</style>
+    
+    <!-- Tailwind Config -->
+    <script>
+// Tailwind CSS Configuration
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'brand-gold': '#D4AF37',
+                'brand-dark': '#1a1a1a',
+                'brand-green': '#2C3E50',
+                'brand-cream': '#F9F9F5',
+            },
+            fontFamily: {
+                serif: ['"Playfair Display"', 'serif'],
+                sans: ['"Lato"', 'sans-serif'],
+            }
+        }
+    }
+}
+</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Золотые пески",
+      "description": "Контакты базы отдыха на озере Тургояк. Бронирование по телефону и Telegram.",
+      "url": "https://bazaturgoyak.ru/",
+      "telephone": "+7-908-068-60-60",
+      "email": "bazaturgoyak@mail.ru",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Миасс",
+        "addressRegion": "Челябинская область",
+        "addressCountry": "RU"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    }
+    </script>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="flex flex-col items-center">
+            <img src="images/logo.png" alt="Золотые пески логотип" class="w-24 h-24 mb-4 opacity-0" id="loader-logo">
+            <h1 class="text-brand-gold text-5xl font-serif mb-4 tracking-widest opacity-0" id="loader-text">КОНТАКТЫ</h1>
+            <div class="w-16 h-1 bg-brand-gold rounded-full transform scale-x-0" id="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Floating Contact Icons -->
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col space-y-3 sm:space-y-4">
+        <a data-config="max" href="#" target="_blank" rel="noopener" class="floating-icon w-12 h-12 sm:w-14 sm:h-14 bg-[#6B4EFF] rounded-full flex items-center justify-center" title="Написать в MAX">
+            <img src="images/max-mess.png" alt="MAX" class="w-7 h-7 sm:w-8 sm:h-8 object-contain">
+        </a>
+        <a data-config="phone" href="#" class="floating-icon w-12 h-12 sm:w-14 sm:h-14 bg-brand-gold rounded-full flex items-center justify-center text-white text-xl sm:text-2xl" title="Позвонить">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <header class="relative min-h-[40vh] h-[50vh] sm:h-[55vh] md:h-[60vh] w-full overflow-hidden">
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('images/Entertaiment/eventspace2.jfif');"></div>
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 h-full flex flex-col justify-center items-center text-center text-white">
+            <p class="text-brand-gold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs sm:text-sm md:text-base mb-3 sm:mb-4 font-bold">Свяжитесь с нами</p>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-medium mb-3 sm:mb-4 leading-tight">Контакты</h1>
+            <div class="w-24 h-1 bg-brand-gold"></div>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="py-12 sm:py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-12 lg:gap-x-16 gap-y-10 items-start">
+                <!-- Contact Info -->
+                <div class="reveal-left">
+                    <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Наши контакты</span>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mt-3 mb-4 sm:mb-6 leading-tight">Как нас найти</h2>
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-lg mb-2">Адрес</h3>
+                                <p class="text-gray-600">База отдыха «Золотые пески»<br>Челябинская область, г. Миасс, озеро Тургояк</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-lg mb-2">Телефон базы отдыха</h3>
+                                <a data-config="phone" href="#" class="text-gray-600 hover:text-brand-gold" data-config-text="1"></a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-lg mb-2">Телефон палаток</h3>
+                                <a data-config="phone-tents" href="#" class="text-gray-600 hover:text-brand-gold" data-config-text="1"></a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <h3 class="font-serif text-lg mb-2">Email</h3>
+                                <a data-config="email" href="#" class="text-gray-600 hover:text-brand-gold contacts-long-text" data-config-text="1"></a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
+                                <span class="text-xs font-bold">MAX</span>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-lg mb-2">MAX</h3>
+                                <a data-config="max" href="#" target="_blank" rel="noopener" class="text-gray-600 hover:text-brand-gold" data-config-text="1"></a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
+                                <i class="fab fa-telegram-plane text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-lg mb-2">Telegram</h3>
+                                <a data-config="telegram" href="#" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-brand-gold" data-config-text="1"></a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
+                                <i class="fab fa-vk text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-lg mb-2">ВКонтакте</h3>
+                                <a data-config="vk" href="#" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-brand-gold">Мы ВКонтакте</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="reveal-right min-w-0">
+                    <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Напишите нам</span>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mt-3 mb-4 sm:mb-6 leading-tight">Форма обратной связи</h2>
+                    <form id="feedback-form" class="space-y-5" novalidate>
+                        <div>
+                            <label for="feedback-name" class="block text-sm font-medium text-gray-700 mb-2">Имя <span class="text-red-500">*</span></label>
+                            <input type="text" id="feedback-name" name="name" required minlength="2" maxlength="100" placeholder="Ваше имя" class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors" aria-describedby="feedback-name-error">
+                            <p id="feedback-name-error" class="mt-1 text-sm text-red-500 hidden" role="alert"></p>
+                        </div>
+                        <div>
+                            <label for="feedback-phone" class="block text-sm font-medium text-gray-700 mb-2">Телефон <span class="text-red-500">*</span></label>
+                            <input type="tel" id="feedback-phone" name="phone" required placeholder="+7 (___) ___-__-__" class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors" aria-describedby="feedback-phone-error">
+                            <p id="feedback-phone-error" class="mt-1 text-sm text-red-500 hidden" role="alert"></p>
+                        </div>
+                        <div>
+                            <label for="feedback-email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="feedback-email" name="email" placeholder="example@mail.ru (необязательно)" class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors" aria-describedby="feedback-email-error">
+                            <p id="feedback-email-error" class="mt-1 text-sm text-red-500 hidden" role="alert"></p>
+                        </div>
+                        <div>
+                            <label for="feedback-message" class="block text-sm font-medium text-gray-700 mb-2">Сообщение <span class="text-red-500">*</span></label>
+                            <textarea id="feedback-message" name="message" required minlength="10" maxlength="2000" rows="5" placeholder="Напишите ваше сообщение..." class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors resize-y" aria-describedby="feedback-message-error"></textarea>
+                            <p id="feedback-message-error" class="mt-1 text-sm text-red-500 hidden" role="alert"></p>
+                        </div>
+                        <div id="feedback-form-success" class="p-4 bg-green-50 border border-green-200 rounded text-green-800 text-sm hidden" role="status"></div>
+                        <div id="feedback-form-error" class="p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm hidden" role="alert"></div>
+                        <button type="submit" id="feedback-submit" class="w-full px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white hover:bg-brand-dark disabled:opacity-60 disabled:cursor-not-allowed">
+                            Отправить сообщение
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Режим работы (данные из базы знаний Telegram-бота knowledgeBase.js) -->
+    <section class="py-12 sm:py-16 md:py-20 lg:py-28 bg-brand-cream/50" aria-labelledby="hours-heading">
+        <div class="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div class="text-center mb-8 sm:mb-10 md:mb-14 reveal-up">
+                <p class="text-brand-gold uppercase tracking-[0.25em] text-[11px] font-medium mb-2 sm:mb-3">Время работы</p>
+                <h2 id="hours-heading" class="text-3xl sm:text-4xl md:text-5xl font-serif font-light text-brand-dark tracking-tight">Режим работы</h2>
+                <div class="w-12 h-px bg-brand-gold/60 mx-auto mt-6"></div>
+            </div>
+            <div class="max-w-3xl mx-auto reveal-up">
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl border border-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
+                    <div class="p-5 sm:p-6 md:p-8 lg:p-12">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
+                            <div>
+                                <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-2">Сезон</p>
+                                <p class="font-serif text-xl md:text-2xl font-light text-brand-dark tracking-tight">Апрель — октябрь</p>
+                                <p class="text-gray-500 text-sm mt-1">Кемпинг: апрель–октябрь</p>
+                            </div>
+                            <div>
+                                <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-2">Администратор</p>
+                                <p class="font-serif text-xl md:text-2xl font-light text-brand-dark tracking-tight">9:00 — 22:00</p>
+                                <p class="text-gray-500 text-sm mt-1">В высокий сезон, на территории</p>
+                            </div>
+                            <div>
+                                <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-2">Заезд / выезд</p>
+                                <p class="font-serif text-xl md:text-2xl font-light text-brand-dark tracking-tight">Заезд 15:00 · Выезд 12:00</p>
+                                <p class="text-gray-500 text-sm mt-1">Ранний заезд и поздний выезд — по согласованию</p>
+                            </div>
+                            <div>
+                                <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-2">Зимой</p>
+                                <p class="font-serif text-xl md:text-2xl font-light text-brand-dark tracking-tight">Баня и дом № 8</p>
+                                <p class="text-gray-500 text-sm mt-1">Зимой доступны баня и дом номер 8 с печным и электро-отоплением</p>
+                            </div>
+                            <div class="md:col-span-2 md:border-t md:border-gray-100 md:pt-8 md:mt-2">
+                                <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-2">Вопросы</p>
+                                <p class="text-gray-500 text-sm mb-2">Контакты администратора предоставляются при заселении.</p>
+                                <a data-config="phone" href="#" class="inline-flex items-center gap-2 text-brand-gold font-medium text-sm tracking-wide hover:text-brand-dark transition-colors duration-200" data-config-text="1">
+                                    <span class="w-6 h-6 rounded-full border border-current flex items-center justify-center text-[10px]">+</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section: Где мы -->
+    <section class="py-12 sm:py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-8 sm:mb-12 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Наш адрес</span>
+                <h2 class="text-3xl sm:text-4xl font-serif mt-2">Где мы</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+            <div class="bg-white p-2 sm:p-4 rounded shadow-lg overflow-hidden">
+                <iframe class="contacts-map-iframe w-full border-0" src="https://yandex.ru/map-widget/v1/?ll=60.059069%2C55.187969&z=15&pt=60.059069%2C55.187969&l=map" allowfullscreen="true" loading="lazy" title="База отдыха Золотые пески на карте"></iframe>
+            </div>
+            <div class="mt-4 sm:mt-6 bg-white rounded-lg shadow-lg border border-brand-gold/30 px-4 sm:px-6 py-4 sm:py-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-6">
+                <div class="min-w-0">
+                    <p class="font-serif text-lg sm:text-xl font-semibold text-brand-dark">База отдыха «Золотые пески»</p>
+                    <p class="text-gray-600 mt-1 text-sm sm:text-base contacts-long-text">Челябинская область, г. Миасс, озеро Тургояк</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto lg:shrink-0 sm:flex-1 sm:min-w-0 lg:flex-initial">
+                    <a href="https://yandex.ru/maps/?ll=60.059069%2C55.187969&pt=60.059069%2C55.187969&z=15" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center gap-2 w-full sm:flex-1 sm:min-w-0 lg:w-auto px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white hover:bg-brand-dark">
+                        <span class="relative z-10 flex items-center justify-center gap-2"><i class="fas fa-map-marker-alt shrink-0"></i> <span class="truncate">Открыть в Яндекс.Картах</span></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a href="https://yandex.ru/maps/?ll=60.103237%2C55.176187&mode=routes&pt=60.059069%2C55.187969&rtext=~55.187969%2C60.059068&rtt=auto&ruri=~ymapsbm1%3A%2F%2Forg%3Foid%3D109014041624&z=13.78" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center gap-2 w-full sm:flex-1 sm:min-w-0 lg:w-auto px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white hover:bg-brand-dark">
+                        <span class="relative z-10 flex items-center justify-center gap-2"><i class="fas fa-route shrink-0"></i> <span class="truncate">Построить маршрут</span></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section (с главной страницы) -->
+    <section class="py-12 sm:py-16 md:py-24 bg-brand-cream/50">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <div class="text-center mb-10 sm:mb-16">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Бронирование</span>
+                <h2 class="text-3xl sm:text-4xl font-serif mt-2 text-brand-dark">Уединённый отдых на заповедном озере Тургояк</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-600 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">Наша база находится в сердце особо охраняемой природной территории. Мы сознательно отказались от городских удобств, чтобы сохранить чистоту озера, и создали пространство для настоящего цифрового детокса и единения с природой.</p>
+                <ul class="text-left md:text-center flex flex-col md:flex-row gap-3 md:gap-6 justify-center items-start md:items-center mb-6 sm:mb-8 mx-auto max-w-2xl text-gray-600 text-sm sm:text-base">
+                    <li class="flex items-center gap-2"><span class="text-xl">🏞️</span> Виды на озеро Тургояк</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🛀</span> Русская баня</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🤫</span> Территория тишины</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🌿</span> Погружение в природу</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#" data-booking-widget-link class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white hover:bg-brand-dark">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать онлайн <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a data-config="telegram" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#0088cc] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#0088cc]/40 ring-offset-2 ring-offset-white hover:bg-white hover:text-brand-dark">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать через Telegram <i class="fab fa-telegram-plane text-sm"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a data-config="max" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#6B4EFF] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#6B4EFF]/40 ring-offset-2 ring-offset-white hover:bg-white hover:text-brand-dark">
+                        <span class="relative z-10 flex items-center gap-2"><img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX</span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script>
+    // Универсальный loader для страницы "Контакты"
+    window.addEventListener('DOMContentLoaded', function() {
+      var loader = document.getElementById('loader');
+      if (!loader) return;
+      var tl = gsap.timeline();
+      tl.to("#loader-logo", { opacity: 1, duration: 0.8, ease: "power2.out" })
+        .to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
+        .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" });
+      function hideLoader() {
+        if (!loader) return;
+        tl.to("#loader", { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut", onComplete: function() {
+          loader.parentNode && loader.parentNode.removeChild(loader);
+        }});
+      }
+      let checkReady = setInterval(function() {
+        var headerC = document.getElementById('header-placeholder');
+        var footerC = document.getElementById('footer-placeholder');
+        if (headerC && headerC.innerHTML.trim() && footerC && footerC.innerHTML.trim()) {
+          clearInterval(checkReady);
+          hideLoader();
+        }
+      }, 100);
+      setTimeout(hideLoader, 5000);
+    });
+    </script>
+    <script>
+// Форма обратной связи: валидация и отправка
+(function() {
+  var form = document.getElementById('feedback-form');
+  if (!form) return;
+
+  var nameInput = document.getElementById('feedback-name');
+  var phoneInput = document.getElementById('feedback-phone');
+  var emailInput = document.getElementById('feedback-email');
+  var messageInput = document.getElementById('feedback-message');
+  var submitBtn = document.getElementById('feedback-submit');
+  var successBlock = document.getElementById('feedback-form-success');
+  var errorBlock = document.getElementById('feedback-form-error');
+
+  // Маска телефона: +7 (XXX) XXX-XX-XX
+  function formatPhone(value) {
+    var digits = value.replace(/\D/g, '');
+    if (digits.length > 0 && digits[0] === '8') digits = '7' + digits.slice(1);
+    if (digits.length > 0 && digits[0] !== '7') digits = '7' + digits;
+    digits = digits.slice(0, 11);
+    if (digits.length === 0) return '';
+    if (digits.length <= 1) return '+7';
+    if (digits.length <= 4) return '+7 (' + digits.slice(1);
+    if (digits.length <= 7) return '+7 (' + digits.slice(1, 4) + ') ' + digits.slice(4);
+    return '+7 (' + digits.slice(1, 4) + ') ' + digits.slice(4, 7) + '-' + digits.slice(7, 9) + '-' + digits.slice(9);
+  }
+
+  phoneInput.addEventListener('input', function() {
+    var pos = this.selectionStart;
+    var oldLen = this.value.length;
+    this.value = formatPhone(this.value);
+    var newLen = this.value.length;
+    this.setSelectionRange(Math.max(0, pos + (newLen - oldLen)), Math.max(0, pos + (newLen - oldLen)));
+  });
+
+  // Проверка телефона: 10 цифр после +7
+  function isValidPhone(str) {
+    var digits = str.replace(/\D/g, '');
+    return (digits.length === 11 && digits[0] === '7') || (digits.length === 10);
+  }
+
+  function showFieldError(fieldId, message) {
+    var el = document.getElementById('feedback-' + fieldId + '-error');
+    var input = document.getElementById('feedback-' + fieldId);
+    if (!el) return;
+    el.textContent = message;
+    el.classList.remove('hidden');
+    if (input) {
+      input.setAttribute('aria-invalid', 'true');
+      input.classList.add('border-red-500');
+    }
+  }
+
+  function hideFieldError(fieldId) {
+    var el = document.getElementById('feedback-' + fieldId + '-error');
+    var input = document.getElementById('feedback-' + fieldId);
+    if (el) {
+      el.textContent = '';
+      el.classList.add('hidden');
+    }
+    if (input) {
+      input.removeAttribute('aria-invalid');
+      input.classList.remove('border-red-500');
+    }
+  }
+
+  function hideFormMessages() {
+    if (successBlock) successBlock.classList.add('hidden');
+    if (errorBlock) errorBlock.classList.add('hidden');
+  }
+
+  function validateName() {
+    var v = (nameInput && nameInput.value) ? nameInput.value.trim() : '';
+    if (v.length < 2) {
+      showFieldError('name', 'Введите имя (не менее 2 символов)');
+      return false;
+    }
+    hideFieldError('name');
+    return true;
+  }
+
+  function validatePhone() {
+    var v = phoneInput ? phoneInput.value : '';
+    if (!v.trim()) {
+      showFieldError('phone', 'Введите номер телефона');
+      return false;
+    }
+    if (!isValidPhone(v)) {
+      showFieldError('phone', 'Введите корректный номер: +7 (XXX) XXX-XX-XX');
+      return false;
+    }
+    hideFieldError('phone');
+    return true;
+  }
+
+  function validateEmail() {
+    var v = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
+    if (!v) {
+      hideFieldError('email');
+      return true;
+    }
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(v)) {
+      showFieldError('email', 'Введите корректный email');
+      return false;
+    }
+    hideFieldError('email');
+    return true;
+  }
+
+  function validateMessage() {
+    var v = (messageInput && messageInput.value) ? messageInput.value.trim() : '';
+    if (v.length < 10) {
+      showFieldError('message', 'Сообщение должно быть не менее 10 символов');
+      return false;
+    }
+    hideFieldError('message');
+    return true;
+  }
+
+  function validateForm() {
+    hideFormMessages();
+    var ok = true;
+    if (!validateName()) ok = false;
+    if (!validatePhone()) ok = false;
+    if (!validateEmail()) ok = false;
+    if (!validateMessage()) ok = false;
+    return ok;
+  }
+
+  if (nameInput) nameInput.addEventListener('blur', validateName);
+  if (phoneInput) phoneInput.addEventListener('blur', validatePhone);
+  if (emailInput) emailInput.addEventListener('blur', validateEmail);
+  if (messageInput) messageInput.addEventListener('blur', validateMessage);
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validateForm()) {
+      if (errorBlock) {
+        errorBlock.textContent = 'Заполните все поля корректно.';
+        errorBlock.classList.remove('hidden');
+      }
+      var firstInvalid = form.querySelector('[aria-invalid="true"]');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Отправка...';
+    }
+
+    var nameVal = (nameInput && nameInput.value) ? nameInput.value.trim() : '';
+    var phoneVal = (phoneInput && phoneInput.value) ? phoneInput.value.trim() : '';
+    var emailVal = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
+    var messageVal = (messageInput && messageInput.value) ? messageInput.value.trim() : '';
+
+    // Текст заявки (в Telegram поле ввода из URL не подставляется — копируем в буфер)
+    var plainText = '📩 *Обратная связь с сайта*\n\n👤 *Имя:* ' + nameVal + '\n📱 *Телефон:* ' + phoneVal + '\n';
+    if (emailVal) plainText += '📧 *Email:* ' + emailVal + '\n';
+    plainText += '💬 *Сообщение:* ' + messageVal + '\n\nПожалуйста, свяжитесь со мной.';
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(plainText).catch(function() {});
+    }
+
+    var telegramBase = (window.CONFIG && window.CONFIG.telegramBot) ? window.CONFIG.telegramBot.replace(/\/+$/, '') : 'https://t.me/Zolotye_peski174_bot';
+    window.open(telegramBase + '?text=' + encodeURIComponent(plainText), '_blank');
+
+    if (successBlock) {
+      var botLink = (window.CONFIG && window.CONFIG.telegramBot) ? window.CONFIG.telegramBot.replace(/\/+$/, '') : 'https://t.me/Zolotye_peski174_bot';
+      successBlock.innerHTML = 'Текст заявки скопирован. Откроется Telegram — вставьте его в чат с ботом (Ctrl+V или долгое нажатие → Вставить) и нажмите «Отправить».<br><br><strong>Если вы впервые:</strong> перейдите в <a href="' + botLink + '" target="_blank" rel="noopener" class="underline">бота</a>, нажмите «Начать», зарегистрируйтесь (поделитесь номером), затем вставьте сообщение в чат и отправьте.';
+      successBlock.classList.remove('hidden');
+    }
+    if (errorBlock) errorBlock.classList.add('hidden');
+    form.reset();
+    hideFieldError('name');
+    hideFieldError('phone');
+    hideFieldError('email');
+    hideFieldError('message');
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Отправить сообщение';
+    }
+  });
+})();
+    </script>
+    <script>
+// Villa Data Configuration
+const villaData = {
+    'mist-valley': {
+        title: 'Домик у озера',
+        price: '₹15k',
+        tag: 'Most Popular',
+        desc: 'Nestled in the clouds, Mist Valley offers a serene escape. Enjoy the heated jacuzzi, sit by the bonfire under the stars, and wake up to mountain views. This 3BHK retreat is perfect for families seeking peace and natural beauty.',
+        beds: '3 Bedrooms',
+        baths: '4 Bathrooms',
+        guests: 'Up to 10',
+        images: [
+            "[YANDEX_DISK_URL_villa1_v1.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v2.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v3.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v4.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v5.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v6.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v7.jpeg]",
+        ]
+    },
+    'sky-deck': {
+        title: 'Домик с террасой',
+        price: '₹22k',
+        tag: 'Premium Luxury',
+        desc: 'Experience infinity. This villa features a stunning infinity pool that merges with the horizon. Spacious interiors and a private terrace bar make it perfect for those seeking the ultimate luxury experience in Lonavala.',
+        beds: '4 Bedrooms',
+        baths: '5 Bathrooms',
+        guests: 'Up to 12',
+        images: [
+            "[YANDEX_DISK_URL_villa2_i1.jpeg]",
+            "[YANDEX_DISK_URL_villa2_i2.jpeg]",
+            "[YANDEX_DISK_URL_villa2_i3.jpeg]",
+            "[YANDEX_DISK_URL_villa2_i4.jpeg]",
+            "[YANDEX_DISK_URL_villa2_i5.jpeg]",
+        ]
+    },
+    'verdant-edge': {
+        title: 'Домик большой',
+        price: '₹28k',
+        tag: 'Exclusive Estate',
+        desc: 'The ultimate party destination. Massive lawns, a private home theater, gaming room, and huge living spaces make it perfect for large groups. Host celebrations, reunions, or corporate retreats in this expansive 5BHK estate.',
+        beds: '5 Bedrooms',
+        baths: '6 Bathrooms',
+        guests: 'Up to 15',
+        images: [
+            "[YANDEX_DISK_URL_villa3_l1.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l2.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l3.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l4.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l5.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l6.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l7.jpeg]"
+        ]
+    },
+    'pebble-creek': {
+        title: 'Домик для двоих',
+        price: '₹12k',
+        tag: 'Nature Retreat',
+        desc: 'Intimate and cozy. A lovely duplex with a path leading directly to a seasonal stream. Perfect for couples or small families seeking quiet time in nature. Wake up to bird songs and enjoy peaceful evenings by the water.',
+        beds: '2 Bedrooms',
+        baths: '3 Bathrooms',
+        guests: 'Up to 6',
+        images: [
+            "[YANDEX_DISK_URL_villa4_p1.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p2.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p3.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p4.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p5.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p6.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p7.jpeg]",
+        ]
+    }
+};
+
+// Hero Background Images for Slider
+const heroImages = [
+     "[YANDEX_DISK_URL_villa4_p1.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p2.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p3.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p4.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p5.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p6.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p7.jpeg]",
+]
+
+// Contact Information (deprecated — use window.CONFIG)
+const contactInfo = {
+    phone: window.CONFIG?.phone || '+79080686060',
+    phoneTents: window.CONFIG?.phoneTents || '+79026060123',
+    email: window.CONFIG?.email || 'bazaturgoyak@mail.ru',
+    address: window.CONFIG?.address || 'Челябинская область, г. Миасс, озеро Тургояк'
+};
+</script>
+    <script>
+// Utility Functions for сайта Золотые пески
+
+// Telegram: отправка заявки в бота
+function sendWhatsapp() {
+    const name = document.getElementById('contact-name').value;
+    const phone = document.getElementById('contact-phone').value;
+    const date = document.getElementById('contact-date').value;
+    const villa = document.getElementById('contact-villa').value;
+    
+    // Get optional fields if they exist
+    const email = document.getElementById('contact-email')?.value || '';
+    const checkout = document.getElementById('contact-checkout')?.value || '';
+    const guests = document.getElementById('contact-guests')?.value || '';
+    const message = document.getElementById('contact-message')?.value || '';
+
+    // Validation
+    if (!name || !phone || !date) {
+        alert("Please fill in your Name, Phone Number, and Check-in Date.");
+        return;
+    }
+
+    if (!villa) {
+        alert("Please select a villa.");
+        return;
+    }
+
+    // Build WhatsApp message
+    let whatsappMessage = `Здравствуйте! База «Золотые пески». Хочу уточнить наличие.%0A%0A*Имя:* ${name}%0A*Телефон:* ${phone}`;
+    
+    if (email) {
+        whatsappMessage += `%0A*Email:* ${email}`;
+    }
+    
+    if (guests) {
+        whatsappMessage += `%0A*Number of Guests:* ${guests}`;
+    }
+    
+    whatsappMessage += `%0A*Check-in Date:* ${date}`;
+    
+    if (checkout) {
+        whatsappMessage += `%0A*Check-out Date:* ${checkout}`;
+    }
+    
+    whatsappMessage += `%0A*Interested Villa:* ${villa}`;
+    
+    if (message) {
+        whatsappMessage += `%0A*Special Requests:* ${message}`;
+    }
+    
+    whatsappMessage += `%0A%0APlease let me know the details.`;
+
+    const telegramText = whatsappMessage.replace(/%0A/g, '\n');
+    const telegramBase = (window.CONFIG && window.CONFIG.telegramBot) ? window.CONFIG.telegramBot.replace(/\/+$/, '') : 'https://t.me/Zolotye_peski174_bot';
+    window.open(telegramBase + '?text=' + encodeURIComponent(telegramText), '_blank');
+}
+
+// Modal Functions
+function openModal(villaId) {
+    const data = villaData[villaId];
+    if (!data) return;
+
+    // Populate Text
+    document.getElementById('modal-title').innerText = data.title;
+    document.getElementById('modal-price').innerHTML = `${data.price}<span class="text-sm font-normal text-gray-500">/night</span>`;
+    document.getElementById('modal-desc').innerText = data.desc;
+    document.getElementById('modal-tag').innerText = data.tag;
+    document.getElementById('modal-beds').innerText = data.beds;
+    document.getElementById('modal-baths').innerText = data.baths;
+    document.getElementById('modal-guests').innerText = data.guests;
+    
+    // Set contact dropdown if on booking page
+    const villaDropdown = document.getElementById('contact-villa');
+    if (villaDropdown) {
+        // Store the villa title for later use
+        window.selectedVillaTitle = data.title;
+    }
+
+    // Populate Images
+    const mainImg = document.getElementById('modal-main-img');
+    const thumbContainer = document.getElementById('modal-thumbnails');
+    
+    mainImg.src = data.images[0];
+    thumbContainer.innerHTML = ''; // Clear previous thumbnails
+
+    data.images.forEach((imgSrc, index) => {
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.className = `w-20 h-20 md:w-24 md:h-24 object-cover rounded cursor-pointer border-2 hover:border-brand-gold transition-all ${index === 0 ? 'border-brand-gold' : 'border-transparent'}`;
+        thumb.onclick = () => {
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = imgSrc;
+                mainImg.style.opacity = '1';
+            }, 300);
+            // Update borders
+            Array.from(thumbContainer.children).forEach(child => {
+                child.classList.remove('border-brand-gold');
+                child.classList.add('border-transparent');
+            });
+            thumb.classList.remove('border-transparent');
+            thumb.classList.add('border-brand-gold');
+        };
+        thumbContainer.appendChild(thumb);
+    });
+
+    const modal = document.getElementById('villa-modal');
+    modal.classList.remove('hidden');
+    gsap.fromTo(".modal-content", 
+        { y: 50, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }
+    );
+    document.body.style.overflow = 'hidden'; // Stop background scroll
+}
+
+function closeModal() {
+    const modal = document.getElementById('villa-modal');
+    gsap.to(".modal-content", { 
+        y: 50, 
+        opacity: 0, 
+        duration: 0.3, 
+        ease: "power2.in", 
+        onComplete: () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Set selected villa in booking form when coming from modal
+function setSelectedVilla() {
+    if (window.selectedVillaTitle) {
+        // This will be called when user clicks "Book This Villa" in modal
+        setTimeout(() => {
+            const villaDropdown = document.getElementById('contact-villa');
+            if (villaDropdown) {
+                const options = villaDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].text.includes(window.selectedVillaTitle)) {
+                        villaDropdown.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }, 100);
+    }
+}
+
+// Lonavala Slider Scroll Function
+function scrollLonavala(direction) {
+    const slider = document.getElementById('lonavala-slider');
+    if (!slider) return;
+    
+    const scrollAmount = 300;
+    if (direction === 'left') {
+        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+}
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+    }
+}
+
+// Scroll to section with offset for fixed navbar
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offset = 100; // Navbar height
+        const sectionPosition = section.offsetTop - offset;
+        window.scrollTo({
+            top: sectionPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+</script>
+    <script>
+// Main JavaScript for сайта Золотые пески
+
+// Hero Image Slider (only for home page)
+let currentHeroIndex = 0;
+const heroBg = document.getElementById('hero-bg');
+
+if (heroBg) {
+    setInterval(() => {
+        currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+        heroBg.style.backgroundImage = heroImages[currentHeroIndex];
+    }, 3000);
+}
+
+// Loader & GSAP Initialization
+window.addEventListener('load', () => {
+    const tl = gsap.timeline();
+
+    tl.to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" })
+      .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" })
+      .to("#loader", { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut" });
+    
+    // Only animate hero elements if they exist (on home page)
+    const heroElems = document.querySelectorAll('.gsap-hero-elem');
+    if (heroElems.length > 0) {
+        tl.from(".gsap-hero-elem", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        }, "-=0.5");
+    }
+});
+
+// Register GSAP ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Navbar Scroll Effect
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    
+    if (navbar) {
+        if (currentScroll > 100) {
+            navbar.classList.remove('bg-transparent', 'py-6');
+            navbar.classList.add('bg-brand-dark', 'shadow-lg', 'py-4');
+        } else {
+            navbar.classList.add('bg-transparent', 'py-6');
+            navbar.classList.remove('bg-brand-dark', 'shadow-lg', 'py-4');
+        }
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Reveal Animations
+gsap.utils.toArray('.reveal-up').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-left').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: -60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-right').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+// Mobile Menu Functionality
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Toggle icon
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        } else {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        }
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    }
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('villa-modal');
+    if (modal && e.target === modal) {
+        closeModal();
+    }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('villa-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    }
+});
+
+// Form validation for booking
+const bookingForm = document.getElementById('booking-form');
+if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendWhatsapp();
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Don't prevent default for links that just have "#"
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const offset = 100;
+            const targetPosition = targetElement.offsetTop - offset;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Lazy loading for images
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Performance: Throttle scroll events
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(() => {
+        // Scroll-based functionality here
+    });
+}, { passive: true });
+
+// Console welcome message
+console.log('%cЗолотые пески', 'color: #D4AF37; font-size: 20px; font-weight: bold;');
+console.log('%cExperience luxury living in Lonavala', 'color: #666; font-size: 14px;');
+
+// Debug mode - set to false in production
+const DEBUG = false;
+if (DEBUG) {
+    console.log('Villa Data:', villaData);
+    console.log('Contact Info:', contactInfo);
+}
+
+// Динамическая подгрузка header и footer
+function loadInclude(id, url) {
+  fetch(url)
+    .then(r => r.text())
+    .then(html => {
+      const container = document.getElementById(id);
+      container.innerHTML = html;
+      container.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        Array.from(oldScript.attributes).forEach(attr => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        oldScript.replaceWith(newScript);
+      });
+    });
+}
+loadInclude('header-placeholder', 'header.html');
+loadInclude('footer-placeholder', 'footer.html');
+
+// --- Исправление бага с возвратом из bfcache ---
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    location.reload();
+  }
+});
+
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    loadInclude('header-placeholder', 'header.html');
+    loadInclude('footer-placeholder', 'footer.html');
+    var loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'flex';
+  }
+});
+</script>
+</body>
+</html>
+`

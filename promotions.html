@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Акции | Золотые пески</title>
+    <meta name="description" content="Акции и спецпредложения базы отдыха «Золотые пески» на озере Тургояк: кэшбек, пакеты рыбака, длительное проживание, зимний отдых.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Акции | Золотые пески">
+    <meta property="og:description" content="Спецпредложения и акции на проживание на Тургояке.">
+    <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+    <meta property="og:url" content="https://bazaturgoyak.ru/promotions.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Золотые пески">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="js/config.js"></script>
+    <script src="js/apply-config.js"></script>
+    <script src="js/booking-mode.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- DOMPurify: санитизация HTML перед вставкой в модальное окно (защита от XSS при возможном динамическом контенте) -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js" crossorigin="anonymous"></script>
+
+    <!-- Custom Styles -->
+    <style>
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4AF37; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b5952f; 
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+/* Hero Background Transition */
+#hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Villa Card Hover Effects */
+.villa-card:hover .villa-img {
+    transform: scale(1.1);
+}
+
+.villa-card {
+    overflow: hidden;
+}
+
+.villa-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating Icons */
+.floating-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.floating-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal Styles */
+#villa-modal,
+#promo-modal {
+    backdrop-filter: blur(5px);
+}
+
+.modal-content,
+.promo-modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Transition */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content,
+    .promo-modal-content {
+        max-height: 95vh;
+    }
+}
+
+/* Focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Сетка пакетов: иначе на iOS карточка не сжимается — поля вылезают за край */
+#packages-grid > .promotion-card {
+    min-width: 0;
+    max-width: 100%;
+}
+.package-booking-panel {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Пакеты: поля в панели брони — в стиле карточки (золото / крем / тёмный текст) */
+.package-booking-field {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: 2px;
+    background: #fffef9;
+    color: #1a1a1a;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.65rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.package-booking-field:focus {
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+select.package-booking-field {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231a1a1a' d='M1 1.5L6 6l5-4.5' stroke='%23D4AF37' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.65rem center;
+    padding-right: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Button hover effects */
+button:hover,
+a.button:hover {
+    cursor: pointer;
+}
+
+/* Parallax effect for background images */
+.bg-fixed {
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll;
+    }
+}
+</style>
+    
+    <!-- Tailwind Config -->
+    <script>
+// Tailwind CSS Configuration
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'brand-gold': '#D4AF37',
+                'brand-dark': '#1a1a1a',
+                'brand-green': '#2C3E50',
+                'brand-cream': '#F9F9F5',
+            },
+            fontFamily: {
+                serif: ['"Playfair Display"', 'serif'],
+                sans: ['"Lato"', 'sans-serif'],
+            }
+        }
+    }
+}
+</script>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="flex flex-col items-center">
+            <img src="images/logo.png" alt="Золотые пески логотип" class="w-24 h-24 mb-4 opacity-0" id="loader-logo">
+            <h1 class="text-brand-gold text-5xl font-serif mb-4 tracking-widest opacity-0" id="loader-text">АКЦИИ</h1>
+            <div class="w-16 h-1 bg-brand-gold rounded-full transform scale-x-0" id="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Floating Contact Icons (только Telegram и телефон) -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-4">
+        <a data-config="telegram" href="#" target="_blank" rel="noopener" class="floating-icon w-14 h-14 bg-[#0088cc] rounded-full flex items-center justify-center text-white text-3xl" title="Написать в Telegram">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a data-config="max" href="#" target="_blank" rel="noopener" class="floating-icon w-14 h-14 bg-[#6B4EFF] rounded-full flex items-center justify-center" title="Написать в MAX">
+            <img src="images/max-mess.png" alt="MAX" class="w-8 h-8 object-contain">
+        </a>
+        <a data-config="phone" href="#" class="floating-icon w-14 h-14 bg-brand-gold rounded-full flex items-center justify-center text-white text-2xl" title="Позвонить">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen w-full overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('images/Entertaiment/beach5.jfif');"></div>
+        
+        <div class="hero-overlay absolute inset-0"></div>
+
+        <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-white">
+            <p class="text-brand-gold tracking-[0.3em] uppercase text-sm md:text-base mb-4 font-bold">Специальные предложения</p>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-medium mb-6 leading-tight">
+                Акции и <br> <span class="italic text-brand-gold">Скидки</span>
+            </h1>
+            <p class="max-w-xl mx-auto text-gray-200 text-lg font-light mb-10">
+                Воспользуйтесь нашими специальными предложениями и сэкономьте на отдыхе у озера.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-4 justify-center">
+                <a href="#promotions" class="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white/20 hover:bg-brand-dark">
+                    <span class="relative z-10">Акции</span>
+                </a>
+                <a href="#promocodes" class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-white text-white hover:bg-white hover:text-brand-dark uppercase tracking-widest text-xs font-bold rounded-sm shadow-lg hover:shadow-xl transition-all duration-300">
+                    Промокоды
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl opacity-70"></i>
+        </div>
+    </header>
+
+    <!-- Спецпредложения: пакеты -->
+    <section id="special-offers" class="py-16 md:py-24 bg-brand-cream">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Пакеты</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Специальные предложения</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Минимальный срок проживания при бронировании пакета — <strong>на одну ночь дольше, чем указано в условиях предложения</strong>.</p>
+            </div>
+            <div id="packages-loading" class="text-center py-12 text-gray-500 reveal-up" style="display: none;">Загрузка пакетов…</div>
+            <div id="packages-empty" class="text-center py-12 text-gray-500 reveal-up" style="display: none;">Сейчас активных пакетов нет. Следите за обновлениями.</div>
+            <div id="packages-error" class="text-center py-12 text-gray-600 reveal-up" style="display: none;" role="alert">
+                <p class="font-medium text-brand-dark mb-1">Не удалось загрузить пакеты</p>
+                <p id="packages-error-detail" class="text-sm text-gray-500">Проверьте подключение или попробуйте позже.</p>
+            </div>
+            <div id="packages-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <!-- Карточки пакетов подгружаются автоматически -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок акций: карточки подгружаются автоматически -->
+    <section id="promotions" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Специальные предложения</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Акции</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Выгодные пакеты и условия для отдыха на базе «Золотые пески».</p>
+            </div>
+            <div id="offer-cards-loading" class="text-center py-12 text-gray-500 reveal-up" style="display: none;">Загрузка акций…</div>
+            <div id="offer-cards-empty" class="text-center py-12 text-gray-500 reveal-up" style="display: none;">Сейчас активных акций нет. Следите за обновлениями.</div>
+            <div id="offer-cards-error" class="text-center py-12 text-gray-600 reveal-up" style="display: none;" role="alert">
+                <p class="font-medium text-brand-dark mb-1">Не удалось загрузить акции</p>
+                <p id="offer-cards-error-detail" class="text-sm text-gray-500">Проверьте подключение или попробуйте позже.</p>
+            </div>
+            <div id="offer-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Карточки акций подгружаются автоматически -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Codes Section -->
+    <section id="promocodes" class="py-16 md:py-24 bg-brand-cream">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Скидки по коду</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Промокоды</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Введите промокод при бронировании или уточните у менеджера.</p>
+            </div>
+
+            <div id="promocodes-loading" class="text-center py-12 text-gray-500 reveal-up" style="display: none;">Загрузка промокодов…</div>
+            <div id="promocodes-empty" class="text-center py-12 text-gray-500 reveal-up" style="display: none;">Сейчас активных промокодов нет. Следите за обновлениями или уточните у менеджера.</div>
+            <div id="promocodes-error" class="text-center py-12 text-gray-600 reveal-up" style="display: none;" role="alert">
+                <p class="font-medium text-brand-dark mb-1">Не удалось подключиться к серверу</p>
+                <p id="promocodes-error-detail" class="text-sm text-gray-500">Проверьте подключение к интернету или попробуйте позже.</p>
+            </div>
+            <div id="promocodes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Карточки промокодов подгружаются автоматически -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section (с главной) -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Бронирование</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif mt-2 text-brand-dark">Уединённый отдых на заповедном озере Тургояк</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-600 text-base md:text-lg mb-8 max-w-2xl mx-auto">Наша база находится в сердце особо охраняемой природной территории. Мы сознательно отказались от городских удобств, чтобы сохранить чистоту озера, и создали пространство для настоящего цифрового детокса и единения с природой.</p>
+                <ul class="text-left md:text-center flex flex-col md:flex-row gap-3 md:gap-6 justify-center items-start md:items-center mb-8 mx-auto max-w-2xl text-gray-600">
+                    <li class="flex items-center gap-2"><span class="text-xl">🏞️</span> Виды на озеро Тургояк</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🛀</span> Русская баня</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🤫</span> Территория тишины</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🌿</span> Погружение в природу</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
+                    <a href="#" data-config="widget" data-booking-widget-link class="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white hover:bg-brand-dark w-full sm:w-auto">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать онлайн <i class="fas fa-arrow-right text-sm transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                    </a>
+                    <a data-config="telegram" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#0088cc] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#0088cc]/40 ring-offset-2 ring-offset-white hover:bg-[#006ba1] w-full sm:w-auto">
+                        <span class="relative z-10 flex items-center gap-2">Telegram <i class="fab fa-telegram-plane text-sm"></i></span>
+                    </a>
+                    <a data-config="max" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#6B4EFF] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#6B4EFF]/40 ring-offset-2 ring-offset-white hover:bg-[#5538E0] w-full sm:w-auto">
+                        <span class="relative z-10 flex items-center gap-2"><img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX</span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Detail Modal -->
+    <div id="promo-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60" role="dialog" aria-modal="true" aria-labelledby="promo-modal-title" aria-hidden="true">
+        <div class="promo-modal-content bg-white rounded-sm shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto relative">
+            <button type="button" onclick="closePromoModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-dark text-2xl leading-none z-10" aria-label="Закрыть">&times;</button>
+            <div class="p-6 sm:p-8 pt-12">
+                <h3 id="promo-modal-title" class="text-2xl font-serif text-brand-dark mb-4"></h3>
+                <div id="promo-modal-body" class="text-gray-600 text-sm leading-relaxed space-y-3"></div>
+                <div id="promo-modal-actions" class="mt-8 flex flex-wrap gap-3 items-start"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+function isGsapAvailable() {
+    return typeof gsap !== 'undefined';
+}
+
+// Кнопка «Забронировать онлайн» создаётся через DOM (без innerHTML), чтобы исключить XSS при любом будущем изменении.
+function appendWidgetButton(container) {
+    var a = document.createElement('a');
+    a.setAttribute('href', (window.CONFIG && window.CONFIG.widgetUrl) ? (window.CONFIG.widgetUrl.replace(/\/+$/, '') + '/') : (window.CONFIG && window.CONFIG.widgetUrl) ? (window.CONFIG.widgetUrl.replace(/\/+$/, '') + '/') : '');
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener');
+    a.setAttribute('data-booking-widget-link', '');
+    a.className = 'group relative inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white hover:bg-brand-dark w-full';
+    var span = document.createElement('span');
+    span.className = 'relative z-10 flex items-center gap-2';
+    span.appendChild(document.createTextNode('Забронировать онлайн '));
+    var icon = document.createElement('i');
+    icon.className = 'fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1';
+    span.appendChild(icon);
+    a.appendChild(span);
+    container.appendChild(a);
+}
+// Кнопка в Telegram-бот для пакетов рыбалки (бронирование с живым человеком)
+// Создаёт кнопку «Написать в бот» через DOM. prefillText подставляется только в query-параметр URL
+// и задаётся через setAttribute('href', …). encodeURIComponent не защищает от XSS во всех контекстах
+// (например, при подстановке в разметку или в javascript:), но здесь безопасно: значение используется
+// только в атрибуте href, а для кодирования параметров URL encodeURIComponent — подходящий способ.
+function appendTelegramButton(container, prefillText) {
+    var url = (window.CONFIG && window.CONFIG.telegramBot ? window.CONFIG.telegramBot.replace(/\/+$/, '') : 'https://t.me/Zolotye_peski174_bot') + '?text=' + encodeURIComponent(prefillText);
+    var a = document.createElement('a');
+    a.setAttribute('href', url);
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener');
+    a.className = 'inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#0088cc] text-white uppercase tracking-widest text-xs font-bold rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#0088cc]/40 ring-offset-2 ring-offset-white hover:bg-white hover:text-brand-dark w-full';
+    var icon = document.createElement('i');
+    icon.className = 'fab fa-telegram-plane text-lg';
+    a.appendChild(icon);
+    a.appendChild(document.createTextNode(' Написать в бот для бронирования'));
+    container.appendChild(a);
+}
+
+// Promo details for modal (акции).
+// ВАЖНО (XSS): поля title и body задаются только в коде разработчиком. Никогда не подставляйте
+// в body или title данные от пользователя или из API без санитизации — присвоение в innerHTML
+// выполняется без очистки. При расширении на динамический контент использовать textContent
+// для текста и создание элементов через DOM, либо санитизацию HTML.
+var promoFishingIntro = '<p class="font-semibold text-brand-dark">Рыбалка для тех, кто знает, зачем едет.</p><p>Закрытая база «Золотые пески» — уединённый формат рыбалки для опытных и полупрофессиональных рыбаков. Без цивилизации. Без случайных гостей. Без лишних слов.</p><p>Вы приезжаете со своими снастями и пониманием процесса — мы даём тишину, озеро, тепло и пространство, где никто не мешает. Зима, весна и осень — в эти периоды база открыта для ограниченного количества гостей.</p><p class="font-semibold text-brand-dark mt-4">Это не санаторий и не курорт.</p><p>«Золотые пески» — место для опытных и полупрофессиональных рыбаков. Здесь не предлагают анимацию, прокат снастей и развлечения. Сюда приезжают со своим снаряжением и пониманием рыбалки. Взамен: полная тишина, закрытая территория, ощущение, что вокруг нет цивилизации.</p><p class="font-semibold text-brand-dark mt-4">Формат отдыха</p><ul class="list-disc pl-5 space-y-1"><li>Тёплый деревянный домик на компанию до 4 человек — печное отопление, живой огонь.</li><li>Печь — центр вечера после рыбалки.</li><li>Горячая баня с купелью прямо в озере — большая или малая.</li><li>Озеро в шаговой доступности.</li><li>Абсолютная тишина. Вы арендуете не номер, а пространство целиком.</li></ul>';
+
+const promoDetails = {
+    'promo-cashback': {
+        title: 'Кэшбек и удобная оплата',
+        body: '<p>При бронировании проживания на базе отдыха «Золотые пески» вы получаете <strong>кэшбек 5%</strong> от стоимости заказа. Кэшбек зачисляется после завершения отдыха и может быть использован при следующем бронировании. Накопленными баллами можно <strong>оплатить не более 30% от стоимости</strong> заказа.</p><p><strong>Предоплата за проживание</strong> — всегда оплата стоимости первых суток. Оставшуюся сумму можно внести при заезде или в течение отдыха.</p>',
+        ctaType: 'widget'
+    },
+    'promo-fishing-winter': {
+        title: 'Зимний пакет рыбака',
+        body: promoFishingIntro + '<p class="font-semibold text-brand-dark mt-4">Зимний пакет рыбака</p><p>Формат для тех, кто знает ценность зимней ловли. Холодный воздух, чистый лёд, тишина. Без палаток, без суеты и без борьбы за место.</p><p><strong>В пакет входит:</strong></p><ul class="list-disc pl-5 space-y-1"><li>тёплый домик до 4 человек;</li><li>баня на выбор — большая или малая;</li><li>зимняя рыбалка на озере рядом с базой;</li><li>закрытая территория и полное уединение.</li></ul><p>После рыбалки не нужно никуда ехать — тепло уже ждёт. Печь, баня, горячая еда и вечер в своём кругу.</p><p class="text-gray-500 italic">Снасти, экипировка и рыболовное снаряжение гости привозят с собой. Формат рассчитан на опытных и полупрофессиональных рыбаков.</p><p class="text-gray-500 mt-4">Пакет бронируется только через общение с менеджером. Нажмите кнопку ниже — откроется бот для связи.</p>',
+        ctaType: 'telegram',
+        telegramText: 'Здравствуйте! Хочу забронировать зимний пакет рыбака на базе Золотые пески. Подскажите стоимость и наличие на интересующие даты.'
+    },
+    'promo-fishing-spring': {
+        title: 'Весенний и осенний пакет рыбака',
+        body: promoFishingIntro + '<p class="font-semibold text-brand-dark mt-4">Весенний и осенний пакет рыбака</p><p>Когда лёд уходит, а озеро раскрывается полностью. Ловля с лодки, свободный выбор точек и ощущение простора.</p><p><strong>В пакет входит:</strong></p><ul class="list-disc pl-5 space-y-1"><li>домик до 4 человек;</li><li>баня;</li><li>рыбалка на озере;</li><li>лодка для рыбалки на озере;</li><li>закрытый формат без посторонних.</li></ul><p>Утром — вода и рыбалка, вечером — баня, тепло и неспешный отдых без городского ритма.</p><p class="text-gray-500 mt-4">Пакет бронируется только через общение с менеджером. Нажмите кнопку ниже — откроется бот для связи.</p>',
+        ctaType: 'telegram',
+        telegramText: 'Здравствуйте! Хочу забронировать весенний и осенний пакет рыбака на базе Золотые пески. Подскажите стоимость и наличие на интересующие даты.'
+    },
+    'promo-romantic': {
+        title: 'Романтический уикенд (Пакет для двоих)',
+        body: '<p>Отдых для двоих на базе «Золотые пески»: уютный <strong>дом №8</strong> (комфорт) с террасой, оплата за 4 места — но проживаете только вы вдвоём.</p><p><strong>В пакет входит / опции:</strong></p><ul class="list-disc pl-5 space-y-1"><li>домик с собственной мангальной зоной у воды;</li><li>баня малая (до 6 чел.) — идеально для пары;</li><li>САП-борды для прогулок по озеру (оплачиваются отдельно);</li><li>красивые закаты с видом на остров Веры.</li></ul><p>Стоимость: от 5 000 ₽ + парковка 500 ₽. Аренда САП-борда, мангальной зоны и бани оплачивается отдельно.</p><p class="text-gray-500 mt-4">Для бронирования нажмите кнопку ниже — откроется бот для связи с менеджером.</p>',
+        ctaType: 'telegram',
+        telegramText: 'Здравствуйте! Хочу забронировать романтический уикенд (пакет для двоих) на базе Золотые пески. Подскажите стоимость и наличие на интересующие даты.'
+    },
+    'promo-winter-rest': {
+        title: 'Зимний отдых',
+        body: '<p>Отдельное предложение для тех, кто едет зимой <strong>просто отдохнуть</strong> — без акцента на рыбалку. Тишина, снег, баня и уют.</p><p><strong>В пакет входит:</strong></p><ul class="list-disc pl-5 space-y-1"><li>дом №8 — тёплый и уютный;</li><li>баня (большая или малая на выбор);</li><li>закрытая территория, полное уединение.</li></ul><p>Идеально для пар или небольшой компании: погреться в бане, провести вечер у печи, насладиться зимней природой у озера Тургояк.</p><p class="text-gray-500 mt-4">Бронирование через менеджера. Нажмите кнопку ниже — откроется бот для связи.</p>',
+        ctaType: 'telegram',
+        telegramText: 'Здравствуйте! Хочу забронировать зимний отдых (дом №8 + баня) на базе Золотые пески. Подскажите стоимость и наличие на интересующие даты.'
+    },
+    'promo-events': {
+        title: 'Корпоративы и праздники',
+        body: '<p><strong>Предоставление проживания для мероприятий</strong> на базе «Золотые пески».</p><p>Мы принимаем:</p><ul class="list-disc pl-5 space-y-1"><li>свадьбы;</li><li>корпоративы;</li><li>дни рождения;</li><li>другие праздники и события.</li></ul><p>Возможна <strong>аренда всей базы</strong> под ваше мероприятие. Дополнительное оборудование и условия — по запросу. Стоимость рассчитывается индивидуально.</p><p class="text-gray-500 mt-4">Чтобы обсудить даты, количество гостей и условия — нажмите кнопку ниже и напишите в бот.</p>',
+        ctaType: 'telegram',
+        telegramText: 'Здравствуйте! Интересует аренда базы Золотые пески под мероприятие (корпоратив / свадьба / день рождения). Подскажите условия и стоимость.'
+    }
+};
+
+var promoModalPreviousFocus = null;
+var promoModalKeydownHandler = null;
+
+function getPromoModalFocusables() {
+    var modal = document.getElementById('promo-modal');
+    if (!modal) return [];
+    var selector = 'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    return Array.prototype.filter.call(modal.querySelectorAll(selector), function(el) {
+        return !el.disabled;
+    });
+}
+
+function openPromoModal(id) {
+    var data = promoDetails[id];
+    if (!data) return;
+    var modalEl = document.getElementById('promo-modal');
+    if (modalEl && !modalEl.classList.contains('hidden')) return; // уже открыто — защита от гонки при двойном клике
+    // Удаляем предыдущий keydown-обработчик, если окно открыли повторно без закрытия — избегаем дублирования
+    if (promoModalKeydownHandler) {
+        document.removeEventListener('keydown', promoModalKeydownHandler);
+        promoModalKeydownHandler = null;
+    }
+    promoModalPreviousFocus = document.activeElement;
+    document.getElementById('promo-modal-title').textContent = data.title;
+    // Санитизация HTML через DOMPurify перед вставкой — защита от XSS при расширении на динамический контент
+    var bodyHtml = (typeof DOMPurify !== 'undefined' && DOMPurify.sanitize) ? DOMPurify.sanitize(data.body, { ALLOWED_TAGS: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'br', 'span'], ALLOWED_ATTR: ['class'] }) : data.body;
+    document.getElementById('promo-modal-body').innerHTML = bodyHtml;
+    var actionsEl = document.getElementById('promo-modal-actions');
+    if (data.ctaType === 'widget') {
+        actionsEl.innerHTML = '';
+        appendWidgetButton(actionsEl);
+    } else if (data.ctaType === 'telegram' && data.telegramText) {
+        actionsEl.innerHTML = '';
+        appendTelegramButton(actionsEl, data.telegramText);
+    } else {
+        actionsEl.innerHTML = '';
+    }
+    var modal = document.getElementById('promo-modal');
+    modal.setAttribute('aria-hidden', 'false');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    if (isGsapAvailable()) {
+        gsap.fromTo('.promo-modal-content', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' });
+    }
+    promoModalKeydownHandler = function(e) {
+        if (e.key === 'Escape') {
+            closePromoModal();
+            return;
+        }
+        if (e.key !== 'Tab') return;
+        var focusables = getPromoModalFocusables();
+        if (focusables.length === 0) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey) {
+            if (document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            }
+        } else {
+            if (document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+    };
+    document.addEventListener('keydown', promoModalKeydownHandler);
+    setTimeout(function() {
+        var focusables = getPromoModalFocusables();
+        if (focusables.length > 0) focusables[0].focus();
+    }, 100);
+}
+
+function closePromoModal() {
+    var modal = document.getElementById('promo-modal');
+    if (promoModalKeydownHandler) {
+        document.removeEventListener('keydown', promoModalKeydownHandler);
+        promoModalKeydownHandler = null;
+    }
+    if (isGsapAvailable()) {
+        gsap.to('.promo-modal-content', { y: 20, opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: function() {
+            modal.setAttribute('aria-hidden', 'true');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+            if (promoModalPreviousFocus && typeof promoModalPreviousFocus.focus === 'function') promoModalPreviousFocus.focus();
+            promoModalPreviousFocus = null;
+        }});
+    } else {
+        modal.setAttribute('aria-hidden', 'true');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+        if (promoModalPreviousFocus && typeof promoModalPreviousFocus.focus === 'function') promoModalPreviousFocus.focus();
+        promoModalPreviousFocus = null;
+    }
+}
+
+// Карточки акций: модальное окно с описанием и кнопками (онлайн или Telegram).
+window.offerCardsMap = {};
+function openOfferCardModal(cardId) {
+    var card = window.offerCardsMap[cardId];
+    if (!card) return;
+    var modalEl = document.getElementById('promo-modal');
+    if (modalEl && !modalEl.classList.contains('hidden')) return;
+    if (promoModalKeydownHandler) {
+        document.removeEventListener('keydown', promoModalKeydownHandler);
+        promoModalKeydownHandler = null;
+    }
+    promoModalPreviousFocus = document.activeElement;
+    document.getElementById('promo-modal-title').textContent = card.title || 'Акция';
+    var rawBody = (card.description != null && String(card.description).trim()) ? String(card.description).trim() : '';
+    var bodyHtml = (typeof DOMPurify !== 'undefined' && DOMPurify.sanitize) ? DOMPurify.sanitize(rawBody, { ALLOWED_TAGS: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'br', 'span'], ALLOWED_ATTR: ['class'] }) : escapeHtml(rawBody);
+    if (!bodyHtml) bodyHtml = '<p class="text-gray-500">Нет описания.</p>';
+    document.getElementById('promo-modal-body').innerHTML = bodyHtml;
+    var actionsEl = document.getElementById('promo-modal-actions');
+    if (card.ctaType === 'widget') {
+        actionsEl.innerHTML = '';
+        appendWidgetButton(actionsEl);
+    } else if (card.ctaType === 'telegram' && card.telegramText) {
+        actionsEl.innerHTML = '';
+        appendTelegramButton(actionsEl, card.telegramText);
+    } else {
+        actionsEl.innerHTML = '';
+    }
+    modalEl.setAttribute('aria-hidden', 'false');
+    modalEl.classList.remove('hidden');
+    modalEl.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    if (isGsapAvailable()) {
+        gsap.fromTo('.promo-modal-content', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' });
+    }
+    promoModalKeydownHandler = function(e) {
+        if (e.key === 'Escape') { closePromoModal(); return; }
+        if (e.key !== 'Tab') return;
+        var focusables = getPromoModalFocusables();
+        if (focusables.length === 0) return;
+        var first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+        else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
+    };
+    document.addEventListener('keydown', promoModalKeydownHandler);
+    setTimeout(function() {
+        var focusables = getPromoModalFocusables();
+        if (focusables.length > 0) focusables[0].focus();
+    }, 100);
+}
+
+// Промокоды, пакеты и карточки акций подгружаются с сервера бронирований (адреса из настроек сайта).
+var PROMOCODES_API_URL = (window.CONFIG && window.CONFIG.apiBaseUrl) ? (window.CONFIG.apiBaseUrl.replace(/\/+$/, '') + '/promotions?activeOnly=true') : '/api/promotions?activeOnly=true';
+var PROMOCODES_FETCH_TIMEOUT_MS = 15000;
+var PACKAGES_API_URL = (window.CONFIG && window.CONFIG.apiBaseUrl) ? (window.CONFIG.apiBaseUrl.replace(/\/+$/, '') + '/packages') : '/api/packages';
+var PACKAGES_FETCH_TIMEOUT_MS = 15000;
+var OFFER_CARDS_API_URL = (window.CONFIG && window.CONFIG.apiBaseUrl) ? (window.CONFIG.apiBaseUrl.replace(/\/+$/, '') + '/offer-cards') : '/api/offer-cards';
+var OFFER_CARDS_FETCH_TIMEOUT_MS = 15000;
+
+function escapeHtml(text) {
+    if (text == null) return '';
+    var s = String(text);
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+}
+
+// Скидка: процент (число 10 или -10 → "−10%", строка "10"/"−10%" → с %) или фиксированная сумма ("500 ₽" — без изменений)
+function formatDiscountPercent(val) {
+    if (val === null || val === undefined || val === '') return '';
+    var s = String(val).trim();
+    if (s.indexOf('₽') >= 0) return s;
+    var n = Number(val);
+    if (Number.isFinite(n)) return '−' + Math.abs(n) + '%';
+    if (s.indexOf('%') >= 0) return s;
+    if (s.indexOf('−') >= 0 || s.indexOf('-') >= 0) return s + (s.indexOf('%') >= 0 ? '' : '%');
+    return '−' + s + '%';
+}
+
+// Проверка допустимости компонентов даты: год в допустимом диапазоне (1901–2999), месяц 1–12,
+// день в пределах месяца (с учётом високосного года). Отрицательные и нечисловые значения отклоняются.
+function isValidDateParts(year, month, day) {
+    var y = parseInt(year, 10);
+    var m = parseInt(month, 10);
+    var d = parseInt(day, 10);
+    if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) return false;
+    if (y < 1901 || y > 2999) return false;
+    if (m < 1 || m > 12) return false;
+    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (m === 2 && (y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0))) daysInMonth[1] = 29;
+    if (d < 1 || d > daysInMonth[m - 1]) return false;
+    return true;
+}
+
+// validTo "2026-05-01" → "01.05.2026" (для фразы "Действует до 01.05.2026"). Для любых недопустимых входов возвращает ''.
+function formatValidTo(validTo) {
+    if (!validTo) return '';
+    var str = String(validTo).trim();
+    var match = str.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!match) return '';
+    if (!isValidDateParts(match[1], match[2], match[3])) return '';
+    return match[3] + '.' + match[2] + '.' + match[1];
+}
+
+// Дней до даты validTo (ISO "2026-05-01"). Возвращает null если нет даты или дата недопустима (месяц/день вне диапазона).
+function getDaysUntilValidTo(validTo) {
+    if (!validTo) return null;
+    var match = String(validTo).trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!match || !isValidDateParts(match[1], match[2], match[3])) return null;
+    var toDate = new Date(parseInt(match[1], 10), parseInt(match[2], 10) - 1, parseInt(match[3], 10));
+    if (isNaN(toDate.getTime())) return null;
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    toDate.setHours(0, 0, 0, 0);
+    var ms = toDate - today;
+    return Math.floor(ms / (24 * 60 * 60 * 1000));
+}
+
+// Класс фона для срока: просрочено — серый, > 30 дней — зелёный, 14–30 — жёлтый, < 14 — светло-красный, без даты — нейтральный
+function getValidUntilBadgeClass(validTo) {
+    var days = getDaysUntilValidTo(validTo);
+    if (days === null) return 'bg-gray-100 text-gray-700';
+    if (days < 0) return 'bg-gray-200 text-gray-600';
+    if (days > 30) return 'bg-green-100 text-green-800';
+    if (days >= 14) return 'bg-yellow-100 text-yellow-800';
+    return 'bg-red-100 text-red-700';
+}
+
+// Осталось использований и класс: много (>50%) — зелёный, средне (25–50%) — жёлтый, мало (<25%) — светло-красный
+function getRemainingUsage(usageLimit, usageCount) {
+    var limit = Number(usageLimit);
+    var count = Number(usageCount);
+    if (!Number.isFinite(limit) || !Number.isFinite(count)) return { remaining: null, badgeClass: '' };
+    var remaining = Math.max(0, limit - count);
+    var ratio = limit > 0 ? remaining / limit : 1;
+    var badgeClass = ratio > 0.5 ? 'bg-green-100 text-green-800' : (ratio >= 0.25 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-700');
+    return { remaining: remaining, badgeClass: badgeClass };
+}
+
+// Белый список классов для бейджей (защита от XSS при данных с сервера)
+var ALLOWED_BADGE_CLASSES = {
+    'bg-gray-100 text-gray-700': true,
+    'bg-gray-200 text-gray-600': true,
+    'bg-green-100 text-green-800': true,
+    'bg-yellow-100 text-yellow-800': true,
+    'bg-red-100 text-red-700': true,
+    '': true
+};
+function getAllowedBadgeClass(classStr) {
+    if (classStr == null) return '';
+    var s = String(classStr).trim();
+    return ALLOWED_BADGE_CLASSES[s] === true ? s : 'bg-gray-100 text-gray-700';
+}
+
+function copyPromoCodeToClipboard(code, btnEl) {
+    if (!code) return;
+    var text = String(code).trim();
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+            var ok = document.execCommand('copy');
+            showCopyFeedback(btnEl, ok === true);
+        } catch (e) {
+            showCopyFeedback(btnEl, false);
+        }
+        document.body.removeChild(ta);
+        return;
+    }
+    navigator.clipboard.writeText(text).then(function() {
+        showCopyFeedback(btnEl, true);
+    }).catch(function() {
+        showCopyFeedback(btnEl, false);
+    });
+}
+
+function showCopyFeedback(btnEl, success) {
+    if (!btnEl) return;
+    var icon = btnEl.querySelector('i');
+    var msg = success ? 'Скопировано' : 'Не удалось скопировать';
+    btnEl.setAttribute('title', msg);
+    if (!icon) {
+        setTimeout(function() { btnEl.setAttribute('title', 'Копировать код'); }, 1500);
+        return;
+    }
+    var origClass = icon.className;
+    icon.className = success ? 'fas fa-check text-green-600' : 'fas fa-times text-red-500';
+    setTimeout(function() {
+        icon.className = origClass || 'far fa-copy';
+        btnEl.setAttribute('title', 'Копировать код');
+    }, 1500);
+}
+
+// Загружает промокоды и рендерит карточки в #promocodes-grid.
+// HTML карточки формируется конкатенацией строк; все динамические значения проходят через escapeHtml,
+// что обеспечивает защиту от XSS. Присвоение в innerHTML приемлемо при текущей структуре, но при
+// усложнении разметки карточки любые новые подставляемые значения обязательно должны кодироваться
+// через escapeHtml — иначе возможна инъекция разметки/скриптов из внешних данных.
+function loadPromocodes() {
+    var grid = document.getElementById('promocodes-grid');
+    var loading = document.getElementById('promocodes-loading');
+    var empty = document.getElementById('promocodes-empty');
+    var errorEl = document.getElementById('promocodes-error');
+    if (!grid) return;
+
+    loading.style.display = 'block';
+    empty.style.display = 'none';
+    if (errorEl) errorEl.style.display = 'none';
+    grid.innerHTML = '';
+
+    var controller = null;
+    var timeoutId = null;
+    if (typeof AbortController !== 'undefined') {
+        controller = new AbortController();
+        timeoutId = setTimeout(function() {
+            if (controller) controller.abort();
+        }, PROMOCODES_FETCH_TIMEOUT_MS);
+    }
+    var fetchOptions = { headers: { 'Accept': 'application/json' } };
+    if (controller && controller.signal) fetchOptions.signal = controller.signal;
+
+    fetch(PROMOCODES_API_URL, fetchOptions)
+        .then(function(res) {
+            if (timeoutId != null) clearTimeout(timeoutId);
+            if (!res.ok) {
+                throw new Error('Не удалось загрузить промокоды: ' + res.status);
+            }
+            return res.json();
+        })
+        .then(function(list) {
+            loading.style.display = 'none';
+            if (errorEl) errorEl.style.display = 'none';
+            if (!Array.isArray(list) || list.length === 0) {
+                empty.style.display = 'block';
+                return;
+            }
+            list.forEach(function(item) {
+                var rawCode = item != null && (item.code !== undefined && item.code !== null) ? String(item.code).trim() : '';
+                var rawTitle = item != null && (item.title !== undefined && item.title !== null) ? String(item.title).trim() : '';
+                if (!rawCode || !rawTitle) return; // обязательные поля: code и title; элементы без них пропускаем
+                var code = escapeHtml(rawCode);
+                var title = escapeHtml(rawTitle);
+                var discountRaw = item.discount != null ? item.discount : (item.discountPercent != null ? item.discountPercent : (item.discountText || ''));
+                var discount = escapeHtml(formatDiscountPercent(discountRaw));
+                var description = escapeHtml(item.description || '');
+                var validUntil = item.validUntil || '';
+                var daysUntil = getDaysUntilValidTo(item.validTo);
+                var validToFormatted = formatValidTo(item.validTo);
+                if (daysUntil !== null && daysUntil < 0) {
+                    validUntil = 'Просрочено';
+                } else if (validToFormatted) {
+                    validUntil = 'Действует до ' + validToFormatted;
+                } else if (!validUntil) {
+                    validUntil = 'Постоянно';
+                }
+                validUntil = escapeHtml(validUntil);
+                var conditions = escapeHtml(item.conditions || '');
+
+                var validUntilBadgeClass = getAllowedBadgeClass(getValidUntilBadgeClass(item.validTo));
+                var remainingData = getRemainingUsage(item.usageLimit, item.usageCount);
+                var usageHtml = '';
+                if (remainingData.remaining !== null) {
+                    usageHtml = '<span class="inline-block px-2 py-1 rounded text-xs font-medium ' + getAllowedBadgeClass(remainingData.badgeClass) + '">Осталось: ' + escapeHtml(String(remainingData.remaining)) + '</span>';
+                }
+
+                var card = document.createElement('div');
+                card.className = 'promo-code-card bg-white rounded-lg shadow-lg border border-brand-gold/20 overflow-hidden group reveal-up hover:shadow-xl transition-shadow duration-300';
+                card.innerHTML =
+                    '<div class="p-6 flex flex-col h-full">' +
+                    '<div class="flex items-center justify-between gap-2 mb-3">' +
+                    '<div class="flex items-center gap-2 min-w-0 flex-1">' +
+                    '<code class="text-xl font-mono font-bold text-brand-dark tracking-widest bg-gray-100 px-3 py-1 rounded truncate">' + code + '</code>' +
+                    '<button type="button" class="promo-copy-btn flex-shrink-0 w-9 h-9 flex items-center justify-center rounded text-gray-500 hover:text-brand-gold hover:bg-gray-100 transition-colors" title="Копировать код" aria-label="Копировать код"><i class="far fa-copy text-base"></i></button>' +
+                    '</div>' +
+                    (discount ? '<span class="text-brand-gold font-bold text-lg flex-shrink-0">' + discount + '</span>' : '') +
+                    '</div>' +
+                    (title ? '<h3 class="text-lg font-serif text-brand-dark mb-2">' + title + '</h3>' : '') +
+                    (description ? '<p class="text-gray-500 text-sm mb-3 flex-grow">' + description + '</p>' : '') +
+                    (conditions ? '<p class="text-gray-500 text-xs mb-2">' + conditions + '</p>' : '') +
+                    '<div class="text-xs mt-auto pt-2 flex flex-wrap items-end justify-between gap-2">' +
+                    '<span class="inline-block px-2 py-1 rounded font-medium ' + validUntilBadgeClass + '">' + validUntil + '</span>' +
+                    (usageHtml ? '<span class="ml-auto">' + usageHtml + '</span>' : '') +
+                    '</div>' +
+                    '</div>';
+                var copyBtn = card.querySelector('.promo-copy-btn');
+                if (copyBtn && rawCode) {
+                    copyBtn.addEventListener('click', function() { copyPromoCodeToClipboard(rawCode, copyBtn); });
+                }
+                grid.appendChild(card);
+            });
+            if (grid.children.length === 0) empty.style.display = 'block';
+            if (isGsapAvailable() && gsap.utils && gsap.utils.toArray) {
+                gsap.utils.toArray('#promocodes-grid .reveal-up').forEach(function(el, i) {
+                    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }, y: 60, opacity: 0, duration: 1, ease: 'power3.out', delay: i * 0.1 });
+                });
+            }
+        })
+        .catch(function(err) {
+            if (timeoutId != null) clearTimeout(timeoutId);
+            loading.style.display = 'none';
+            empty.style.display = 'none';
+            if (errorEl) {
+                errorEl.style.display = 'block';
+                var detailEl = document.getElementById('promocodes-error-detail');
+                if (detailEl) {
+                    if (err && err.name === 'AbortError') {
+                        detailEl.textContent = 'Запрос занял слишком много времени. Попробуйте позже.';
+                    } else {
+                        detailEl.textContent = 'Проверьте подключение к интернету или попробуйте позже.';
+                    }
+                }
+            }
+            if (typeof console !== 'undefined' && console.error) {
+                console.error('[Промокоды] Ошибка загрузки:', err && err.message ? err.message : err);
+            }
+        });
+}
+
+/** minNights из условий пакета в системе бронирования. null — не задано или меньше 1. */
+function packageMinNightsFromTemplate(pkg) {
+    if (pkg.minNights == null) return null;
+    var m = Number(pkg.minNights);
+    if (!Number.isFinite(m) || m < 1) return null;
+    return m;
+}
+
+/** Минимум ночей на сайте: условия пакета + 1 (бейдж, дата выезда, проверка перед онлайн-бронированием). */
+function packageMinNightsEffective(pkg) {
+    var m = packageMinNightsFromTemplate(pkg);
+    return m != null ? m + 1 : null;
+}
+
+/** Для поля «выезд»: effective или 1 ночь, если в шаблоне minNights не задан. */
+function packageMinNightsForCheckoutField(pkg) {
+    var e = packageMinNightsEffective(pkg);
+    return e != null ? e : 1;
+}
+
+/** Число ночей между датами YYYY-MM-DD (по UTC полуночи). */
+function countNightsBetweenYmd(checkInYmd, checkOutYmd) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(checkInYmd) || !/^\d{4}-\d{2}-\d{2}$/.test(checkOutYmd)) return 0;
+    var a = new Date(checkInYmd + 'T00:00:00.000Z');
+    var b = new Date(checkOutYmd + 'T00:00:00.000Z');
+    return Math.ceil((b.getTime() - a.getTime()) / 86400000);
+}
+
+/** Минимальная дата выезда: заезд + N ночей (UTC). */
+function ymdAddNightsForCheckoutMin(checkInYmd, nights) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(checkInYmd) || !Number.isFinite(nights) || nights < 1) return '';
+    var d = new Date(checkInYmd + 'T00:00:00.000Z');
+    d.setUTCDate(d.getUTCDate() + nights);
+    return d.toISOString().slice(0, 10);
+}
+
+/** Сдвиг даты YYYY-MM-DD на delta календарных дней (UTC). */
+function ymdAddDays(ymd, delta) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd) || !Number.isFinite(delta)) return '';
+    var d = new Date(ymd + 'T00:00:00.000Z');
+    d.setUTCDate(d.getUTCDate() + delta);
+    return d.toISOString().slice(0, 10);
+}
+
+/** Все ночи проживания (первая = заезд, последняя включительно) внутри [validFrom, validTo] шаблона. */
+function packageStayNightsWithinTemplate(pkg, checkInYmd, checkOutYmd) {
+    var n = countNightsBetweenYmd(checkInYmd, checkOutYmd);
+    if (n < 1) return false;
+    var lastNight = ymdAddDays(checkInYmd, n - 1);
+    var vf = (pkg.validFrom && String(pkg.validFrom).slice(0, 10)) || '';
+    var vt = (pkg.validTo && String(pkg.validTo).slice(0, 10)) || '';
+    if (vf && checkInYmd < vf) return false;
+    if (vt && lastNight > vt) return false;
+    return true;
+}
+
+/** Дата YYYY-MM-DD → ДД.ММ.ГГГГ для подсказок. */
+function ymdToRuDots(ymd) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return ymd || '';
+    var p = ymd.split('-');
+    return p[2] + '.' + p[1] + '.' + p[0];
+}
+
+function clearPackageDateError(card) {
+    var el = card.querySelector('[data-package-date-error]');
+    if (el) {
+        el.textContent = '';
+        el.classList.add('hidden');
+    }
+}
+
+function setPackageDateError(card, msg) {
+    var el = card.querySelector('[data-package-date-error]');
+    if (!el) return;
+    el.textContent = msg || '';
+    el.classList.toggle('hidden', !msg);
+}
+
+/** Текст про допустимый период пакета (для сообщения в Safari / iOS). */
+function packageDateRangeHintText(pkg) {
+    var vf = (pkg.validFrom && String(pkg.validFrom).slice(0, 10)) || '';
+    var vt = (pkg.validTo && String(pkg.validTo).slice(0, 10)) || '';
+    if (vf && vt) {
+        return 'Можно выбрать даты с ' + ymdToRuDots(vf) + ' по ' + ymdToRuDots(vt) + '. Если поле осталось пустым — дата вне этого периода.';
+    }
+    if (vf) return 'Заезд не раньше ' + ymdToRuDots(vf) + '.';
+    if (vt) return 'Даты не позже ' + ymdToRuDots(vt) + '.';
+    return 'Выберите дату в календаре ещё раз.';
+}
+
+/** Сброс value, если оно не попадает в min/max атрибутов (дублируем поведение Safari). */
+function clipPackageDateInputToMinMax(input) {
+    if (!input || !input.value) return false;
+    var v = input.value;
+    var mn = input.getAttribute('min');
+    var mx = input.getAttribute('max');
+    if (mn && v < mn) {
+        input.value = '';
+        return true;
+    }
+    if (mx && v > mx) {
+        input.value = '';
+        return true;
+    }
+    if (input.validity && (input.validity.rangeUnderflow || input.validity.rangeOverflow)) {
+        input.value = '';
+        return true;
+    }
+    return false;
+}
+
+/** Объекты проживания из состава пакета (для выпадающего списка на сайте). */
+function collectPackageAccommodationObjects(pkg) {
+    var list = [];
+    var seen = {};
+    (pkg.items || []).forEach(function(it) {
+        var so = it.serviceObject;
+        if (!so || !so.id || seen[so.id]) return;
+        var st = it.serviceType;
+        var rp = String(st && (st.rentalPeriod != null ? st.rentalPeriod : st.rental_period) || '').toLowerCase();
+        if (rp !== 'daily') return;
+        var acc =
+            st &&
+            (st.isAccommodations === true ||
+                st.isAccommodations === 1 ||
+                st.is_accommodations === true ||
+                st.is_accommodations === 1);
+        if (!acc) return;
+        seen[so.id] = true;
+        var nm = (so.name != null ? String(so.name) : 'Размещение').trim() || 'Размещение';
+        list.push({ id: String(so.id), name: nm });
+    });
+    return list;
+}
+
+function renderPackageObjectSelectOptions(sel, opts) {
+    if (!sel) return;
+    var prev = sel.value;
+    sel.innerHTML =
+        '<option value="">Выберите объект</option>' +
+        (opts || [])
+            .map(function(o) {
+                var idAttr = String(o.id).replace(/"/g, '');
+                return '<option value="' + idAttr + '">' + escapeHtml(o.name) + '</option>';
+            })
+            .join('');
+    if (prev && Array.prototype.some.call(sel.options, function(opt) { return opt.value === prev; })) {
+        sel.value = prev;
+    }
+}
+
+/** Свободные варианты жилья на даты; если в пакете нет суточного жилья — запрос к каталогу объектов. */
+function loadPackageAccommodationObjectsFromApi(pkg, checkIn, checkOut) {
+    var apiBase = window.CONFIG && window.CONFIG.apiBaseUrl ? String(window.CONFIG.apiBaseUrl).replace(/\/+$/, '') : '';
+    if (!apiBase || !checkIn || !checkOut) return Promise.resolve([]);
+
+    function isCampingType(t) {
+        if (!t) return false;
+        return String(t.slug || '').toLowerCase() === 'camping' || String(t.name || '').toLowerCase() === 'camping';
+    }
+
+    function isDailyAccommodationObj(obj) {
+        var t = obj && obj.type;
+        if (!t) return false;
+        var rp = String((t.rentalPeriod != null ? t.rentalPeriod : t.rental_period) || '').toLowerCase();
+        var acc =
+            t.isAccommodations === true ||
+            t.isAccommodations === 1 ||
+            t.is_accommodations === true ||
+            t.is_accommodations === 1;
+        return rp === 'daily' && acc && !isCampingType(t);
+    }
+
+    function rowsToOptions(arr) {
+        var seen = {};
+        var list = [];
+        (Array.isArray(arr) ? arr : []).forEach(function(obj) {
+            if (!obj || !obj.id || seen[obj.id]) return;
+            if (!isDailyAccommodationObj(obj)) return;
+            seen[obj.id] = true;
+            var nm = (obj.name != null ? String(obj.name) : 'Размещение').trim() || 'Размещение';
+            list.push({ id: String(obj.id), name: nm });
+        });
+        list.sort(function(a, b) {
+            return a.name.localeCompare(b.name, 'ru');
+        });
+        return list;
+    }
+
+    var typeIds = pkg.appliesToAccommodationTypeIds;
+    var hasTypes = Array.isArray(typeIds) && typeIds.length > 0;
+
+    function fetchAvailable(typeId) {
+        var url =
+            apiBase +
+            '/objects/available?startDate=' +
+            encodeURIComponent(checkIn) +
+            '&endDate=' +
+            encodeURIComponent(checkOut);
+        if (typeId) url += '&typeId=' + encodeURIComponent(typeId);
+        var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        var tid = controller
+            ? setTimeout(function() {
+                  controller.abort();
+              }, PACKAGES_FETCH_TIMEOUT_MS)
+            : null;
+        return fetch(url, { headers: { Accept: 'application/json' }, signal: controller ? controller.signal : undefined })
+            .then(function(r) {
+                if (tid != null) clearTimeout(tid);
+                if (!r.ok) throw new Error(String(r.status));
+                return r.json();
+            })
+            .catch(function(e) {
+                if (tid != null) clearTimeout(tid);
+                throw e;
+            });
+    }
+
+    if (hasTypes) {
+        return Promise.all(typeIds.map(function(id) { return fetchAvailable(String(id)); })).then(function(arrays) {
+            var merged = {};
+            var out = [];
+            arrays.forEach(function(arr) {
+                rowsToOptions(arr).forEach(function(o) {
+                    if (merged[o.id]) return;
+                    merged[o.id] = true;
+                    out.push(o);
+                });
+            });
+            out.sort(function(a, b) {
+                return a.name.localeCompare(b.name, 'ru');
+            });
+            return out;
+        });
+    }
+
+    return fetchAvailable(null).then(rowsToOptions);
+}
+
+/** Обновить выпадающий список: сначала позиции пакета; иначе — запрос свободных объектов на выбранные даты. */
+function refreshPackageObjectSelect(card, pkg) {
+    var sel = card.querySelector('[data-package-object-select]');
+    if (!sel) return;
+    var ci = card.querySelector('[data-package-checkin]');
+    var co = card.querySelector('[data-package-checkout]');
+    var d1 = ci && ci.value ? String(ci.value).trim() : '';
+    var d2 = co && co.value ? String(co.value).trim() : '';
+
+    var fromItems = collectPackageAccommodationObjects(pkg);
+    if (fromItems.length > 0) {
+        sel.disabled = false;
+        renderPackageObjectSelectOptions(sel, fromItems);
+        return;
+    }
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d1) || !/^\d{4}-\d{2}-\d{2}$/.test(d2) || d1 >= d2) {
+        sel.disabled = false;
+        sel.innerHTML = '<option value="">Сначала укажите заезд и выезд</option>';
+        return;
+    }
+
+    sel.disabled = true;
+    sel.innerHTML = '<option value="">Загрузка объектов…</option>';
+    loadPackageAccommodationObjectsFromApi(pkg, d1, d2)
+        .then(function(list) {
+            sel.disabled = false;
+            if (!list || list.length === 0) {
+                sel.innerHTML = '<option value="">Нет доступного жилья на эти даты</option>';
+                return;
+            }
+            renderPackageObjectSelectOptions(sel, list);
+        })
+        .catch(function() {
+            sel.disabled = false;
+            sel.innerHTML = '<option value="">Не удалось загрузить список. Повторите.</option>';
+        });
+}
+
+/** Ограничения дат в панели: срок действия пакета и минимум ночей (выезд не раньше заезд + N ночей). */
+function syncPackagePanelDates(card, pkg) {
+    var cleared = { checkin: false, checkout: false };
+    var ci = card.querySelector('[data-package-checkin]');
+    var co = card.querySelector('[data-package-checkout]');
+    if (!ci || !co) return cleared;
+    var vf = (pkg.validFrom && String(pkg.validFrom).slice(0, 10)) || '';
+    var vt = (pkg.validTo && String(pkg.validTo).slice(0, 10)) || '';
+    var minN = packageMinNightsForCheckoutField(pkg);
+
+    if (vf) ci.min = vf;
+    else ci.removeAttribute('min');
+    if (vt) ci.max = vt;
+    else ci.removeAttribute('max');
+
+    var ciVal = ci.value && /^\d{4}-\d{2}-\d{2}$/.test(ci.value) ? ci.value : '';
+    if (ciVal && vf && ciVal < vf) {
+        ci.value = '';
+        ciVal = '';
+        cleared.checkin = true;
+    }
+    if (ciVal && vt && ciVal > vt) {
+        ci.value = '';
+        ciVal = '';
+        cleared.checkin = true;
+    }
+    if (clipPackageDateInputToMinMax(ci)) {
+        cleared.checkin = true;
+        ciVal = '';
+    }
+
+    ciVal = ci.value && /^\d{4}-\d{2}-\d{2}$/.test(ci.value) ? ci.value : '';
+
+    if (ciVal) {
+        var minCoByStay = ymdAddNightsForCheckoutMin(ciVal, minN);
+        co.min = minCoByStay;
+        if (vt) co.max = ymdAddDays(vt, 1);
+        else co.removeAttribute('max');
+        if (co.min && co.max && co.min > co.max) {
+            co.removeAttribute('min');
+            co.removeAttribute('max');
+        }
+        if (co.min && co.value && co.value < co.min) {
+            co.value = '';
+            cleared.checkout = true;
+        }
+        if (co.value && /^\d{4}-\d{2}-\d{2}$/.test(co.value)) {
+            var nStay = countNightsBetweenYmd(ciVal, co.value);
+            if (nStay >= 1) {
+                var lastN = ymdAddDays(ciVal, nStay - 1);
+                if (vt && lastN > vt) {
+                    co.value = '';
+                    cleared.checkout = true;
+                }
+            }
+        }
+    } else {
+        if (vf) co.min = vf;
+        else co.removeAttribute('min');
+        if (vt) co.max = ymdAddDays(vt, 1);
+        else co.removeAttribute('max');
+    }
+
+    if (clipPackageDateInputToMinMax(co)) cleared.checkout = true;
+
+    return cleared;
+}
+
+/** Двухшаговое бронирование пакета: 1) даты и объект, 2) онлайн-форма с предзаполнением. */
+function initPackageBookingTwoStep() {
+    var grid = document.getElementById('packages-grid');
+    if (!grid || grid.getAttribute('data-pkg-booking-bound') === '1') return;
+    grid.setAttribute('data-pkg-booking-bound', '1');
+
+    function handlePackageDateField(ev) {
+        var el = ev.target;
+        if (!el || !el.matches || !el.matches('[data-package-checkin], [data-package-checkout]')) return;
+        var card = el.closest('[data-package-card]');
+        if (!card) return;
+        var pid = card.getAttribute('data-package-id');
+        var store = window.__packageRawById || {};
+        var pkg = pid ? store[pid] : null;
+        if (!pkg) return;
+        var cleared = syncPackagePanelDates(card, pkg);
+        if (cleared.checkin || cleared.checkout) {
+            setPackageDateError(card, packageDateRangeHintText(pkg));
+        } else {
+            clearPackageDateError(card);
+        }
+        refreshPackageObjectSelect(card, pkg);
+    }
+
+    grid.addEventListener('change', handlePackageDateField);
+    grid.addEventListener('input', handlePackageDateField);
+    grid.addEventListener('click', function(ev) {
+        var btn = ev.target.closest('a[data-package-book-step]');
+        if (!btn) return;
+        ev.preventDefault();
+        var card = btn.closest('[data-package-card]');
+        if (!card) return;
+        var pid = card.getAttribute('data-package-id');
+        var store = window.__packageRawById || {};
+        var pkg = pid ? store[pid] : null;
+        if (!pkg) return;
+        var step = btn.getAttribute('data-package-book-step') || '1';
+        var panel = card.querySelector('[data-package-panel]');
+        var sel = card.querySelector('[data-package-object-select]');
+        var ci = card.querySelector('[data-package-checkin]');
+        var co = card.querySelector('[data-package-checkout]');
+        if (step === '1') {
+            if (panel) panel.classList.remove('hidden');
+            clearPackageDateError(card);
+            var clearedOpen = syncPackagePanelDates(card, pkg);
+            if (clearedOpen.checkin || clearedOpen.checkout) {
+                setPackageDateError(card, packageDateRangeHintText(pkg));
+            }
+            refreshPackageObjectSelect(card, pkg);
+            btn.setAttribute('data-package-book-step', '2');
+            btn.textContent = 'Оформить онлайн';
+            return;
+        }
+        var oid = sel && sel.value ? String(sel.value).trim() : '';
+        var d1 = ci && ci.value ? String(ci.value).trim() : '';
+        var d2 = co && co.value ? String(co.value).trim() : '';
+        if (!oid || !/^\d{4}-\d{2}-\d{2}$/.test(d1) || !/^\d{4}-\d{2}-\d{2}$/.test(d2) || d1 >= d2) {
+            alert('Выберите объект проживания и корректные даты заезда и выезда.');
+            return;
+        }
+        var pkgMin = packageMinNightsEffective(pkg);
+        if (pkgMin != null && countNightsBetweenYmd(d1, d2) < pkgMin) {
+            alert('Для этого пакета на сайте нужно не меньше ' + pkgMin + ' ночей (в шаблоне min ночей + 1). Увеличьте дату выезда.');
+            return;
+        }
+        if (!packageStayNightsWithinTemplate(pkg, d1, d2)) {
+            alert(
+                'Пакет недоступен на выбранные даты: все ночи проживания должны попадать в период действия пакета. Измените даты или выберите другой пакет.',
+            );
+            return;
+        }
+        btn.setAttribute('data-booking-widget-link', '');
+        btn.setAttribute('data-widget-period', 'daily');
+        btn.setAttribute('data-widget-object-id', oid);
+        btn.setAttribute('data-widget-check-in', d1);
+        btn.setAttribute('data-widget-check-out', d2);
+        btn.setAttribute('data-widget-package-template-id', String(pkg.id || ''));
+        btn.setAttribute('data-widget-initial-step', 'contact');
+        if (typeof window.refreshWidgetBookingHrefForLink === 'function') {
+            btn.setAttribute('href', window.refreshWidgetBookingHrefForLink(btn));
+        }
+        var href = btn.getAttribute('href') || '';
+        if (href && href !== '#') {
+            window.open(href, '_blank', 'noopener,noreferrer');
+        }
+    });
+}
+
+// Загружает пакеты и рендерит карточки в #packages-grid. Все значения через escapeHtml (XSS).
+function loadPackages() {
+    var grid = document.getElementById('packages-grid');
+    var loading = document.getElementById('packages-loading');
+    var empty = document.getElementById('packages-empty');
+    var errorEl = document.getElementById('packages-error');
+    if (!grid) return;
+
+    if (loading) loading.style.display = 'block';
+    if (empty) empty.style.display = 'none';
+    if (errorEl) errorEl.style.display = 'none';
+    grid.innerHTML = '';
+
+    var controller = null;
+    var timeoutId = null;
+    if (typeof AbortController !== 'undefined') {
+        controller = new AbortController();
+        timeoutId = setTimeout(function() {
+            if (controller) controller.abort();
+        }, PACKAGES_FETCH_TIMEOUT_MS);
+    }
+    var fetchOptions = { headers: { 'Accept': 'application/json' } };
+    if (controller && controller.signal) fetchOptions.signal = controller.signal;
+
+    fetch(PACKAGES_API_URL, fetchOptions)
+        .then(function(res) {
+            if (timeoutId != null) clearTimeout(timeoutId);
+            if (!res.ok) {
+                throw new Error('Не удалось загрузить пакеты: ' + res.status);
+            }
+            return res.json();
+        })
+        .then(function(list) {
+            if (loading) loading.style.display = 'none';
+            if (errorEl) errorEl.style.display = 'none';
+            if (!Array.isArray(list) || list.length === 0) {
+                if (empty) empty.style.display = 'block';
+                return;
+            }
+            window.__packageRawById = window.__packageRawById || {};
+            var widgetUrl = (window.CONFIG && window.CONFIG.widgetUrl) ? (window.CONFIG.widgetUrl.replace(/\/+$/, '') + '/') : '';
+            list.forEach(function(pkg) {
+                var title = escapeHtml((pkg.title != null ? String(pkg.title).trim() : '') || 'Пакет');
+                var description = escapeHtml((pkg.description != null ? String(pkg.description) : '') || '');
+                var badge = '';
+                var minNightsBadge = packageMinNightsEffective(pkg);
+                if (minNightsBadge != null) {
+                    badge = '<div class="absolute top-4 left-4 bg-brand-gold text-white px-3 py-1 text-xs uppercase tracking-wider font-bold z-20">От ' + escapeHtml(String(minNightsBadge)) + ' ночей</div>';
+                }
+                var validRange = '';
+                if (pkg.validFrom || pkg.validTo) {
+                    var fromStr = (pkg.validFrom && String(pkg.validFrom).slice(0, 10)) || '';
+                    var toStr = (pkg.validTo && String(pkg.validTo).slice(0, 10)) || '';
+                    if (fromStr && toStr) validRange = '<p class="text-gray-500 text-xs mt-1">' + escapeHtml(fromStr) + ' — ' + escapeHtml(toStr) + '</p>';
+                    else if (toStr) validRange = '<p class="text-gray-500 text-xs mt-1">До ' + escapeHtml(toStr) + '</p>';
+                }
+                var imgSrc = '';
+                if (pkg.items && pkg.items[0] && pkg.items[0].serviceObject && pkg.items[0].serviceObject.photoUrls) {
+                    try {
+                        var urls = JSON.parse(pkg.items[0].serviceObject.photoUrls || '[]');
+                        imgSrc = Array.isArray(urls) && urls[0] ? urls[0] : '';
+                    } catch (e) { }
+                }
+                if (imgSrc && typeof window.resolveApiUploadUrl === 'function') {
+                    imgSrc = window.resolveApiUploadUrl(imgSrc);
+                }
+                var imgHtml = imgSrc ? '<img src="' + escapeHtml(imgSrc) + '" alt="" class="w-full h-full object-cover">' : '<div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400"><i class="fas fa-image fa-2x"></i></div>';
+                var pid = (pkg.id != null ? String(pkg.id) : '');
+                if (pid) window.__packageRawById[pid] = pkg;
+                var card = document.createElement('div');
+                card.className = 'promotion-card bg-white shadow-xl rounded-sm flex flex-col reveal-up min-w-0 max-w-full';
+                if (pid) card.setAttribute('data-package-card', '1');
+                if (pid) card.setAttribute('data-package-id', escapeHtml(pid));
+                card.innerHTML =
+                    '<div class="relative h-48 overflow-hidden rounded-t-sm flex-shrink-0">' + badge + imgHtml + '</div>' +
+                    '<div class="p-6 flex flex-col flex-grow min-w-0">' +
+                    '<h3 class="text-xl font-serif text-brand-dark mb-2">' + title + '</h3>' +
+                    (description ? '<p class="text-gray-500 text-sm mb-4 line-clamp-2">' + description + '</p>' : '') +
+                    validRange +
+                    '<div class="hidden mt-4 p-3 rounded border border-brand-gold/30 bg-amber-50/80 text-left package-booking-panel" data-package-panel>' +
+                    '<label class="block text-xs font-medium text-gray-600 mb-1">Дата заезда</label>' +
+                    '<input type="date" data-package-checkin class="package-booking-field" />' +
+                    '<label class="block text-xs font-medium text-gray-600 mt-2 mb-1">Дата выезда</label>' +
+                    '<input type="date" data-package-checkout class="package-booking-field" />' +
+                    '<label class="block text-xs font-medium text-gray-600 mt-2 mb-1">Объект проживания</label>' +
+                    '<select data-package-object-select class="package-booking-field"><option value="">Сначала заезд и выезд</option></select>' +
+                    '<p class="hidden text-xs text-amber-900 mt-2 leading-snug" data-package-date-error role="status" aria-live="polite"></p>' +
+                    '<p class="text-xs text-gray-600 mt-2 leading-snug">Укажите даты и вариант размещения. Минимальная длительность — <strong>как в описании пакета.</strong>. Нажмите «Забронировать» ещё раз, чтобы перейти к оформлению. На телефоне календарь показывает только даты в периоде действия пакета; если после выбора поле пустое — дата недоступна.</p>' +
+                    '</div>' +
+                    '<div class="mt-auto pt-2 min-w-0 w-full">' +
+                    (widgetUrl ? '<a href="#" data-package-book-step="1" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white hover:bg-brand-dark w-full max-w-full sm:w-auto flex-shrink-0">Забронировать</a>' : '<span class="text-gray-400 text-sm">Онлайн-бронирование временно недоступно — уточните по телефону или в мессенджере</span>') +
+                    '</div></div>';
+                grid.appendChild(card);
+            });
+            initPackageBookingTwoStep();
+            if (grid.children.length === 0 && empty) empty.style.display = 'block';
+        })
+        .catch(function(err) {
+            if (timeoutId != null) clearTimeout(timeoutId);
+            if (loading) loading.style.display = 'none';
+            if (empty) empty.style.display = 'none';
+            if (errorEl) {
+                errorEl.style.display = 'block';
+                var detailEl = document.getElementById('packages-error-detail');
+                if (detailEl) {
+                    detailEl.textContent = (err && err.name === 'AbortError') ? 'Превышено время ожидания.' : 'Проверьте подключение или попробуйте позже.';
+                }
+            }
+            if (typeof console !== 'undefined' && console.error) {
+                console.error('[Пакеты] Ошибка загрузки:', err && err.message ? err.message : err);
+            }
+        });
+}
+
+// Загружает карточки акций и рендерит в #offer-cards-grid. Модалка через openOfferCardModal(id).
+function loadOfferCards() {
+    var grid = document.getElementById('offer-cards-grid');
+    var loading = document.getElementById('offer-cards-loading');
+    var empty = document.getElementById('offer-cards-empty');
+    var errorEl = document.getElementById('offer-cards-error');
+    if (!grid) return;
+
+    if (loading) loading.style.display = 'block';
+    if (empty) empty.style.display = 'none';
+    if (errorEl) errorEl.style.display = 'none';
+    grid.innerHTML = '';
+    window.offerCardsMap = {};
+
+    var controller = null;
+    var timeoutId = null;
+    if (typeof AbortController !== 'undefined') {
+        controller = new AbortController();
+        timeoutId = setTimeout(function() { if (controller) controller.abort(); }, OFFER_CARDS_FETCH_TIMEOUT_MS);
+    }
+    var fetchOptions = { headers: { 'Accept': 'application/json' } };
+    if (controller && controller.signal) fetchOptions.signal = controller.signal;
+
+    fetch(OFFER_CARDS_API_URL, fetchOptions)
+        .then(function(res) {
+            if (timeoutId != null) clearTimeout(timeoutId);
+            if (!res.ok) throw new Error('Не удалось загрузить акции: ' + res.status);
+            return res.json();
+        })
+        .then(function(list) {
+            if (loading) loading.style.display = 'none';
+            if (errorEl) errorEl.style.display = 'none';
+            if (!Array.isArray(list) || list.length === 0) {
+                if (empty) empty.style.display = 'block';
+                return;
+            }
+            list.forEach(function(card) {
+                var id = card.id;
+                if (!id) return;
+                window.offerCardsMap[id] = card;
+                var title = escapeHtml((card.title != null ? String(card.title).trim() : '') || 'Акция');
+                var description = (card.description != null ? String(card.description).trim() : '') || '';
+                var descSnippet = description.length > 120 ? description.slice(0, 117) + '...' : description;
+                descSnippet = escapeHtml(descSnippet);
+                var validRange = '';
+                if (card.validFrom || card.validTo) {
+                    var fromStr = (card.validFrom && String(card.validFrom).slice(0, 10)) || '';
+                    var toStr = (card.validTo && String(card.validTo).slice(0, 10)) || '';
+                    if (fromStr && toStr) validRange = '<p class="text-gray-500 text-xs mt-1">' + escapeHtml(fromStr) + ' — ' + escapeHtml(toStr) + '</p>';
+                    else if (fromStr) validRange = '<p class="text-gray-500 text-xs mt-1">С ' + escapeHtml(fromStr) + '</p>';
+                    else if (toStr) validRange = '<p class="text-gray-500 text-xs mt-1">До ' + escapeHtml(toStr) + '</p>';
+                }
+                var badge = (card.badgeText != null && String(card.badgeText).trim()) ? '<div class="absolute top-4 left-4 bg-brand-gold text-white px-3 py-1 text-xs uppercase tracking-wider font-bold z-20">' + escapeHtml(String(card.badgeText).trim()) + '</div>' : '';
+                var imgSrc = (card.imageUrl != null && String(card.imageUrl).trim()) ? String(card.imageUrl).trim() : '';
+                var imgHtml = imgSrc ? '<img src="' + escapeHtml(imgSrc) + '" alt="" class="w-full h-full object-cover">' : '<div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400"><i class="fas fa-tag fa-2x"></i></div>';
+                var cardEl = document.createElement('div');
+                cardEl.className = 'promotion-card bg-white shadow-xl rounded-sm flex flex-col reveal-up';
+                cardEl.innerHTML =
+                    '<div class="relative h-48 overflow-hidden rounded-t-sm flex-shrink-0">' + badge + imgHtml + '</div>' +
+                    '<div class="p-6 flex flex-col flex-grow">' +
+                    '<h3 class="text-xl font-serif text-brand-dark mb-2">' + title + '</h3>' +
+                    (descSnippet ? '<p class="text-gray-500 text-sm mb-4 line-clamp-2">' + descSnippet + '</p>' : '') +
+                    validRange +
+                    '<div class="mt-auto pt-2">' +
+                    '<button type="button" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white hover:bg-brand-dark w-auto flex-shrink-0" data-offer-card-id="' + escapeHtml(id) + '">Подробнее</button>' +
+                    '</div></div>';
+                var btn = cardEl.querySelector('button[data-offer-card-id]');
+                if (btn) {
+                    btn.addEventListener('click', function() { openOfferCardModal(btn.getAttribute('data-offer-card-id')); });
+                }
+                grid.appendChild(cardEl);
+            });
+            if (grid.children.length === 0 && empty) empty.style.display = 'block';
+        })
+        .catch(function(err) {
+            if (timeoutId != null) clearTimeout(timeoutId);
+            if (loading) loading.style.display = 'none';
+            if (empty) empty.style.display = 'none';
+            if (errorEl) {
+                errorEl.style.display = 'block';
+                var detailEl = document.getElementById('offer-cards-error-detail');
+                if (detailEl) detailEl.textContent = (err && err.name === 'AbortError') ? 'Превышено время ожидания.' : 'Проверьте подключение или попробуйте позже.';
+            }
+            if (typeof console !== 'undefined' && console.error) {
+                console.error('[Акции] Ошибка загрузки:', err && err.message ? err.message : err);
+            }
+        });
+}
+
+// Villa Data Configuration (база отдыха Золотые пески)
+const villaData = {
+    'mist-valley': {
+        title: 'Домик у озера',
+        price: 'от 4 500 ₽',
+        tag: 'Популярный',
+        desc: 'Уютный домик в шаговой доступности от озера Тургояк. Отдыхайте на природе, наслаждайтесь видом на воду и свежим воздухом. Идеально подходит для семейного отдыха.',
+        beds: '2–3 спальни',
+        baths: 'Санузел',
+        guests: 'До 6 гостей',
+        images: [
+            "images/villa1/v1.jpeg",
+            "images/villa1/v2.jpeg",
+            "images/villa1/v3.jpeg",
+            "images/villa1/v4.jpeg",
+            "images/villa1/v5.jpeg",
+            "images/villa1/v6.jpeg",
+            "images/villa1/v7.jpeg",
+        ]
+    },
+    'sky-deck': {
+        title: 'Домик с видом',
+        price: 'от 5 500 ₽',
+        tag: 'Комфорт',
+        desc: 'Просторный домик с панорамным видом на озеро. Крытая веранда, мангальная зона. Отличный выбор для отдыха с друзьями или семьёй.',
+        beds: '2–3 спальни',
+        baths: 'Санузел',
+        guests: 'До 8 гостей',
+        images: [
+            "images/villa2/i1.jpeg",
+            "images/villa2/i2.jpeg",
+            "images/villa2/i3.jpeg",
+            "images/villa2/i4.jpeg",
+            "images/villa2/i5.jpeg",
+        ]
+    },
+    'verdant-edge': {
+        title: 'Просторный дом',
+        price: 'от 7 000 ₽',
+        tag: 'Для компании',
+        desc: 'Большой дом для отдыха большой компанией. Терраса, мангальная зона, всё необходимое для комфортного пребывания на базе отдыха.',
+        beds: '3–4 спальни',
+        baths: '2 санузла',
+        guests: 'До 12 гостей',
+        images: [
+            "images/villa3/l1.jpeg",
+            "images/villa3/l2.jpeg",
+            "images/villa3/l3.jpeg",
+            "images/villa3/l4.jpeg",
+            "images/villa3/l5.jpeg",
+            "images/villa3/l6.jpeg",
+            "images/villa3/l7.jpeg"
+        ]
+    },
+    'pebble-creek': {
+        title: 'Домик у воды',
+        price: 'от 3 500 ₽',
+        tag: 'Уединённый отдых',
+        desc: 'Уютный домик для романтического или семейного отдыха. Близость к озеру, тишина и природа. Идеально для пар или небольшой семьи.',
+        beds: '1–2 спальни',
+        baths: 'Санузел',
+        guests: 'До 4 гостей',
+        images: [
+            "images/villa4/p1.jpeg",
+            "images/villa4/p2.jpeg",
+            "images/villa4/p3.jpeg",
+            "images/villa4/p4.jpeg",
+            "images/villa4/p5.jpeg",
+            "images/villa4/p6.jpeg",
+            "images/villa4/p7.jpeg",
+        ]
+    }
+};
+
+// Hero Background Images for Slider
+const heroImages = [
+    "images/villa4/p1.jpeg",
+    "images/villa4/p2.jpeg",
+    "images/villa4/p3.jpeg",
+    "images/villa4/p4.jpeg",
+    "images/villa4/p5.jpeg",
+    "images/villa4/p6.jpeg",
+    "images/villa4/p7.jpeg",
+]
+
+// Contact Information (база отдыха Золотые пески)
+const contactInfo = window.CONFIG ? {
+    phone: window.CONFIG.phone,
+    whatsapp: window.CONFIG.whatsapp,
+    email: window.CONFIG.email,
+    address: window.CONFIG.address
+} : { phone: '', whatsapp: '', email: '', address: '' };
+</script>
+    <script>
+// Utility Functions for база отдыха Золотые пески
+
+// Telegram: отправка заявки в бота
+function sendWhatsapp() {
+    const name = document.getElementById('contact-name').value;
+    const phone = document.getElementById('contact-phone').value;
+    const date = document.getElementById('contact-date').value;
+    const villa = document.getElementById('contact-villa').value;
+    
+    // Get optional fields if they exist
+    const email = document.getElementById('contact-email')?.value || '';
+    const checkout = document.getElementById('contact-checkout')?.value || '';
+    const guests = document.getElementById('contact-guests')?.value || '';
+    const message = document.getElementById('contact-message')?.value || '';
+
+    // Validation
+    if (!name || !phone || !date) {
+        alert("Укажите имя, телефон и дату заезда.");
+        return;
+    }
+
+    if (!villa) {
+        alert("Выберите домик.");
+        return;
+    }
+
+    // Build WhatsApp message
+    let whatsappMessage = `Здравствуйте! База отдыха Золотые пески.%0A%0AХотел(а) бы уточнить наличие мест.%0A%0A*Имя:* ${name}%0A*Телефон:* ${phone}`;
+    
+    if (email) {
+        whatsappMessage += `%0A*Email:* ${email}`;
+    }
+    
+    if (guests) {
+        whatsappMessage += `%0A*Количество гостей:* ${guests}`;
+    }
+    
+    whatsappMessage += `%0A*Дата заезда:* ${date}`;
+    
+    if (checkout) {
+        whatsappMessage += `%0A*Дата выезда:* ${checkout}`;
+    }
+    
+    whatsappMessage += `%0A*Интересующий домик:* ${villa}`;
+    
+    if (message) {
+        whatsappMessage += `%0A*Пожелания:* ${message}`;
+    }
+    
+    whatsappMessage += `%0A%0AЖду ответа.`;
+
+    const telegramText = whatsappMessage.replace(/%0A/g, '\n');
+    const telegramUrl = (window.CONFIG && window.CONFIG.telegramBot ? window.CONFIG.telegramBot.replace(/\/+$/, '') : 'https://t.me/Zolotye_peski174_bot') + '?text=' + encodeURIComponent(telegramText);
+    window.open(telegramUrl, '_blank');
+}
+
+// Modal Functions
+function openModal(villaId) {
+    const data = villaData[villaId];
+    if (!data) return;
+
+    // Populate Text
+    document.getElementById('modal-title').innerText = data.title;
+    document.getElementById('modal-price').innerHTML = `${data.price}<span class="text-sm font-normal text-gray-500">/ночь</span>`;
+    document.getElementById('modal-desc').innerText = data.desc;
+    document.getElementById('modal-tag').innerText = data.tag;
+    document.getElementById('modal-beds').innerText = data.beds;
+    document.getElementById('modal-baths').innerText = data.baths;
+    document.getElementById('modal-guests').innerText = data.guests;
+    
+    // Set contact dropdown if on booking page
+    const villaDropdown = document.getElementById('contact-villa');
+    if (villaDropdown) {
+        // Store the villa title for later use
+        window.selectedVillaTitle = data.title;
+    }
+
+    // Populate Images
+    const mainImg = document.getElementById('modal-main-img');
+    const thumbContainer = document.getElementById('modal-thumbnails');
+    
+    mainImg.src = data.images[0];
+    thumbContainer.innerHTML = ''; // Clear previous thumbnails
+
+    data.images.forEach((imgSrc, index) => {
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.className = `w-20 h-20 md:w-24 md:h-24 object-cover rounded cursor-pointer border-2 hover:border-brand-gold transition-all ${index === 0 ? 'border-brand-gold' : 'border-transparent'}`;
+        thumb.onclick = () => {
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = imgSrc;
+                mainImg.style.opacity = '1';
+            }, 300);
+            // Update borders
+            Array.from(thumbContainer.children).forEach(child => {
+                child.classList.remove('border-brand-gold');
+                child.classList.add('border-transparent');
+            });
+            thumb.classList.remove('border-transparent');
+            thumb.classList.add('border-brand-gold');
+        };
+        thumbContainer.appendChild(thumb);
+    });
+
+    const modal = document.getElementById('villa-modal');
+    modal.classList.remove('hidden');
+    gsap.fromTo(".modal-content", 
+        { y: 50, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }
+    );
+    document.body.style.overflow = 'hidden'; // Stop background scroll
+}
+
+function closeModal() {
+    const modal = document.getElementById('villa-modal');
+    gsap.to(".modal-content", { 
+        y: 50, 
+        opacity: 0, 
+        duration: 0.3, 
+        ease: "power2.in", 
+        onComplete: () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Set selected villa in booking form when coming from modal
+function setSelectedVilla() {
+    if (window.selectedVillaTitle) {
+        // This will be called when user clicks "Book This Villa" in modal
+        setTimeout(() => {
+            const villaDropdown = document.getElementById('contact-villa');
+            if (villaDropdown) {
+                const options = villaDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].text.includes(window.selectedVillaTitle)) {
+                        villaDropdown.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }, 100);
+    }
+}
+
+// Lonavala Slider Scroll Function
+function scrollLonavala(direction) {
+    const slider = document.getElementById('lonavala-slider');
+    if (!slider) return;
+    
+    const scrollAmount = 300;
+    if (direction === 'left') {
+        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+}
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+    }
+}
+
+// Scroll to section with offset for fixed navbar
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offset = 100; // Navbar height
+        const sectionPosition = section.offsetTop - offset;
+        window.scrollTo({
+            top: sectionPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+</script>
+    <script>
+// Main JavaScript for база отдыха Золотые пески
+
+// Hero Image Slider (only for home page)
+let currentHeroIndex = 0;
+const heroBg = document.getElementById('hero-bg');
+
+if (heroBg) {
+    setInterval(() => {
+        currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+        heroBg.style.backgroundImage = heroImages[currentHeroIndex];
+    }, 3000);
+}
+
+// Loader & GSAP Initialization
+window.addEventListener('DOMContentLoaded', function() {
+  var loader = document.getElementById('loader');
+  if (!loader) return;
+  var tl = gsap.timeline();
+  tl.to("#loader-logo", { opacity: 1, duration: 0.8, ease: "power2.out" })
+    .to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
+    .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" });
+  function hideLoader() {
+    if (!loader) return;
+    tl.to("#loader", { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut", onComplete: function() {
+      loader.parentNode && loader.parentNode.removeChild(loader);
+    }});
+  }
+  let checkReady = setInterval(function() {
+    var headerC = document.getElementById('header-placeholder');
+    var footerC = document.getElementById('footer-placeholder');
+    if (headerC && headerC.innerHTML.trim() && footerC && footerC.innerHTML.trim()) {
+      clearInterval(checkReady);
+      hideLoader();
+    }
+  }, 100);
+  setTimeout(hideLoader, 5000);
+});
+
+// Register GSAP ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Navbar Scroll Effect
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    
+    if (navbar) {
+        if (currentScroll > 100) {
+            navbar.classList.remove('bg-transparent', 'py-6');
+            navbar.classList.add('bg-brand-dark', 'shadow-lg', 'py-4');
+        } else {
+            navbar.classList.add('bg-transparent', 'py-6');
+            navbar.classList.remove('bg-brand-dark', 'shadow-lg', 'py-4');
+        }
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Reveal Animations
+gsap.utils.toArray('.reveal-up').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-left').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: -60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-right').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+// Mobile Menu Functionality
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Toggle icon
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        } else {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        }
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    }
+});
+
+// Close modal when clicking outside (on overlay). currentTarget — элемент, на котором висит обработчик;
+// закрываем только при клике именно по оверлею, а не по содержимому (дочерним элементам).
+const promoModalEl = document.getElementById('promo-modal');
+if (promoModalEl) {
+    promoModalEl.addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closePromoModal();
+    });
+}
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('villa-modal');
+    if (modal && e.target === modal) {
+        closeModal();
+    }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('villa-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+        const promoModal = document.getElementById('promo-modal');
+        if (promoModal && !promoModal.classList.contains('hidden')) {
+            closePromoModal();
+        }
+    }
+});
+
+// Form validation for booking
+const bookingForm = document.getElementById('booking-form');
+if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendWhatsapp();
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Don't prevent default for links that just have "#"
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const offset = 100;
+            const targetPosition = targetElement.offsetTop - offset;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Lazy loading for images
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Performance: Throttle scroll events
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(() => {
+        // Scroll-based functionality here
+    });
+}, { passive: true });
+
+// Console welcome message
+console.log('%cЗолотые пески', 'color: #D4AF37; font-size: 20px; font-weight: bold;');
+console.log('%cБаза отдыха на озере Тургояк', 'color: #666; font-size: 14px;');
+
+// Debug mode - set to false in production
+const DEBUG = false;
+if (DEBUG) {
+    console.log('Villa Data:', villaData);
+    console.log('Contact Info:', contactInfo);
+}
+
+// Динамическая подгрузка header и footer
+function loadInclude(id, url) {
+  fetch(url)
+    .then(r => r.text())
+    .then(html => {
+      const container = document.getElementById(id);
+      container.innerHTML = html;
+      container.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        Array.from(oldScript.attributes).forEach(attr => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        oldScript.replaceWith(newScript);
+      });
+    });
+}
+loadInclude('header-placeholder', 'header.html');
+loadInclude('footer-placeholder', 'footer.html');
+// Консервация (bookingMode=placeholder): разделы из API не грузим — показываем заглушку.
+if (window.GSBooking && !window.GSBooking.isLive()) {
+  ['packages-grid', 'offer-cards-grid', 'promocodes-grid'].forEach(function(id) {
+    var grid = document.getElementById(id);
+    if (grid) grid.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">Актуальные акции и пакеты уточняйте по телефону или в мессенджере</div>';
+  });
+} else {
+  loadPackages();
+  loadOfferCards();
+  loadPromocodes();
+}
+
+// --- Исправление бага с возвратом из bfcache ---
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    loadInclude('header-placeholder', 'header.html');
+    loadInclude('footer-placeholder', 'footer.html');
+    var loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'flex';
+  }
+});
+</script>
+</body>
+</html>

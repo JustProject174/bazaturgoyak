@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности | Золотые пески</title>
+    <meta name="description" content="Политика конфиденциальности сайта базы отдыха «Золотые пески». Обработка персональных данных, cookies. Озеро Тургояк.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Политика конфиденциальности | Золотые пески">
+    <meta property="og:description" content="Политика конфиденциальности и обработки персональных данных.">
+    <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+    <meta property="og:url" content="https://bazaturgoyak.ru/privacy.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Золотые пески">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/config.js"></script>
+    <script src="js/apply-config.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4AF37; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b5952f; 
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+/* Hero Background Transition */
+#hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Villa Card Hover Effects */
+.villa-card:hover .villa-img {
+    transform: scale(1.1);
+}
+
+.villa-card {
+    overflow: hidden;
+}
+
+.villa-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating Icons */
+.floating-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.floating-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal Styles */
+#villa-modal {
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Transition */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        max-height: 95vh;
+    }
+}
+
+/* Focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Button hover effects */
+button:hover,
+a.button:hover {
+    cursor: pointer;
+}
+
+/* Parallax effect for background images */
+.bg-fixed {
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll;
+    }
+}
+
+/* Privacy page: readable text and responsive headings */
+.privacy-section .prose h2 {
+    font-size: 1.35rem;
+}
+@media (min-width: 768px) {
+    .privacy-section .prose h2 {
+        font-size: 1.5rem;
+    }
+}
+.privacy-section .prose ul {
+    margin-bottom: 1rem;
+}
+.privacy-section .prose p {
+    margin-bottom: 0.75rem;
+}
+/* Предотвращение горизонтального переполнения длинных слов и URL */
+.privacy-section .prose {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.privacy-section .prose a {
+    word-break: break-all;
+}
+    </style>
+    
+    <!-- Tailwind Config -->
+    <script>
+// Tailwind CSS Configuration
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'brand-gold': '#D4AF37',
+                'brand-dark': '#1a1a1a',
+                'brand-green': '#2C3E50',
+                'brand-cream': '#F9F9F5',
+            },
+            fontFamily: {
+                serif: ['"Playfair Display"', 'serif'],
+                sans: ['"Lato"', 'sans-serif'],
+            }
+        }
+    }
+}
+    </script>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+
+    
+    <!-- Floating Contact Icons -->
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col space-y-3 sm:space-y-4">
+        <a data-config="telegram" href="#" target="_blank" class="floating-icon w-12 h-12 sm:w-14 sm:h-14 bg-[#0088cc] rounded-full flex items-center justify-center text-white text-2xl sm:text-3xl" title="Telegram Bot">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a data-config="max" href="#" target="_blank" rel="noopener" class="floating-icon w-12 h-12 sm:w-14 sm:h-14 bg-[#6B4EFF] rounded-full flex items-center justify-center" title="Написать в MAX">
+            <img src="images/max-mess.png" alt="MAX" class="w-7 h-7 sm:w-8 sm:h-8 object-contain">
+        </a>
+        <a data-config="phone" href="#" class="floating-icon w-12 h-12 sm:w-14 sm:h-14 bg-brand-gold rounded-full flex items-center justify-center text-white text-xl sm:text-2xl" title="Позвонить">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 sm:py-6 text-white bg-brand-dark shadow-lg">
+        <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center gap-2">
+            <a href="index.html" class="text-xl sm:text-2xl md:text-3xl font-serif font-bold tracking-wider text-brand-gold shrink-0 min-w-0 truncate">ЗОЛОТЫЕ ПЕСКИ</a>
+            
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Главная</a>
+                <a href="promotions.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Акции</a>
+                <a href="accommodation.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Проживание</a>
+                <a href="entertament.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Развлечения</a>
+                <a href="about.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">О нас</a>
+                <a href="gallery.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Галерея</a>
+                <a href="qna.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">QnA</a>
+                <a href="contacts.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Контакты</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark mt-4 py-4">
+            <div class="container mx-auto px-4 sm:px-6 flex flex-col space-y-4">
+                <a href="index.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Главная</a>
+                <a href="promotions.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Акции</a>
+                <a href="accommodation.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Проживание</a>
+                <a href="entertament.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Развлечения</a>
+                <a href="about.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">О нас</a>
+                <a href="gallery.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Галерея</a>
+                <a href="qna.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">QnA</a>
+                <a href="contacts.html" class="hover:text-brand-gold transition-colors text-sm tracking-widest uppercase">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="relative h-[40vh] min-h-[200px] w-full overflow-hidden ">
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('images/Фон.jpg');"></div>
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 h-full flex flex-col justify-center items-center text-center text-white">
+            <p class="text-brand-gold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs sm:text-sm md:text-base mb-3 sm:mb-4 font-bold">Юридическая информация</p>
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-serif font-medium mb-3 sm:mb-4 leading-tight px-2">Политика конфиденциальности</h1>
+            <div class="w-24 h-1 bg-brand-gold"></div>
+        </div>
+    </header>
+
+    <!-- Privacy Section -->
+    <section class="privacy-section py-12 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <div class="prose prose-lg max-w-none text-brand-dark">
+                <p class="text-gray-600 leading-relaxed mb-8">
+                    Настоящая Политика конфиденциальности персональных данных (далее — Политика) действует в отношении всей информации, которую база отдыха «Золотые пески» (далее — Оператор) может получить о посетителе во время использования сайта и сервисов бронирования. Использование сайта означает безоговорочное согласие пользователя с настоящей Политикой.
+                </p>
+
+                <h2 id="general" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">1. Общие положения</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Оператор руководствуется Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению их безопасности. Цель Политики — защита прав и свобод человека при обработке его персональных данных, в том числе защиты прав на неприкосновенность частной жизни.
+                </p>
+
+                <h2 id="consent" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">2. Согласие на обработку персональных данных</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Обработка персональных данных осуществляется только при наличии согласия субъекта персональных данных или в случаях, предусмотренных законодательством РФ. Согласие даётся путём проставления отметки в форме на сайте (в том числе при бронировании), отправки заявки через мессенджеры или по телефону, а также путём продолжения использования сайта после ознакомления с настоящей Политикой.
+                </p>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Согласие может быть отозвано путём направления письменного заявления Оператору на адрес электронной почты или почтовый адрес, указанные в разделе «Контакты». В случае отзыва согласия Оператор вправе продолжить обработку персональных данных в объёме, предусмотренном законодательством РФ.
+                </p>
+
+                <h2 id="collection" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">3. Сбор и состав персональных данных</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Оператор может собирать следующую информацию:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+                    <li><strong>Идентификационные данные:</strong> имя, фамилия, отчество.</li>
+                    <li><strong>Контактные данные:</strong> номер телефона, адрес электронной почты, мессенджеры (Telegram и др.).</li>
+                    <li><strong>Данные о бронировании:</strong> даты заезда и выезда, выбранный вариант размещения, количество гостей, особые пожелания.</li>
+                    <li><strong>Технические данные:</strong> IP-адрес, тип браузера и устройства, данные cookie и аналогичные технологии (см. раздел о cookies).</li>
+                    <li><strong>Данные переписки:</strong> содержание обращений через формы обратной связи, мессенджеры и электронную почту.</li>
+                </ul>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Персональные данные предоставляются пользователем добровольно при заполнении форм на сайте, при звонках, при общении в мессенджерах или при посещении сайта (в части технических данных и cookie).
+                </p>
+
+                <h2 id="purposes" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">4. Цели и способы обработки данных</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Персональные данные обрабатываются в следующих целях:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+                    <li>приём и обработка заявок на бронирование и оказание услуг базы отдыха;</li>
+                    <li>связь с пользователем для уточнения деталей заказа и информирования;</li>
+                    <li>улучшение работы сайта и сервисов;</li>
+                    <li>соблюдение требований законодательства РФ.</li>
+                </ul>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Обработка осуществляется с использованием средств автоматизации и без использования таких средств, путём смешанной обработки, с соблюдением требований законодательства о персональных данных. Оператор не осуществляет трансграничную передачу персональных данных, за исключением случаев, когда это необходимо для оказания услуг (например, использование сервисов хостинга или виджетов бронирования).
+                </p>
+
+                <h2 id="cookies" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">5. Использование cookies и аналогичных технологий</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Сайт использует файлы cookie — небольшие текстовые файлы, сохраняемые на устройстве пользователя. Они позволяют:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+                    <li>сохранять настройки и предпочтения пользователя;</li>
+                    <li>обеспечивать работу форм и виджетов (в том числе бронирования);</li>
+                    <li>анализировать посещаемость и улучшать сайт (если подключена аналитика);</li>
+                    <li>обеспечивать безопасность и защиту от злоупотреблений.</li>
+                </ul>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Пользователь может отключить или ограничить использование cookie в настройках браузера. Отключение cookie может привести к ограничению функциональности сайта. Продолжая использовать сайт без изменения настроек cookie, пользователь соглашается с их использованием в соответствии с настоящей Политикой.
+                </p>
+
+                <h2 id="rights" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">6. Права пользователей (субъектов персональных данных)</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    В соответствии с законодательством РФ пользователь имеет право:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+                    <li><strong>получать информацию</strong> об обработке своих персональных данных (в том числе о целях, способах, категориях данных, сроках хранения);</li>
+                    <li><strong>требовать уточнения, блокирования или уничтожения</strong> персональных данных в случае, если они являются неполными, устаревшими, неточными или обрабатываются с нарушением закона;</li>
+                    <li><strong>отозвать согласие</strong> на обработку персональных данных;</li>
+                    <li><strong>обжаловать действия или бездействие</strong> Оператора в уполномоченный орган по защите прав субъектов персональных данных (Роскомнадзор).</li>
+                </ul>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Для реализации указанных прав необходимо направить Оператору запрос по контактам, указанным в разделе «Контакты для вопросов». Оператор рассмотрит обращение в разумные сроки в соответствии с законом.
+                </p>
+
+                <h2 id="security" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">7. Защита персональных данных</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Оператор принимает необходимые организационные и технические меры для защиты персональных данных от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, распространения, а также от иных неправомерных действий третьих лиц. Доступ к персональным данным имеют только уполномоченные лица, обязанные соблюдать конфиденциальность. Срок хранения персональных данных определяется целями обработки и требованиями законодательства; по достижении целей или по истечении сроков данные уничтожаются или обезличиваются.
+                </p>
+
+                <h2 id="contacts" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">8. Контакты для вопросов</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    По всем вопросам, связанным с обработкой персональных данных, политикой конфиденциальности и реализацией прав субъекта персональных данных, вы можете обратиться:
+                </p>
+                <ul class="list-none pl-0 text-gray-700 space-y-3 mb-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-envelope text-brand-gold mt-1"></i>
+                        <a data-config="email" href="#" class="text-brand-gold hover:underline" data-config-text="1"></a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-phone-alt text-brand-gold mt-1"></i>
+                        <a data-config="phone" href="#" class="text-brand-gold hover:underline" data-config-text="1"></a> — база отдыха
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-map-marker-alt text-brand-gold mt-1"></i>
+                        <span>Челябинская область, г. Миасс, озеро Тургояк, база отдыха «Золотые пески»</span>
+                    </li>
+                </ul>
+
+                <h2 id="changes" class="text-2xl font-serif text-brand-dark mt-10 mb-4 border-b border-brand-gold/30 pb-2">9. Изменения Политики</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Оператор вправе вносить изменения в настоящую Политику. Актуальная версия всегда доступна на данной странице. Рекомендуется периодически просматривать Политику. Продолжение использования сайта после публикации изменений означает принятие обновлённой Политики.
+                </p>
+
+                <p class="text-gray-500 text-sm mt-12 pt-6 border-t border-gray-200">
+                    Дата последнего обновления: 2025 г.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-12 sm:pt-16 pb-6 sm:pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 mb-10 sm:mb-12">
+                <!-- Brand Info -->
+                <div class="text-center md:text-left">
+                    <a href="index.html" class="text-2xl sm:text-3xl font-serif font-bold tracking-wider text-brand-gold block mb-4">ЗОЛОТЫЕ ПЕСКИ</a>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                        База отдыха на берегу озера Тургояк. Испытайте идеальное сочетание современного комфорта и спокойствия природы.
+                    </p>
+                    <div class="flex justify-center md:justify-start space-x-6">
+                        <a data-config="telegram" href="#" target="_blank" class="text-gray-400 hover:text-brand-gold transition-colors" title="Telegram Бот"><i class="fab fa-telegram-plane text-xl"></i></a>
+                        <a data-config="telegram-channel" href="#" target="_blank" class="text-gray-400 hover:text-brand-gold transition-colors" title="Telegram Канал"><i class="fab fa-telegram text-xl"></i></a>
+                        <a data-config="vk" href="#" target="_blank" class="text-gray-400 hover:text-brand-gold transition-colors" title="ВКонтакте"><i class="fab fa-vk text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-brand-gold font-serif text-lg mb-6">Быстрые ссылки</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="privacy.html" class="hover:text-white transition-colors">Политика конфиденциальности</a></li>
+                        <li><a href="about.html" class="hover:text-white transition-colors">О нас</a></li>
+                        <li><a href="accommodation.html" class="hover:text-white transition-colors">Проживание</a></li>
+                        <li><a href="entertament.html" class="hover:text-white transition-colors">Развлечения</a></li>
+                        <li><a href="contacts.html" class="hover:text-white transition-colors">Контакты</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Location -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-brand-gold font-serif text-lg mb-6">Свяжитесь с нами</h3>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-start justify-center md:justify-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-brand-gold flex-shrink-0"></i>
+                            <a href="https://yandex.ru/maps/?ll=60.061851%2C55.187183&mode=routes&rtext=~55.187969%2C60.059069&rtt=auto&ruri=~ymapsbm1%3A%2F%2Forg%3Foid%3D109014041624&source=serp_navig&z=15" target="_blank" rel="noopener" class="hover:text-white transition-colors break-words">
+                                База отдыха "Золотые пески",<br>Челябинская область, г. Миасс, озеро Тургояк
+                            </a>
+                        </li>
+                        <li class="flex flex-col sm:flex-row sm:items-center justify-center md:justify-start gap-1 sm:gap-3">
+                            <i class="fas fa-phone-alt text-brand-gold flex-shrink-0 hidden sm:block"></i>
+                            <span class="flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1">
+                                <i class="fas fa-phone-alt text-brand-gold sm:hidden"></i>
+                                <a data-config="phone" href="#" class="hover:text-white" data-config-text="1"></a> (база)
+                                <a data-config="phone-tents" href="#" class="hover:text-white" data-config-text="1"></a> (палатки)
+                            </span>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start gap-3">
+                            <i class="fas fa-envelope text-brand-gold flex-shrink-0"></i>
+                            <a data-config="email" href="#" class="hover:text-white break-all" data-config-text="1"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6 sm:pt-8 text-gray-600 text-xs text-center flex flex-col md:flex-row justify-between items-center gap-2">
+                <p>&copy; 2025 Золотые пески. Все права защищены.</p>
+                <p class="mt-2 md:mt-0">База отдыха на озере Тургояк.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+// Contact info (for reference; forms are on other pages)
+const contactInfo = window.CONFIG ? {
+    phone: window.CONFIG.phone,
+    email: window.CONFIG.email,
+    address: window.CONFIG.address
+} : { phone: '', email: '', address: '' };
+    </script>
+    <script>
+// Navbar and mobile menu — страница «Золотые пески»
+(function() {
+    const navbar = document.getElementById('navbar');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.remove('sm:py-6');
+                navbar.classList.add('py-4', 'shadow-lg');
+            } else {
+                navbar.classList.add('py-4', 'sm:py-6');
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    }
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            }
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+    }
+})();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас | Золотые пески</title>
+    <meta name="description" content="О базе отдыха «Золотые пески» на озере Тургояк: история, территория, экология и комфорт для гостей. Челябинская область.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="О нас | Золотые пески">
+    <meta property="og:description" content="О базе отдыха на озере Тургояк: территория, природа, условия для отдыха.">
+    <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+    <meta property="og:url" content="https://bazaturgoyak.ru/about.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Золотые пески">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (для production: https://tailwindcss.com/docs/installation — PostCSS или CLI) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/config.js"></script>
+    <script src="js/apply-config.js"></script>
+    <script src="js/booking-mode.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Custom Styles -->
+    <style>
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4AF37; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b5952f; 
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+/* Hero Background Transition */
+#hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Villa Card Hover Effects */
+.villa-card:hover .villa-img {
+    transform: scale(1.1);
+}
+
+.villa-card {
+    overflow: hidden;
+}
+
+.villa-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating Icons */
+.floating-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.floating-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Transition */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Button hover effects */
+button:hover,
+a.button:hover {
+    cursor: pointer;
+}
+
+/* Parallax effect for background images */
+.bg-fixed {
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll;
+    }
+}
+
+/* About Slider — одна картинка, меняется src */
+#about-slider-stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#about-slider-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.about-slider-video {
+    pointer-events: auto;
+}
+
+.about-slider-video.hidden {
+    display: none !important;
+}
+
+#slider-prev,
+#slider-next {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#about-slider:hover #slider-prev,
+#about-slider:hover #slider-next {
+    opacity: 1;
+}
+
+.slider-dot {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-dot.active {
+    width: 8px;
+    height: 8px;
+    background: white;
+}
+
+/* Fullscreen lightbox — попап со стрелками по краям контента */
+.about-fullscreen {
+    cursor: zoom-out;
+}
+
+.about-fullscreen.hidden {
+    display: none !important;
+}
+
+.about-fullscreen:not(.hidden) {
+    display: flex !important;
+}
+
+.about-fullscreen #fullscreen-popup {
+    cursor: default;
+}
+
+.about-fullscreen .fullscreen-arrow {
+    cursor: pointer;
+}
+
+.about-fullscreen #fullscreen-close {
+    cursor: pointer;
+}
+
+.fullscreen-video.hidden {
+    display: none !important;
+}
+
+.video-load-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top-color: #D4AF37;
+    border-radius: 50%;
+    animation: video-spin 0.8s linear infinite;
+    z-index: 5;
+}
+.video-load-spinner.hidden { display: none !important; }
+@keyframes video-spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+@media (max-width: 768px) {
+    #slider-prev,
+    #slider-next {
+        opacity: 1;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    #slider-prev {
+        left: 0.5rem;
+    }
+    
+    #slider-next {
+        right: 0.5rem;
+    }
+}
+
+/* History Section Enhancements */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.history-block {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.history-block:hover {
+    transform: translateY(-5px);
+}
+
+.history-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+.history-icon:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.history-icon:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.history-icon:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+.history-icon:nth-child(5) {
+    animation-delay: 2s;
+}
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.bg-gradient-text {
+    background-size: 200% auto;
+    animation: gradient-shift 3s ease infinite;
+}
+
+/* Modern Photo Gallery 2025 Styles */
+@media (min-width: 1024px) {
+    .photo-gallery-item {
+        will-change: transform;
+    }
+    
+    .photo-gallery-item:hover {
+        transform: translateY(-8px);
+    }
+}
+
+/* Smooth image loading */
+.photo-gallery-item img {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Glassmorphism effect enhancement */
+.backdrop-blur-md {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+    </style>
+    
+    <!-- Tailwind Config -->
+    <script>
+// Tailwind CSS Configuration
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'brand-gold': '#D4AF37',
+                'brand-dark': '#1a1a1a',
+                'brand-green': '#2C3E50',
+                'brand-cream': '#F9F9F5',
+            },
+            fontFamily: {
+                serif: ['"Playfair Display"', 'serif'],
+                sans: ['"Lato"', 'sans-serif'],
+            }
+        }
+    }
+}
+    </script>
+    <script>
+console.log('DOMContentLoaded script start');
+window.addEventListener('DOMContentLoaded', function() {
+  console.log('DOMContentLoaded event');
+});
+window.addEventListener('pageshow', function(e) {
+  console.log('pageshow', e.persisted);
+});
+window.addEventListener('DOMContentLoaded', function() {
+  var loader = document.getElementById('loader');
+  if (!loader) return;
+  var tl = gsap.timeline();
+  tl.to("#loader-logo", { opacity: 1, duration: 0.8, ease: "power2.out" })
+    .to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
+    .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" });
+  var minShow = 2500; // 2.5 сек
+  var showStart = Date.now();
+  var ready = false;
+  var minTimePassed = false;
+  function tryHideLoader() {
+    if (ready && minTimePassed) {
+      tl.to("#loader", { y: "-100%", duration: 1, ease: "power2.inOut", onComplete: function() {
+        loader.parentNode && loader.parentNode.removeChild(loader);
+      }});
+    }
+  }
+  setTimeout(function() {
+    minTimePassed = true;
+    tryHideLoader();
+  }, minShow);
+  let checkReady = setInterval(function() {
+    var headerC = document.getElementById('header-placeholder');
+    var footerC = document.getElementById('footer-placeholder');
+    if (headerC && headerC.innerHTML.trim() && footerC && footerC.innerHTML.trim()) {
+      clearInterval(checkReady);
+      ready = true;
+      tryHideLoader();
+    }
+  }, 100);
+  setTimeout(function() {
+    ready = true;
+    tryHideLoader();
+  }, 7000); // страховка
+});
+</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Resort",
+      "name": "Золотые пески",
+      "description": "База отдыха на озере Тургояк. Коттеджи, баня, пляж, природа. Миасс, Челябинская область.",
+      "url": "https://bazaturgoyak.ru/",
+      "image": "https://bazaturgoyak.ru/images/dom_14/1.webp",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Миасс",
+        "addressRegion": "Челябинская область",
+        "addressCountry": "RU"
+      },
+      "telephone": "+7-908-068-60-60",
+      "email": "bazaturgoyak@mail.ru"
+    }
+    </script>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="flex flex-col items-center">
+            <img src="images/logo.png" alt="Золотые пески логотип" class="w-24 h-24 mb-4 opacity-0" id="loader-logo">
+            <h1 class="text-brand-gold text-5xl font-serif mb-4 tracking-widest opacity-0" id="loader-text">О НАС</h1>
+            <div class="w-16 h-1 bg-brand-gold rounded-full transform scale-x-0" id="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <header class="relative h-[60vh] w-full overflow-hidden ">
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('images/Фон.avif');"></div>
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-white">
+            <p class="text-brand-gold tracking-[0.3em] uppercase text-sm md:text-base mb-4 font-bold">Добро пожаловать</p>
+            <h1 class="text-5xl md:text-6xl font-serif font-medium mb-4 leading-tight">О Золотых песках</h1>
+            <div class="w-24 h-1 bg-brand-gold"></div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="py-12 md:py-24 bg-white overflow-visible">
+        <div class="container mx-auto px-4 md:px-6 overflow-visible">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+                <div class="md:w-1/2 relative reveal-left p-4 md:p-0 overflow-visible">
+                    <div class="absolute top-0 left-0 md:-top-4 md:-left-4 w-16 h-16 md:w-24 md:h-24 border-t-2 border-l-2 border-brand-gold z-30"></div>
+                    
+                    <!-- Slider Container -->
+                    <div class="relative w-full shadow-2xl z-10" id="about-slider">
+                        <!-- Slides Container -->
+                        <div class="relative overflow-hidden rounded-lg" style="aspect-ratio: 4/3;">
+                            <div id="about-slider-stage" class="relative w-full h-full cursor-pointer z-10">
+                                <img id="about-slider-img" 
+                                     src="images/About/1.jfif" 
+                                     alt="Золотые Пески — берег озера" 
+                                     class="w-full h-full object-cover"
+                                     loading="eager">
+                                <div id="about-slider-video-wrap" class="about-slider-video hidden absolute inset-0 w-full h-full bg-black">
+                                    <img id="about-slider-poster" src="images/About/6.jfif" alt="Фото территории или мероприятия базы Золотые пески" class="w-full h-full object-cover opacity-90">
+                                    <button type="button" id="about-slider-play" aria-label="Воспроизвести видео"
+                                            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 rounded-full bg-brand-gold/90 hover:bg-brand-gold flex items-center justify-center shadow-2xl transition-transform hover:scale-110 cursor-pointer z-10">
+                                        <i class="fas fa-play text-white text-xl md:text-2xl ml-1"></i>
+                                    </button>
+                                    <video id="about-slider-video" class="absolute inset-0 w-full h-full object-contain hidden" controls playsinline></video>
+                                    <div id="about-slider-video-spinner" class="video-load-spinner hidden"></div>
+                                </div>
+                            </div>
+                            <!-- Navigation Arrows -->
+                            <button id="slider-prev" 
+                                    class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg z-20 transition-all duration-300 hover:scale-110">
+                                <i class="fas fa-chevron-left text-brand-gold text-lg"></i>
+                            </button>
+                            <button id="slider-next" 
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg z-20 transition-all duration-300 hover:scale-110">
+                                <i class="fas fa-chevron-right text-brand-gold text-lg"></i>
+                            </button>
+                            
+                            <!-- Slide Indicators -->
+                            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
+                                <div class="flex gap-2">
+                                    <button class="slider-dot active w-2 h-2 rounded-full bg-white transition-all duration-300" data-slide="0"></button>
+                                    <button class="slider-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="1"></button>
+                                    <button class="slider-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="2"></button>
+                                    <button class="slider-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="3"></button>
+                                    <button class="slider-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="4"></button>
+                                    <button class="slider-dot w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="5"></button>
+                                </div>
+                                <button id="slider-fullscreen-btn" type="button" aria-label="Развернуть во весь экран"
+                                        class="w-9 h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 ml-2">
+                                    <i class="fas fa-expand text-brand-gold text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-0 right-0 md:-bottom-4 md:-right-4 w-16 h-16 md:w-24 md:h-24 border-b-2 border-r-2 border-brand-gold z-30"></div>
+                </div>
+                <div class="md:w-1/2 reveal-right">
+                    <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Кто мы</span>
+                    <h2 class="text-4xl md:text-5xl font-serif mt-3 mb-6 leading-tight">Создаем моменты <br>на берегу озера</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed font-light">
+                        Озеро Тургояк называют младшим братом Байкала за его редкую чистоту. Здесь вода остаётся прозрачной на десятки метров, а берега до сих пор выглядят так, как много веков назад. Именно в этом месте и появились «Золотые пески» — не как вторжение в природу, а как её тихое продолжение.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed font-light">
+                        Существует поверье, что Тургояк принимает только тех, кто относится к нему бережно. Поэтому «Золотые пески» создавались по простому принципу: ничего лишнего, ничего разрушающего, только то, что помогает человеку быть рядом с природой, а не над ней. Здесь дома вписаны в ландшафт, тропинки следуют за рельефом берега, а ночь остаётся по-настоящему тёмной — чтобы было видно звёзды.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed font-light">
+                        Золотой песок на берегу — не метафора, а знак времени и солнца, которое год за годом согревает этот уголок Тургояка. Утром здесь слышны только птицы и плеск воды, днём — шорох сосен, а вечером озеро отражает не огни города, а небо.
+                    </p>
+                    
+                    <p class="text-gray-600 mb-6 leading-relaxed font-light">
+                        «Золотые пески» — это место для тех, кто ценит тишину, чистоту и подлинность. Здесь не меняют природу под человека — здесь человеку дают возможность вспомнить, каково это: быть частью природы.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed font-light">
+                        «Золотые пески» — отдых, который не оставляет следа, кроме воспоминаний.
+                    </p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-8 h-8 rounded-full bg-brand-gold/20 flex items-center justify-center mr-4 text-brand-gold"><i class="fas fa-check"></i></span>
+                            Премиум приватность и безопасность
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-8 h-8 rounded-full bg-brand-gold/20 flex items-center justify-center mr-4 text-brand-gold"><i class="fas fa-camera"></i></span>
+                            Незабываемые моменты на территории
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <span class="w-8 h-8 rounded-full bg-brand-gold/20 flex items-center justify-center mr-4 text-brand-gold"><i class="fas fa-concierge-bell"></i></span>
+                            Круглосуточная забота персонала
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our History Section -->
+    <section class="py-12 md:py-24 bg-gradient-to-b from-brand-cream to-white relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-48 h-48 md:w-96 md:h-96 bg-brand-gold/5 rounded-full blur-3xl -mr-24 md:-mr-48 -mt-24 md:-mt-48"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 md:w-96 md:h-96 bg-brand-gold/5 rounded-full blur-3xl -ml-24 md:-ml-48 -mb-24 md:-mb-48"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-5xl mx-auto relative">
+                <!-- Header -->
+                <div class="text-center mb-8 md:mb-16 reveal-up relative z-10">
+                    <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">О нас</span>
+                    <h2 class="text-3xl md:text-4xl font-serif mt-2">Наша история</h2>
+                    <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+                </div>
+                
+                <!-- Main Content with Visual Blocks -->
+                <div class="space-y-8 relative z-10">
+                    <!-- First Block - Introduction -->
+                    <div class="reveal-up">
+                        <div class="history-block bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 lg:p-10 shadow-xl border border-brand-gold/20 hover:shadow-2xl transition-all duration-300">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="history-icon flex-shrink-0 w-12 h-12 bg-gradient-to-br from-brand-gold to-yellow-600 rounded-full flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-heart text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-serif mb-4 text-brand-dark">История о любви к природе</h3>
+                                    <p class="text-gray-700 leading-relaxed font-light text-lg">
+                                        База отдыха «Золотые пески» — это не просто место для отдыха, это история о любви к природе, тишине и искреннем уважении к окружающему миру. Расположенная на живописном берегу озера Тургояк в Челябинской области, наша база появилась как ответ на стремление людей к чистому воздуху, спокойствию и настоящему отдыху вдали от городской суеты.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Block - Beginning -->
+                    <div class="reveal-up">
+                        <div class="history-block bg-gradient-to-br from-white to-brand-cream rounded-2xl p-6 md:p-8 lg:p-10 shadow-xl border-l-4 border-brand-gold hover:shadow-2xl transition-all duration-300">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="history-icon flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-water text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-serif mb-4 text-brand-dark">Начало пути</h3>
+                                    <p class="text-gray-700 leading-relaxed font-light text-lg">
+                                        История «Золотых песков» начинается с того момента, когда мы впервые влюбились в это удивительное место — бухту озера с его <span class="font-semibold text-brand-gold">натуральным золотистым песком</span>, сосновым лесом и кристально чистой водой. В глубокой котловине, сформированной около двух миллионов лет назад, Тургояк стал для нас идеальным пространством, где можно вновь обрести связь с природой и почувствовать себя частью великого уральского ландшафта.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Third Block - Philosophy -->
+                    <div class="reveal-up">
+                        <div class="history-block bg-white/80 backdrop-blur-sm rounded-2xl p-8 md:p-10 shadow-xl border border-brand-gold/20 hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-full -mr-16 -mt-16"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start gap-4 mb-4">
+                                    <div class="history-icon flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
+                                        <i class="fas fa-leaf text-white text-lg"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-2xl font-serif mb-4 text-brand-dark">Философия гармонии</h3>
+                                        <p class="text-gray-700 leading-relaxed font-light text-lg">
+                                            С первых дней мы стремились сохранить естественную атмосферу этого уголка: здесь нет водопровода и канализации, чтобы ничто не нарушало природный баланс, а каждый гость мог испытать радость от простой, но глубокой гармонии с окружающим миром. Это решение отражает нашу философию — <span class="font-semibold text-brand-gold">отдыхать с уважением к природе и к себе</span>, наслаждаясь каждым моментом.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fourth Block - Growth -->
+                    <div class="reveal-up">
+                        <div class="history-block bg-gradient-to-br from-brand-cream to-white rounded-2xl p-6 md:p-8 lg:p-10 shadow-xl border-r-4 border-brand-gold hover:shadow-2xl transition-all duration-300">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="history-icon flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-full flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-mountain text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-serif mb-4 text-brand-dark">Развитие и рост</h3>
+                                    <p class="text-gray-700 leading-relaxed font-light text-lg">
+                                        За годы существования «Золотые пески» стали излюбленным местом семейных путешествий, дружеских сборов и тихого уединения. Наш <span class="font-semibold text-brand-gold">пляж площадью более 150 метров</span>, уютные мангальные зоны и разнообразие активностей — от сап-серфинга до рыбалки — создают пространство, в котором каждый гость находит что-то свое.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fifth Block - Pride -->
+                    <div class="reveal-up">
+                        <div class="history-block bg-white/80 backdrop-blur-sm rounded-2xl p-8 md:p-10 shadow-xl border border-brand-gold/20 hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                            <div class="absolute bottom-0 left-0 w-40 h-40 bg-brand-gold/10 rounded-full -ml-20 -mb-20"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start gap-4 mb-4">
+                                    <div class="history-icon flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                                        <i class="fas fa-star text-white text-lg"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-2xl font-serif mb-4 text-brand-dark">Гордость и будущее</h3>
+                                        <p class="text-gray-700 leading-relaxed font-light text-lg">
+                                            Мы гордимся тем, что находимся на берегу одного из <span class="font-semibold text-brand-gold">самых чистых озер России</span>, внесенного в список «Чудеса России», и продолжаем развивать нашу базу с заботой о будущем этого удивительного места.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-12 md:py-24 bg-brand-cream">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-8 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Наши ценности</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">За что мы стоим</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                <div class="text-center reveal-up">
+                    <div class="w-20 h-20 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-leaf text-3xl text-brand-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-4">Экологичный отдых</h3>
+                    <p class="text-gray-600 leading-relaxed">Мы верим в ответственный туризм, который уважает природу, комфортный и доступный отдых в гармонии с окружающим миром.</p>
+                </div>
+                <div class="text-center reveal-up">
+                    <div class="w-20 h-20 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-heart text-3xl text-brand-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-4">Опыт гостей</h3>
+                    <p class="text-gray-600 leading-relaxed">Каждая деталь продумана, чтобы ваш отдых был запоминающимся, комфортным и превзошел ожидания.</p>
+                </div>
+                <div class="text-center reveal-up">
+                    <div class="w-20 h-20 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-3xl text-brand-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-4">Приватность и безопасность</h3>
+                    <p class="text-gray-600 leading-relaxed">Ваша безопасность и приватность имеют первостепенное значение. Мы делаем акцент на уединенности, спокойствии и безопасности гостей на территории.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="py-12 md:py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-8 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Наши преимущества</span>
+                <h2 class="text-3xl md:text-4xl font-serif mt-2">Почему Золотые пески?</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center reveal-up">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-water text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-2">Близость к озеру</h3>
+                    <p class="text-gray-600">Наслаждайтесь чистой водой и живописными видами прямо у вашего домика.</p>
+                </div>
+                <div class="text-center reveal-up">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-home text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-2">Комфортные домики</h3>
+                    <p class="text-gray-600">Уютные домики для идеального отдыха.</p> 
+                </div>
+                <div class="text-center reveal-up">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-utensils text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-2">Разнообразие развлечений</h3>
+                    <p class="text-gray-600">Баня, мангальная зона, пляж и многое другое для активного отдыха.</p>
+                </div>
+                <div class="text-center reveal-up">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-2">Экологичная среда</h3>
+                    <p class="text-gray-600">Отдых в гармонии с природой, без шума и суеты города.</p>
+                </div>
+                <div class="text-center reveal-up">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-2">Семейный отдых</h3>
+                    <p class="text-gray-600">Идеальное место для семей и романтических пар.</p>
+                </div>
+                <div class="text-center reveal-up">
+                    <div class="w-16 h-16 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-ruble-sign text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-2">Доступные цены</h3>
+                    <p class="text-gray-600">Качественный отдых по разумным ценам для всех категорий отдыхающих.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Cards Section -->
+    <section class="py-12 md:py-24 bg-gradient-to-b from-white via-brand-cream to-white relative overflow-hidden">
+        <!-- Decorative Background Elements -->
+        <div class="absolute top-0 left-0 w-48 h-48 md:w-96 md:h-96 bg-brand-gold/5 rounded-full blur-3xl -ml-24 md:-ml-48 -mt-24 md:-mt-48"></div>
+        <div class="absolute bottom-0 right-0 w-48 h-48 md:w-96 md:h-96 bg-brand-gold/5 rounded-full blur-3xl -mr-24 md:-mr-48 -mb-24 md:-mb-48"></div>
+        
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="text-center mb-8 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Узнайте больше</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif mt-2 mb-4">Исследуйте Золотые пески</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+                <!-- Card 1: О базе отдыха -->
+                <a href="ob-otele.html" class="group reveal-up">
+                    <div class="relative h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-brand-gold/10">
+                        <!-- Gradient Overlay on Hover -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent transition-all duration-500 z-10"></div>
+                        
+                        <!-- Icon Container -->
+                        <div class="relative p-8 pb-6">
+                            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-brand-gold to-yellow-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <i class="fas fa-hotel text-white text-3xl"></i>
+                            </div>
+                            
+                            <h3 class="text-2xl font-serif text-center mb-3 text-brand-dark group-hover:text-brand-gold transition-colors duration-300">
+                                О базе отдыха
+                            </h3>
+                            
+                            <p class="text-gray-600 text-center leading-relaxed mb-6">
+                                Узнайте больше о нашей базе отдыха, её истории, расположении и уникальных особенностях
+                            </p>
+                            
+                            <!-- Arrow Icon -->
+                            <div class="flex justify-center">
+                                <div class="w-12 h-12 rounded-full bg-brand-gold/10 group-hover:bg-brand-gold flex items-center justify-center transition-all duration-300 transform group-hover:translate-x-2">
+                                    <i class="fas fa-arrow-right text-brand-gold group-hover:text-white transition-colors duration-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Decorative Corner -->
+                        <div class="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-brand-gold/20 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-brand-gold/20 rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                </a>
+
+                <!-- Card 2: Наша команда -->
+                <a href="team.html" class="group reveal-up">
+                    <div class="relative h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-brand-gold/10">
+                        <!-- Gradient Overlay on Hover -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent transition-all duration-500 z-10"></div>
+                        
+                        <!-- Icon Container -->
+                        <div class="relative p-8 pb-6">
+                            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <i class="fas fa-users text-white text-3xl"></i>
+                            </div>
+                            
+                            <h3 class="text-2xl font-serif text-center mb-3 text-brand-dark group-hover:text-brand-gold transition-colors duration-300">
+                                Наша команда
+                            </h3>
+                            
+                            <p class="text-gray-600 text-center leading-relaxed mb-6">
+                                Познакомьтесь с людьми, которые создают незабываемый опыт вашего отдыха
+                            </p>
+                            
+                            <!-- Arrow Icon -->
+                            <div class="flex justify-center">
+                                <div class="w-12 h-12 rounded-full bg-brand-gold/10 group-hover:bg-brand-gold flex items-center justify-center transition-all duration-300 transform group-hover:translate-x-2">
+                                    <i class="fas fa-arrow-right text-brand-gold group-hover:text-white transition-colors duration-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Decorative Corner -->
+                        <div class="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-brand-gold/20 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-brand-gold/20 rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                </a>
+
+                <!-- Card 3: Рейтинги и документы -->
+                <a href="certificates.html" class="group reveal-up">
+                    <div class="relative h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-brand-gold/10">
+                        <!-- Gradient Overlay on Hover -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent transition-all duration-500 z-10"></div>
+                        
+                        <!-- Icon Container -->
+                        <div class="relative p-8 pb-6">
+                            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <i class="fas fa-star text-white text-3xl"></i>
+                            </div>
+                            
+                            <h3 class="text-2xl font-serif text-center mb-3 text-brand-dark group-hover:text-brand-gold transition-colors duration-300">
+                                Рейтинги и документы
+                            </h3>
+                            
+                            <p class="text-gray-600 text-center leading-relaxed mb-6">
+                                Рейтинги гостей на 2ГИС и других платформах, архив документов
+                            </p>
+                            
+                            <!-- Arrow Icon -->
+                            <div class="flex justify-center">
+                                <div class="w-12 h-12 rounded-full bg-brand-gold/10 group-hover:bg-brand-gold flex items-center justify-center transition-all duration-300 transform group-hover:translate-x-2">
+                                    <i class="fas fa-arrow-right text-brand-gold group-hover:text-white transition-colors duration-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Decorative Corner -->
+                        <div class="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-brand-gold/20 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-brand-gold/20 rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modern Photo Gallery Section 2025 -->
+    <section class="py-12 md:py-24 bg-gradient-to-b from-white via-brand-cream to-white relative overflow-hidden">
+        <!-- Decorative Background Elements -->
+        <div class="absolute top-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-brand-gold/5 rounded-full blur-3xl -mr-[150px] md:-mr-[300px] -mt-[150px] md:-mt-[300px]"></div>
+        <div class="absolute bottom-0 left-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-brand-gold/5 rounded-full blur-3xl -ml-[150px] md:-ml-[300px] -mb-[150px] md:-mb-[300px]"></div>
+        
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-8 md:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Галерея</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif mt-2 mb-4">Моменты из Золотых песков</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+            </div>
+
+            <!-- Modern Asymmetric Grid Gallery -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto">
+                <!-- Large Featured Image -->
+                <div class="lg:col-span-2 lg:row-span-2 reveal-up group">
+                    <div class="relative h-[200px] md:h-[240px] lg:h-[300px] overflow-hidden rounded-2xl shadow-xl cursor-pointer">
+                        <img src="images/About/Фон.avif" alt="Золотые Пески — берег озера" 
+                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 md:p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                            <h3 class="text-white text-lg md:text-xl font-serif mb-1 md:mb-2">Берег озера Тургояк</h3>
+                            <p class="text-white/90 text-xs md:text-sm">Кристально чистая вода и золотой песок</p>
+                        </div>
+                        <!-- Glassmorphism Badge -->
+                        <div class="absolute top-2 right-2 md:top-4 md:right-4 px-3 py-1 md:px-4 md:py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <span class="text-white text-[10px] md:text-xs font-bold uppercase tracking-wider">Главное фото</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Image 1 -->
+                <div class="reveal-up group">
+                    <div class="relative h-[200px] md:h-[240px] lg:h-[150px] overflow-hidden rounded-2xl shadow-xl cursor-pointer">
+                        <img src="images/About/3.jfif" alt="Золотые Пески" 
+                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                            <p class="text-white text-xs md:text-sm font-serif">Природная красота</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Image 2 -->
+                <div class="reveal-up group">
+                    <div class="relative h-[200px] md:h-[240px] lg:h-[150px] overflow-hidden rounded-2xl shadow-xl cursor-pointer">
+                        <img src="images/About/houses.jfif" alt="Золотые Пески — вилла" 
+                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                            <p class="text-white text-xs md:text-sm font-serif">Уютные домики</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Image 1 -->
+                <div class="reveal-up group">
+                    <div class="relative h-[200px] md:h-[240px] lg:h-[150px] overflow-hidden rounded-2xl shadow-xl cursor-pointer">
+                        <img src="images/About/5.jfif" alt="Золотые Пески — баня" 
+                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                            <p class="text-white text-[10px] md:text-xs font-serif">Русская баня в лесу</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Image 2 -->
+                <div class="reveal-up group">
+                    <div class="relative h-[200px] md:h-[240px] lg:h-[150px] overflow-hidden rounded-2xl shadow-xl cursor-pointer">
+                        <img src="images/About/camp.webp" alt="Золотые Пески — палатки" 
+                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                            <p class="text-white text-[10px] md:text-xs font-serif">Тишина и покой</p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Small Image 3 -->
+                 <div class="reveal-up group">
+                    <div class="relative h-[200px] md:h-[240px] lg:h-[150px] overflow-hidden rounded-2xl shadow-xl cursor-pointer">
+                        <img src="images/About/sup.webp" alt="Золотые Пески — сап-серфинг" 
+                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                            <p class="text-white text-[10px] md:text-xs font-serif">Сап-серфинг на озере Тургояк</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View More Link -->
+            <div class="text-center mt-12 reveal-up">
+                <a href="gallery.html" class="inline-flex items-center gap-2 px-8 py-3 bg-brand-gold/10 hover:bg-brand-gold text-brand-gold hover:text-white rounded-full transition-all duration-300 font-bold text-sm uppercase tracking-wider border-2 border-brand-gold/30 hover:border-brand-gold">
+                    <span>Смотреть всю галерею</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section from Home Page -->
+    <section class="py-10 md:py-14 lg:py-20 bg-white border-b border-brand-cream overflow-visible">
+        <div class="container mx-auto px-4 md:px-6 max-w-4xl overflow-visible">
+            <div class="relative text-center mb-8 reveal-up bg-brand-cream/30 p-6 md:p-8 lg:p-12 shadow-xl overflow-visible">
+                <!-- Decorative Corner Frames in Золотые пески style -->
+                <div class="absolute top-0 left-0 md:-top-4 md:-left-4 w-16 h-16 md:w-24 md:h-24 border-t-2 border-l-2 border-brand-gold z-30"></div>
+                <div class="absolute bottom-0 right-0 md:-bottom-4 md:-right-4 w-16 h-16 md:w-24 md:h-24 border-b-2 border-r-2 border-brand-gold z-30"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-serif text-brand-dark mb-4">Уединённый отдых на заповедном озере Тургояк</h2>
+                    <p class="text-gray-700 text-sm md:text-base lg:text-lg mb-6">Наша база находится в сердце особо охраняемой природной территории. Мы сознательно отказались от городских удобств, чтобы сохранить чистоту озера, и создали пространство для настоящего цифрового детокса и единения с природой. Здесь царят тишина, баня по расписанию и философия осознанного отдыха.</p>
+                    <ul class="text-left md:text-center flex flex-col md:flex-row gap-3 md:gap-6 justify-center items-start md:items-center mb-8 mx-auto max-w-2xl">
+                        <li class="flex items-center gap-2 text-brand-dark"><span class="text-xl">🏞️</span> Виды на озеро Тургояк (памятник природы)</li>
+                        <li class="flex items-center gap-2 text-brand-dark"><span class="text-xl">🛀</span> Русская баня вместо городского душа</li>
+                        <li class="flex items-center gap-2 text-brand-dark"><span class="text-xl">🤫</span> Территория тишины (строгий режим после 22:00)</li>
+                        <li class="flex items-center gap-2 text-brand-dark"><span class="text-xl">🌿</span> Полное погружение в природу</li>
+                    </ul>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                        <a href="#" data-booking-widget-link class="inline-flex items-center justify-center px-6 py-3 md:px-10 md:py-4 bg-brand-gold text-white hover:bg-white hover:text-brand-dark transition-colors duration-300 uppercase tracking-widest font-bold text-xs md:text-sm">Забронировать онлайн</a>
+                        <a data-config="telegram" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-10 md:py-4 bg-[#0088cc] text-white hover:bg-white hover:text-brand-dark transition-colors duration-300 uppercase tracking-widest font-bold text-xs md:text-sm">
+                            Забронировать через
+                            <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+                        </a>
+                        <a data-config="max" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-10 md:py-4 bg-[#6B4EFF] text-white hover:bg-white hover:text-brand-dark transition-colors duration-300 uppercase tracking-widest font-bold text-xs md:text-sm">
+                            <img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fullscreen Lightbox (вне reveal-left: fixed относительно viewport, попап со стрелками по краям) -->
+    <div id="about-fullscreen" class="about-fullscreen hidden fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-4" aria-hidden="true">
+        <button id="fullscreen-close" type="button" aria-label="Закрыть"
+                class="absolute top-4 right-4 z-[10000] w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+            <i class="fas fa-times text-xl"></i>
+        </button>
+        <div id="fullscreen-popup" class="fullscreen-popup flex flex-row items-center justify-center gap-3 md:gap-4 w-full max-w-7xl max-h-[90vh]">
+            <button id="fullscreen-prev" type="button" aria-label="Предыдущий"
+                    class="fullscreen-arrow flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                <i class="fas fa-chevron-left text-xl md:text-2xl"></i>
+            </button>
+            <div id="fullscreen-content" class="fullscreen-popup-content flex-1 min-w-0 min-h-[50vh] flex items-center justify-center overflow-hidden relative">
+                <img id="fullscreen-img" src="" alt="Фото территории или мероприятия базы Золотые пески" class="max-w-full max-h-[85vh] w-auto h-auto object-contain">
+                <div id="fullscreen-video-wrap" class="fullscreen-video hidden flex-1 min-w-0 min-h-[50vh] flex items-center justify-center relative">
+                    <img id="fullscreen-poster" src="" alt="Фото территории или мероприятия базы Золотые пески" class="max-w-full max-h-[85vh] w-auto h-auto object-contain opacity-90">
+                    <button type="button" id="fullscreen-play" aria-label="Воспроизвести видео"
+                            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-brand-gold/90 hover:bg-brand-gold flex items-center justify-center shadow-2xl transition-transform hover:scale-110 cursor-pointer z-10">
+                        <i class="fas fa-play text-white text-3xl ml-1"></i>
+                    </button>
+                    <video id="fullscreen-video" class="max-w-full max-h-[85vh] w-auto h-auto object-contain hidden" controls playsinline></video>
+                    <div id="fullscreen-video-spinner" class="video-load-spinner hidden"></div>
+                </div>
+            </div>
+            <button id="fullscreen-next" type="button" aria-label="Следующий"
+                    class="fullscreen-arrow flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                <i class="fas fa-chevron-right text-xl md:text-2xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="flex flex-col items-center">
+            <img src="images/logo.png" alt="Золотые пески логотип" class="w-24 h-24 mb-4 opacity-0" id="loader-logo">
+            <h1 class="text-brand-gold text-5xl font-serif mb-4 tracking-widest opacity-0" id="loader-text">О НАС</h1>
+            <div class="w-16 h-1 bg-brand-gold rounded-full transform scale-x-0" id="loader-line"></div>
+        </div>
+    </div>
+    <script>
+// Contact Information
+const contactInfo = {
+    phone: window.CONFIG?.phone || '+79080686060',
+    email: window.CONFIG?.email || 'bazaturgoyak@mail.ru',
+    address: window.CONFIG?.address || 'Челябинская область, г. Миасс, озеро Тургояк'
+};
+    </script>
+    <script>
+// Main JavaScript for сайта Золотые пески
+
+// Loader & GSAP Initialization
+window.addEventListener('load', () => {
+    const tl = gsap.timeline();
+
+    tl.to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" })
+      .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" })
+      .to("#loader", { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut" });
+    
+    // Only animate hero elements if they exist (on home page)
+    const heroElems = document.querySelectorAll('.gsap-hero-elem');
+    if (heroElems.length > 0) {
+        tl.from(".gsap-hero-elem", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        }, "-=0.5");
+    }
+});
+
+// Register GSAP ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Navbar Scroll Effect
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    
+    if (navbar) {
+        if (currentScroll > 100) {
+            navbar.classList.remove('bg-transparent', 'py-6');
+            navbar.classList.add('bg-brand-dark', 'shadow-lg', 'py-4');
+        } else {
+            navbar.classList.add('bg-transparent', 'py-6');
+            navbar.classList.remove('bg-brand-dark', 'shadow-lg', 'py-4');
+        }
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Reveal Animations
+gsap.utils.toArray('.reveal-up').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-left').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: -60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-right').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+// Mobile Menu Functionality
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Toggle icon
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        } else {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        }
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Don't prevent default for links that just have "#"
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const offset = 100;
+            const targetPosition = targetElement.offsetTop - offset;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// About Page Slider — одна картинка, при смене слайда меняется только src (как в fullscreen)
+(function() {
+    const slider = document.getElementById('about-slider');
+    if (!slider) return;
+    
+    const sliderImg = document.getElementById('about-slider-img');
+    const sliderStage = document.getElementById('about-slider-stage');
+    const dots = slider.querySelectorAll('.slider-dot');
+    const prevBtn = document.getElementById('slider-prev');
+    const nextBtn = document.getElementById('slider-next');
+    
+    const SLIDE_DATA = [
+        { type: 'image', src: 'images/About/1.jfif', alt: 'Золотые Пески — берег озера' },
+        { type: 'image', src: 'images/About/2.jpg', alt: 'Золотые Пески' },
+        { type: 'image', src: 'images/About/3.jfif', alt: 'Золотые Пески — вилла' },
+        { type: 'image', src: 'images/About/4.jfif', alt: 'Золотые Пески — вилла' },
+        { type: 'image', src: 'images/About/5.jfif', alt: 'Золотые Пески — вилла' },
+        { type: 'video', src: 'videos/main.mp4', poster: 'images/About/6.jfif', alt: 'Видео — Золотые Пески' }
+    ];
+    const totalSlides = SLIDE_DATA.length;
+    const slideImageUrls = SLIDE_DATA.map(s => s.type === 'video' ? s.poster : s.src);
+    const slideImageAlts = SLIDE_DATA.map(s => s.alt);
+    function isVideoSlide(i) { return SLIDE_DATA[i] && SLIDE_DATA[i].type === 'video'; }
+    
+    let currentSlide = 0;
+    const sliderVideoWrap = document.getElementById('about-slider-video-wrap');
+    const sliderPoster = document.getElementById('about-slider-poster');
+    const sliderPlayBtn = document.getElementById('about-slider-play');
+    const sliderVideoEl = document.getElementById('about-slider-video');
+    
+    const sliderVideoSpinner = document.getElementById('about-slider-video-spinner');
+    function resetSliderVideo() {
+        if (!sliderVideoEl) return;
+        try { sliderVideoEl.pause(); } catch (_) {}
+        sliderVideoEl.removeAttribute('src');
+        sliderVideoEl.load();
+        sliderVideoEl.classList.add('hidden');
+        if (sliderPoster) sliderPoster.classList.remove('hidden');
+        if (sliderPlayBtn) sliderPlayBtn.classList.remove('hidden');
+        if (sliderVideoSpinner) sliderVideoSpinner.classList.add('hidden');
+    }
+    
+    function showSlide(index) {
+        currentSlide = index;
+        const data = SLIDE_DATA[index];
+        const video = isVideoSlide(index);
+        if (video) {
+            if (sliderImg) sliderImg.classList.add('hidden');
+            if (sliderVideoWrap) {
+                sliderVideoWrap.classList.remove('hidden');
+                if (sliderPoster && data.poster) sliderPoster.src = data.poster;
+            }
+            resetSliderVideo();
+        } else {
+            if (sliderVideoWrap) sliderVideoWrap.classList.add('hidden');
+            resetSliderVideo();
+            if (sliderImg && data) {
+                sliderImg.classList.remove('hidden');
+                sliderImg.src = data.src;
+                sliderImg.alt = data.alt;
+            }
+        }
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }
+    
+    function nextSlide() {
+        if (isVideoSlide(currentSlide) && sliderVideoEl && !sliderVideoEl.paused) return;
+        const next = (currentSlide + 1) % totalSlides;
+        showSlide(next);
+    }
+    
+    function prevSlide() {
+        const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(prev);
+    }
+    
+    // Навигация стрелками
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+    }
+    
+    // Навигация точками
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showSlide(index);
+        });
+    });
+    
+    // Видео в слайдере: подгрузка только по клику Play
+    if (sliderPlayBtn && sliderVideoEl && sliderPoster) {
+        function hideSliderSpinner() {
+            if (sliderVideoSpinner) sliderVideoSpinner.classList.add('hidden');
+        }
+        sliderVideoEl.addEventListener('canplay', hideSliderSpinner);
+        sliderVideoEl.addEventListener('error', hideSliderSpinner);
+        sliderPlayBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const d = SLIDE_DATA[currentSlide];
+            if (!d || d.type !== 'video') return;
+            const needLoad = !sliderVideoEl.getAttribute('src');
+            if (needLoad) {
+                sliderVideoEl.src = d.src;
+                sliderVideoEl.load();
+                if (sliderVideoSpinner) sliderVideoSpinner.classList.remove('hidden');
+            }
+            sliderPoster.classList.add('hidden');
+            sliderPlayBtn.classList.add('hidden');
+            sliderVideoEl.classList.remove('hidden');
+            const p = sliderVideoEl.play();
+            if (p && typeof p.catch === 'function') p.catch(hideSliderSpinner);
+        });
+    }
+    
+    // Fullscreen
+    const fullscreenEl = document.getElementById('about-fullscreen');
+    const fullscreenImg = document.getElementById('fullscreen-img');
+    const fullscreenVideoWrap = document.getElementById('fullscreen-video-wrap');
+    const fullscreenPoster = document.getElementById('fullscreen-poster');
+    const fullscreenPlayBtn = document.getElementById('fullscreen-play');
+    const fullscreenVideoEl = document.getElementById('fullscreen-video');
+    const fullscreenPrev = document.getElementById('fullscreen-prev');
+    const fullscreenNext = document.getElementById('fullscreen-next');
+    const fullscreenClose = document.getElementById('fullscreen-close');
+    const fullscreenBtn = document.getElementById('slider-fullscreen-btn');
+    
+    const fullscreenVideoSpinner = document.getElementById('fullscreen-video-spinner');
+    function resetFullscreenVideo() {
+        if (!fullscreenVideoEl) return;
+        try { fullscreenVideoEl.pause(); } catch (_) {}
+        fullscreenVideoEl.removeAttribute('src');
+        fullscreenVideoEl.load();
+        fullscreenVideoEl.classList.add('hidden');
+        if (fullscreenPoster) fullscreenPoster.classList.remove('hidden');
+        if (fullscreenPlayBtn) fullscreenPlayBtn.classList.remove('hidden');
+        if (fullscreenVideoSpinner) fullscreenVideoSpinner.classList.add('hidden');
+    }
+    
+    function updateFullscreenContent() {
+        const video = isVideoSlide(currentSlide);
+        if (video) {
+            const d = SLIDE_DATA[currentSlide];
+            if (fullscreenImg) fullscreenImg.classList.add('hidden');
+            if (fullscreenVideoWrap) {
+                fullscreenVideoWrap.classList.remove('hidden');
+                if (fullscreenPoster && d) {
+                    fullscreenPoster.src = d.poster || '';
+                    fullscreenPoster.alt = d.alt || 'Видео — Золотые Пески';
+                }
+            }
+            resetFullscreenVideo();
+        } else {
+            if (fullscreenVideoWrap) fullscreenVideoWrap.classList.add('hidden');
+            resetFullscreenVideo();
+            if (fullscreenImg && slideImageUrls[currentSlide] !== undefined) {
+                fullscreenImg.classList.remove('hidden');
+                fullscreenImg.src = slideImageUrls[currentSlide];
+                fullscreenImg.alt = slideImageAlts[currentSlide] || 'Золотые Пески';
+            }
+        }
+    }
+    
+    function openFullscreen() {
+        if (!fullscreenEl) return;
+        stopAutoSlide();
+        try { if (sliderVideoEl && !sliderVideoEl.paused) sliderVideoEl.pause(); } catch (_) {}
+        fullscreenEl.classList.remove('hidden');
+        fullscreenEl.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        updateFullscreenContent();
+    }
+    
+    function closeFullscreen() {
+        if (!fullscreenEl) return;
+        resetFullscreenVideo();
+        fullscreenEl.classList.add('hidden');
+        fullscreenEl.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        startAutoSlide();
+    }
+    
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openFullscreen();
+        });
+    }
+    
+    if (fullscreenClose) {
+        fullscreenClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeFullscreen();
+        });
+    }
+    
+    if (fullscreenPrev) {
+        fullscreenPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            prevSlide();
+            updateFullscreenContent();
+        });
+    }
+    
+    if (fullscreenNext) {
+        fullscreenNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nextSlide();
+            updateFullscreenContent();
+        });
+    }
+    
+    if (fullscreenPlayBtn && fullscreenVideoEl && fullscreenPoster) {
+        function hideFullscreenSpinner() {
+            if (fullscreenVideoSpinner) fullscreenVideoSpinner.classList.add('hidden');
+        }
+        fullscreenVideoEl.addEventListener('canplay', hideFullscreenSpinner);
+        fullscreenVideoEl.addEventListener('error', hideFullscreenSpinner);
+        fullscreenPlayBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const d = SLIDE_DATA[currentSlide];
+            if (!d || d.type !== 'video') return;
+            const needLoad = !fullscreenVideoEl.getAttribute('src');
+            if (needLoad) {
+                fullscreenVideoEl.src = d.src;
+                fullscreenVideoEl.load();
+                if (fullscreenVideoSpinner) fullscreenVideoSpinner.classList.remove('hidden');
+            }
+            fullscreenPoster.classList.add('hidden');
+            fullscreenPlayBtn.classList.add('hidden');
+            fullscreenVideoEl.classList.remove('hidden');
+            const p = fullscreenVideoEl.play();
+            if (p && typeof p.catch === 'function') p.catch(hideFullscreenSpinner);
+        });
+    }
+    
+    if (fullscreenEl) {
+        fullscreenEl.addEventListener('click', (e) => {
+            if (e.target === fullscreenEl) closeFullscreen();
+        });
+    }
+    
+    document.addEventListener('keydown', function(e) {
+        if (!fullscreenEl || fullscreenEl.classList.contains('hidden')) return;
+        if (e.key === 'Escape') {
+            closeFullscreen();
+        } else if (e.key === 'ArrowLeft') {
+            prevSlide();
+            updateFullscreenContent();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+            updateFullscreenContent();
+        }
+    });
+    
+    if (sliderStage) {
+        sliderStage.addEventListener('click', (e) => {
+            if (e.target.closest('button') || e.target.closest('.slider-dot') || e.target.closest('video')) return;
+            openFullscreen();
+        });
+    }
+    
+    if (prevBtn) prevBtn.addEventListener('click', (e) => e.stopPropagation());
+    if (nextBtn) nextBtn.addEventListener('click', (e) => e.stopPropagation());
+    
+    // Автопрокрутка слайдера (опционально)
+    let autoSlideInterval;
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(nextSlide, 5000); // Меняет слайд каждые 5 секунд
+    }
+    
+    function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+        }
+    }
+    
+    // Останавливаем автопрокрутку при наведении
+    if (slider) {
+        slider.addEventListener('mouseenter', stopAutoSlide);
+        slider.addEventListener('mouseleave', startAutoSlide);
+    }
+    
+    // Запускаем автопрокрутку
+    startAutoSlide();
+    
+    // Клавиатурная навигация (только когда полноэкран закрыт)
+    document.addEventListener('keydown', function(e) {
+        if (fullscreenEl && !fullscreenEl.classList.contains('hidden')) return;
+        if (slider && document.contains(slider)) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        }
+    });
+})();
+
+// Lazy loading for images
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Performance: Throttle scroll events
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(() => {
+        // Scroll-based functionality here
+    });
+}, { passive: true });
+
+// Console welcome message
+console.log('%cWelcome to Золотые пески!', 'color: #D4AF37; font-size: 20px; font-weight: bold;');
+console.log('%cОтдых на берегу озера Тургояк', 'color: #666; font-size: 14px;');
+    </script>
+    <script>
+// Динамическая подгрузка header и footer
+let includesLoaded = {header: false, footer: false};
+function loadInclude(id, url) {
+  console.log('loadInclude called for', id, url);
+  const container = document.getElementById(id);
+  if (!container) {
+    console.log('NO CONTAINER for', id, 'at call time');
+    return;
+  }
+  fetch(url)
+    .then(r => {
+      console.log('fetch response for', url, r.status);
+      return r.text();
+    })
+    .then(html => {
+      container.innerHTML = html;
+      container.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        Array.from(oldScript.attributes).forEach(attr => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        oldScript.replaceWith(newScript);
+      });
+      if (id === 'header-placeholder') includesLoaded.header = true;
+      if (id === 'footer-placeholder') includesLoaded.footer = true;
+      if (includesLoaded.header && includesLoaded.footer) {
+        var loader = document.getElementById('loader');
+        if (loader) loader.style.display = 'none';
+        includesLoaded.header = false;
+        includesLoaded.footer = false;
+      }
+      console.log('include loaded for', id, 'length:', html.length);
+    })
+    .catch(e => {
+      console.log('fetch error for', url, e);
+    });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  loadInclude('header-placeholder', 'header.html');
+  loadInclude('footer-placeholder', 'footer.html');
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея | Золотые пески</title>
+    <meta name="description" content="Фотогалерея базы отдыха «Золотые пески»: домики, номера, территория и природа озера Тургояк. Миасс, Челябинская область.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Галерея | Золотые пески">
+    <meta property="og:description" content="Фото коттеджей, номеров и территории базы на озере Тургояк.">
+    <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+    <meta property="og:url" content="https://bazaturgoyak.ru/gallery.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Золотые пески">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/config.js"></script>
+    <script src="js/apply-config.js"></script>
+    <script src="js/booking-mode.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4AF37; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b5952f; 
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+/* Hero Background Transition */
+#hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Villa Card Hover Effects */
+.villa-card:hover .villa-img {
+    transform: scale(1.1);
+}
+
+.villa-card {
+    overflow: hidden;
+}
+
+.villa-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating Icons */
+.floating-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.floating-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal Styles */
+#villa-modal {
+    backdrop-filter: blur(5px);
+}
+
+/* Gallery Lightbox */
+#gallery-lightbox {
+    display: none;
+}
+#gallery-lightbox.open {
+    display: flex !important;
+}
+
+/* Gallery Filter */
+.gallery-item.gallery-hidden {
+    display: none !important;
+}
+.gallery-filter-btn.active {
+    background-color: #D4AF37 !important;
+    border-color: #D4AF37 !important;
+    color: white !important;
+}
+.gallery-filter-btn:not(.active) {
+    background-color: transparent;
+}
+.gallery-filter-btn:not(.active):hover {
+    border-color: #D4AF37 !important;
+    color: #D4AF37 !important;
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Transition */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        max-height: 95vh;
+    }
+}
+
+/* Focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Button hover effects */
+button:hover,
+a.button:hover {
+    cursor: pointer;
+}
+
+/* Parallax effect for background images */
+.bg-fixed {
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll;
+    }
+}
+    </style>
+    
+    <!-- Tailwind Config -->
+    <script>
+// Tailwind CSS Configuration
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'brand-gold': '#D4AF37',
+                'brand-dark': '#1a1a1a',
+                'brand-green': '#2C3E50',
+                'brand-cream': '#F9F9F5',
+            },
+            fontFamily: {
+                serif: ['"Playfair Display"', 'serif'],
+                sans: ['"Lato"', 'sans-serif'],
+            }
+        }
+    }
+}
+    </script>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="flex flex-col items-center">
+            <img src="images/logo.png" alt="Золотые пески логотип" class="w-24 h-24 mb-4 opacity-0" id="loader-logo">
+            <h1 class="text-brand-gold text-5xl font-serif mb-4 tracking-widest opacity-0" id="loader-text">ГАЛЕРЕЯ</h1>
+            <div class="w-16 h-1 bg-brand-gold rounded-full transform scale-x-0" id="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Floating Contact Icons -->
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col space-y-3 sm:space-y-4">
+        <a data-config="telegram" href="#" target="_blank" class="floating-icon w-12 h-12 sm:w-14 sm:h-14 bg-[#0088cc] rounded-full flex items-center justify-center text-white text-2xl sm:text-3xl" title="Telegram">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a data-config="max" href="#" target="_blank" rel="noopener" class="floating-icon w-12 h-12 sm:w-14 sm:h-14 bg-[#6B4EFF] rounded-full flex items-center justify-center" title="Написать в MAX">
+            <img src="images/max-mess.png" alt="MAX" class="w-7 h-7 sm:w-8 sm:h-8 object-contain">
+        </a>
+        <a data-config="phone" href="#" class="floating-icon w-12 h-12 sm:w-14 sm:h-14 bg-brand-gold rounded-full flex items-center justify-center text-white text-xl sm:text-2xl" title="Позвонить">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <header class="relative h-screen w-full overflow-hidden pt-20 md:pt-24">
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('images/Entertaiment/beach5.jfif');"></div>
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 h-full flex flex-col justify-center items-center text-center text-white">
+            <p class="text-brand-gold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs sm:text-sm md:text-base mb-4 font-bold">Фотографии</p>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-medium mb-6 leading-tight">
+                Галерея <br> <span class="italic text-brand-gold">базы отдыха</span>
+            </h1>
+            <p class="max-w-xl mx-auto text-gray-200 text-lg font-light mb-10">
+                Посмотрите фотографии нашей базы отдыха и природы вокруг озера.
+            </p>
+            <div class="mt-4">
+                <a href="#gallery" class="group relative px-8 py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden inline-block">
+                    <span class="relative z-10">Посмотреть галерею</span>
+                    <div class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20"></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl opacity-70"></i>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 sm:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-8 sm:mb-12 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Наши фотографии</span>
+                <h2 class="text-3xl sm:text-4xl font-serif mt-2">Галерея</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8 sm:mb-12 reveal-up">
+                <button type="button" class="gallery-filter-btn active px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium uppercase tracking-wider border-2 border-brand-dark text-brand-dark transition-colors min-w-[70px] sm:min-w-[80px]" data-category="all">Все</button>
+                <button type="button" class="gallery-filter-btn px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium uppercase tracking-wider border-2 border-brand-dark text-brand-dark hover:border-brand-gold hover:text-brand-gold transition-colors" data-category="villas">Номера и домики</button>
+                <button type="button" class="gallery-filter-btn px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium uppercase tracking-wider border-2 border-brand-dark text-brand-dark hover:border-brand-gold hover:text-brand-gold transition-colors" data-category="beach">Пляж и озеро</button>
+                <button type="button" class="gallery-filter-btn px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium uppercase tracking-wider border-2 border-brand-dark text-brand-dark hover:border-brand-gold hover:text-brand-gold transition-colors" data-category="entertainment">Развлечения</button>
+                <button type="button" class="gallery-filter-btn px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium uppercase tracking-wider border-2 border-brand-dark text-brand-dark hover:border-brand-gold hover:text-brand-gold transition-colors" data-category="camping">Кемпинг</button>
+                <button type="button" class="gallery-filter-btn px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium uppercase tracking-wider border-2 border-brand-dark text-brand-dark hover:border-brand-gold hover:text-brand-gold transition-colors" data-category="map">Схема базы</button>
+                <button type="button" class="gallery-filter-btn px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium uppercase tracking-wider border-2 border-brand-dark text-brand-dark hover:border-brand-gold hover:text-brand-gold transition-colors" data-category="nature">Природа и локации</button>
+                <button type="button" class="gallery-filter-btn px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium uppercase tracking-wider border-2 border-brand-dark text-brand-dark hover:border-brand-gold hover:text-brand-gold transition-colors" data-category="events">Мероприятия</button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="gallery-grid">
+                <!-- Номера и домики -->
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/dom_14/1.avif" alt="Домик 14" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="eager" decoding="async" fetchpriority="high">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/dom_14/2.avif" alt="Домик 14" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="eager" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/dom_14/3.avif" alt="Домик 14" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="eager" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/dom_14/4.avif" alt="Домик 14" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/dom_14/5.avif" alt="Домик 14" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/dom_14/6.avif" alt="Домик 14" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_1/1.avif" alt="Номер 1" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_1/2.avif" alt="Номер 1" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_2/1.avif" alt="Номер 2" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_2/2.avif" alt="Номер 2" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_4/1.avif" alt="Номер 4" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_4/2.avif" alt="Номер 4" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_6/1.avif" alt="Номер 6" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_6/2.avif" alt="Номер 6" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_8/1.avif" alt="Номер 8" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_8/2.avif" alt="Номер 8" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_8/3.avif" alt="Номер 8" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_8/4.avif" alt="Номер 8" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_8/5.avif" alt="Номер 8" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_8/6.avif" alt="Номер 8" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_8/7.avif" alt="Номер 8" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_8/8.avif" alt="Номер 8" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/1.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/2.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/3.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/4.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/5.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/6.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/7.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/8.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_9/9.avif" alt="Номер 9" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_10/1.avif" alt="Номер 10" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_10/2.avif" alt="Номер 10" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_10/3.avif" alt="Номер 10" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_10/4.avif" alt="Номер 10" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_10/5.avif" alt="Номер 10" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_10/6.avif" alt="Номер 10" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_10/7.avif" alt="Номер 10" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_10/8.avif" alt="Номер 10" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_11/1.avif" alt="Номер 11" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_12/1.avif" alt="Номер 12" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_12/2.avif" alt="Номер 12" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_12/3.avif" alt="Номер 12" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_13/1.avif" alt="Номер 13" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="villas">
+                    <img src="images/rooms_13/2.avif" alt="Номер 13" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <!-- Схема территории (отдельная группа; в режиме «Все» — в общей сетке между номерами и пляжем; открывается в лайтбоксе как изображение) -->
+                <div class="gallery-item relative overflow-hidden group cursor-pointer bg-neutral-100" data-category="map">
+                    <img src="images/camping/camping-map-scheme.jpg" alt="Схема территории базы отдыха Золотые пески" class="w-full h-64 object-cover object-center transition-transform duration-300 group-hover:scale-110" width="1024" height="724" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <!-- Пляж и озеро -->
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="beach">
+                    <img src="images/gallery/123.WEBP" alt="Пляж и озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="beach">
+                    <img src="images/gallery/XXXL%20(26).WEBP" alt="Пляж и озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="beach">
+                    <img src="images/gallery/XXXL%20103.webp" alt="Пляж и озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="beach">
+                    <img src="images/Entertaiment/beach2.jfif" alt="Пляж" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="beach">
+                    <img src="images/Entertaiment/beach3.jfif" alt="Озеро Тургояк" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="beach">
+                    <img src="images/Entertaiment/beach4.jfif" alt="Пляж и озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="beach">
+                    <img src="images/Entertaiment/beach5.jfif" alt="Вид на озеро Тургояк" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <!-- Развлечения -->
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/banya (1).webp" alt="Баня" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/banya (2).webp" alt="Баня с нырянием в озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/banya (3).webp" alt="Баня" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/banya.webp" alt="Баня на озере" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/ChatGPT%20Image%2031%20%D1%8F%D0%BD%D0%B2.%202026%20%D0%B3.,%2010_31_11.png" alt="Прогулка на катере по озеру" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/Mangal.webp" alt="Мангал" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/Mangal2.jfif" alt="Мангальная зона" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/sup.webp" alt="Сапборд на озере" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/top-view-volleyball-beach-sand.jfif" alt="Волейбольная площадка" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/volleyball-net.jfif" alt="Волейбол" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/yoga1.jfif" alt="Йога на природе" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/yoga2.jfif" alt="Йога" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/yoga3.jfif" alt="Йога у озера" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/yoga4.jfif" alt="Йога" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/1.jfif" alt="Развлечения на базе" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="entertainment">
+                    <img src="images/Entertaiment/2.jfif" alt="Досуг" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <!-- Кемпинг -->
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="camping">
+                    <img src="images/camping/6.avif" alt="Кемпинг" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="camping">
+                    <img src="images/camping/4.avif" alt="Палаточный лагерь" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="camping">
+                    <img src="images/camping/3.avif" alt="Кемпинг под звёздами" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="camping">
+                    <img src="images/camping/2.avif" alt="Палатки у озера" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="camping">
+                    <img src="images/camping/1.avif" alt="Кемпинг на базе" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <!-- Природа и локации -->
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/Screenshot_1.jfif.jpg" alt="Озеро Тургояк с высоты" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/Screenshot_2.jfif.jpg" alt="Панорама озера" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/Screenshot_3.jfif.jpg" alt="Природа и озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (1).webp" alt="Природа" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (2).webp" alt="Локация" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (3).webp" alt="Озеро и природа" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (4).webp" alt="Природа Тургояка" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (5).webp" alt="Виды озера" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (6).webp" alt="Озеро Тургояк" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (7).webp" alt="Природа" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (8).webp" alt="Локация на озере" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (9).webp" alt="Озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (10).webp" alt="Природа и озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (11).webp" alt="Тургояк" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (12).webp" alt="Природа" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL (13).webp" alt="Вид на озеро" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="nature">
+                    <img src="images/XXXL.webp" alt="Природа и локации" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <!-- Мероприятия -->
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="events">
+                    <img src="images/Entertaiment/eventspace1.jfif" alt="Площадка для мероприятий" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="events">
+                    <img src="images/Entertaiment/eventspace2.jfif" alt="Свадьбы и праздники" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="events">
+                    <img src="images/Entertaiment/eventspace4.jfif" alt="Территория для мероприятий" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden group cursor-pointer" data-category="events">
+                    <img src="images/Events/XXXL (14).webp" alt="Мероприятия на базе" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Lightbox Modal -->
+    <div id="gallery-lightbox" class="fixed inset-0 z-[10000] hidden items-center justify-center bg-black/90 p-3 sm:p-4" aria-hidden="true" role="dialog" aria-label="Просмотр фотографии">
+        <button type="button" id="gallery-lightbox-close" class="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/90 hover:text-white text-3xl sm:text-4xl leading-none z-20 p-1" aria-label="Закрыть">&times;</button>
+        <div class="flex items-center justify-center w-full">
+            <div class="relative w-fit max-w-[95vw]">
+                <button type="button" id="gallery-lightbox-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 sm:left-2 sm:-translate-x-full bg-black/50 hover:bg-black/70 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center z-20 active:scale-95" aria-label="Предыдущее фото">
+                    <i class="fas fa-chevron-left text-sm sm:text-base"></i>
+                </button>
+                <img id="gallery-lightbox-img" alt="Просмотр фотографии" class="block max-w-[95vw] max-h-[80vh] sm:max-h-[85vh] object-contain rounded-lg shadow-2xl">
+                <button type="button" id="gallery-lightbox-next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 sm:right-2 sm:translate-x-full bg-black/50 hover:bg-black/70 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center z-20 active:scale-95" aria-label="Следующее фото">
+                    <i class="fas fa-chevron-right text-sm sm:text-base"></i>
+                </button>
+            </div>
+        </div>
+        <div id="gallery-lightbox-counter" class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-xs sm:text-sm"></div>
+    </div>
+
+    <!-- CTA Section (как на главной) -->
+    <section class="py-16 sm:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <div class="text-center mb-10 sm:mb-16 reveal-up">
+                <span class="text-brand-gold uppercase tracking-widest text-xs font-bold">Бронирование</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif mt-2 text-brand-dark">Вдохновились нашими фотографиями?</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-600 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">Посетите базу отдыха «Золотые пески» на озере Тургояк и создайте свои незабываемые воспоминания. Забронируйте домик, номер или место в кемпинге прямо сейчас.</p>
+                <ul class="text-left md:text-center flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-6 justify-center items-start md:items-center mb-6 sm:mb-8 mx-auto max-w-2xl text-gray-600 text-sm sm:text-base">
+                    <li class="flex items-center gap-2"><span class="text-xl">🏞️</span> Виды на озеро Тургояк</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🛀</span> Русская баня</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🤫</span> Территория тишины</li>
+                    <li class="flex items-center gap-2"><span class="text-xl">🌿</span> Погружение в природу</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center px-2 sm:px-0">
+                    <a href="#" target="_blank" rel="noopener" data-booking-widget-link class="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-brand-gold text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-brand-gold/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать онлайн <i class="fas fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a data-config="telegram" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-[#0088cc] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#0088cc]/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2">Забронировать через Telegram <i class="fab fa-telegram-plane text-sm"></i></span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                    <a data-config="max" href="#" target="_blank" rel="noopener" class="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-[#6B4EFF] text-white uppercase tracking-widest text-xs font-bold overflow-hidden rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#6B4EFF]/40 ring-offset-2 ring-offset-white">
+                        <span class="relative z-10 flex items-center gap-2"><img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0"> Написать в MAX</span>
+                        <span class="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out z-0 opacity-20" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script>
+    // Универсальный loader для страницы "Галерея"
+    window.addEventListener('DOMContentLoaded', function() {
+      var loader = document.getElementById('loader');
+      if (!loader) return;
+      var tl = gsap.timeline();
+      tl.to("#loader-logo", { opacity: 1, duration: 0.8, ease: "power2.out" })
+        .to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
+        .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" });
+      function hideLoader() {
+        if (!loader) return;
+        tl.to("#loader", { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut", onComplete: function() {
+          loader.parentNode && loader.parentNode.removeChild(loader);
+        }});
+      }
+      let checkReady = setInterval(function() {
+        var headerC = document.getElementById('header-placeholder');
+        var footerC = document.getElementById('footer-placeholder');
+        if (headerC && headerC.innerHTML.trim() && footerC && footerC.innerHTML.trim()) {
+          clearInterval(checkReady);
+          hideLoader();
+        }
+      }, 100);
+      setTimeout(hideLoader, 5000);
+    });
+    </script>
+    <script>
+// Gallery Category Filter
+(function initGalleryFilter() {
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    const galleryItems = document.querySelectorAll('#gallery .gallery-item');
+    if (!filterBtns.length || !galleryItems.length) return;
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            galleryItems.forEach(item => {
+                const itemCat = item.dataset.category;
+                if (category === 'all' || itemCat === category) {
+                    item.classList.remove('gallery-hidden');
+                } else {
+                    item.classList.add('gallery-hidden');
+                }
+            });
+        });
+    });
+})();
+
+// Gallery Lightbox - открытие фото по клику (учитывает видимые после фильтра)
+(function initGalleryLightbox() {
+    const modal = document.getElementById('gallery-lightbox');
+    const modalImg = document.getElementById('gallery-lightbox-img');
+    const closeBtn = document.getElementById('gallery-lightbox-close');
+    const prevBtn = document.getElementById('gallery-lightbox-prev');
+    const nextBtn = document.getElementById('gallery-lightbox-next');
+    const counterEl = document.getElementById('gallery-lightbox-counter');
+    if (!modal || !modalImg) return;
+
+    let images = [];
+    let currentIndex = 0;
+
+    function getVisibleItems() {
+        return Array.from(document.querySelectorAll('#gallery .gallery-item:not(.gallery-hidden)'));
+    }
+
+    function show() {
+        const src = images[currentIndex];
+        if (!src) return;
+        modalImg.src = src;
+        modalImg.alt = 'Фото ' + (currentIndex + 1) + ' из ' + images.length;
+        if (counterEl) counterEl.textContent = (currentIndex + 1) + ' / ' + images.length;
+    }
+
+    function open(clickedIndex) {
+        const visible = getVisibleItems();
+        images = visible.map(item => item.querySelector('img')?.src).filter(Boolean);
+        if (!images.length) return;
+        currentIndex = Math.max(0, Math.min(clickedIndex, images.length - 1));
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        show();
+    }
+
+    function close() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.removeAttribute('src');
+        images = [];
+        currentIndex = 0;
+        document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('#gallery .gallery-item').forEach((item) => {
+        item.addEventListener('click', () => {
+            const visible = getVisibleItems();
+            const index = visible.indexOf(item);
+            open(index >= 0 ? index : 0);
+        });
+        item.style.cursor = 'pointer';
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-label', 'Открыть фото в полном размере');
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const visible = getVisibleItems();
+                open(Math.max(0, visible.indexOf(item)));
+            }
+        });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); if (images.length) { currentIndex = (currentIndex - 1 + images.length) % images.length; show(); } });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); if (images.length) { currentIndex = (currentIndex + 1) % images.length; show(); } });
+
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+    });
+})();
+    </script>
+    <script>
+// Villa Data Configuration (база отдыха Золотые пески)
+const villaData = {
+    'mist-valley': {
+        title: 'Домик у озера',
+        price: 'от 4 500 ₽',
+        tag: 'Популярный',
+        desc: 'Уютный домик в шаговой доступности от озера Тургояк. Отдыхайте на природе, наслаждайтесь видом на воду и свежим воздухом. Идеально подходит для семейного отдыха.',
+        beds: '2–3 спальни',
+        baths: 'Санузел',
+        guests: 'До 6 гостей',
+        images: [
+            "images/villa1/v1.jpeg",
+            "images/villa1/v2.jpeg",
+            "images/villa1/v3.jpeg",
+            "images/villa1/v4.jpeg",
+            "images/villa1/v5.jpeg",
+            "images/villa1/v6.jpeg",
+            "images/villa1/v7.jpeg",
+        ]
+    },
+    'sky-deck': {
+        title: 'Домик с видом',
+        price: 'от 5 500 ₽',
+        tag: 'Комфорт',
+        desc: 'Просторный домик с панорамным видом на озеро. Крытая веранда, мангальная зона. Отличный выбор для отдыха с друзьями или семьёй.',
+        beds: '2–3 спальни',
+        baths: 'Санузел',
+        guests: 'До 8 гостей',
+        images: [
+            "images/villa2/i1.jpeg",
+            "images/villa2/i2.jpeg",
+            "images/villa2/i3.jpeg",
+            "images/villa2/i4.jpeg",
+            "images/villa2/i5.jpeg",
+        ]
+    },
+    'verdant-edge': {
+        title: 'Просторный дом',
+        price: 'от 7 000 ₽',
+        tag: 'Для компании',
+        desc: 'Большой дом для отдыха большой компанией. Терраса, мангальная зона, всё необходимое для комфортного пребывания на базе отдыха.',
+        beds: '3–4 спальни',
+        baths: '2 санузла',
+        guests: 'До 12 гостей',
+        images: [
+            "images/villa3/l1.jpeg",
+            "images/villa3/l2.jpeg",
+            "images/villa3/l3.jpeg",
+            "images/villa3/l4.jpeg",
+            "images/villa3/l5.jpeg",
+            "images/villa3/l6.jpeg",
+            "images/villa3/l7.jpeg"
+        ]
+    },
+    'pebble-creek': {
+        title: 'Домик у воды',
+        price: 'от 3 500 ₽',
+        tag: 'Уединённый отдых',
+        desc: 'Уютный домик для романтического или семейного отдыха. Близость к озеру, тишина и природа. Идеально для пар или небольшой семьи.',
+        beds: '1–2 спальни',
+        baths: 'Санузел',
+        guests: 'До 4 гостей',
+        images: [
+            "images/villa4/p1.jpeg",
+            "images/villa4/p2.jpeg",
+            "images/villa4/p3.jpeg",
+            "images/villa4/p4.jpeg",
+            "images/villa4/p5.jpeg",
+            "images/villa4/p6.jpeg",
+            "images/villa4/p7.jpeg",
+        ]
+    }
+};
+
+// Hero Background Images for Slider
+const heroImages = [
+    "images/villa4/p1.jpeg",
+    "images/villa4/p2.jpeg",
+    "images/villa4/p3.jpeg",
+    "images/villa4/p4.jpeg",
+    "images/villa4/p5.jpeg",
+    "images/villa4/p6.jpeg",
+    "images/villa4/p7.jpeg",
+]
+
+// Contact Information (база отдыха Золотые пески)
+const contactInfo = {
+    phone: window.CONFIG?.phone || '+79080686060',
+    email: window.CONFIG?.email || 'bazaturgoyak@mail.ru',
+    address: window.CONFIG?.address || 'Челябинская область, г. Миасс, озеро Тургояк'
+};
+    </script>
+    <script>
+// Utility Functions for база отдыха Золотые пески
+
+// Telegram: отправка заявки в бота
+function sendWhatsapp() {
+    const name = document.getElementById('contact-name').value;
+    const phone = document.getElementById('contact-phone').value;
+    const date = document.getElementById('contact-date').value;
+    const villa = document.getElementById('contact-villa').value;
+    
+    // Get optional fields if they exist
+    const email = document.getElementById('contact-email')?.value || '';
+    const checkout = document.getElementById('contact-checkout')?.value || '';
+    const guests = document.getElementById('contact-guests')?.value || '';
+    const message = document.getElementById('contact-message')?.value || '';
+
+    // Validation
+    if (!name || !phone || !date) {
+        alert("Пожалуйста, заполните Имя, Телефон и Дату заезда.");
+        return;
+    }
+
+    if (!villa) {
+        alert("Пожалуйста, выберите вариант размещения.");
+        return;
+    }
+
+    // Build WhatsApp message
+    let whatsappMessage = `Здравствуйте! База отдыха Золотые пески.%0A%0AХотел(а) бы уточнить наличие мест.%0A%0A*Имя:* ${name}%0A*Телефон:* ${phone}`;
+    
+    if (email) {
+        whatsappMessage += `%0A*Email:* ${email}`;
+    }
+    
+    if (guests) {
+        whatsappMessage += `%0A*Количество гостей:* ${guests}`;
+    }
+    
+    whatsappMessage += `%0A*Дата заезда:* ${date}`;
+    
+    if (checkout) {
+        whatsappMessage += `%0A*Дата выезда:* ${checkout}`;
+    }
+    
+    whatsappMessage += `%0A*Интересует:* ${villa}`;
+    
+    if (message) {
+        whatsappMessage += `%0A*Пожелания:* ${message}`;
+    }
+    
+    whatsappMessage += `%0A%0AПодскажите, пожалуйста, подробности.`;
+
+    const telegramText = whatsappMessage.replace(/%0A/g, '\n');
+    const telegramBase = (window.CONFIG && window.CONFIG.telegramBot) ? window.CONFIG.telegramBot.replace(/\/+$/, '') : 'https://t.me/Zolotye_peski174_bot';
+    window.open(telegramBase + '?text=' + encodeURIComponent(telegramText), '_blank');
+}
+
+// Modal Functions
+function openModal(villaId) {
+    const data = villaData[villaId];
+    if (!data) return;
+
+    // Populate Text
+    document.getElementById('modal-title').innerText = data.title;
+    document.getElementById('modal-price').innerHTML = `${data.price}<span class="text-sm font-normal text-gray-500">/сутки</span>`;
+    document.getElementById('modal-desc').innerText = data.desc;
+    document.getElementById('modal-tag').innerText = data.tag;
+    document.getElementById('modal-beds').innerText = data.beds;
+    document.getElementById('modal-baths').innerText = data.baths;
+    document.getElementById('modal-guests').innerText = data.guests;
+    
+    // Set contact dropdown if on booking page
+    const villaDropdown = document.getElementById('contact-villa');
+    if (villaDropdown) {
+        // Store the villa title for later use
+        window.selectedVillaTitle = data.title;
+    }
+
+    // Populate Images
+    const mainImg = document.getElementById('modal-main-img');
+    const thumbContainer = document.getElementById('modal-thumbnails');
+    
+    mainImg.src = data.images[0];
+    thumbContainer.innerHTML = ''; // Clear previous thumbnails
+
+    data.images.forEach((imgSrc, index) => {
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.className = `w-20 h-20 md:w-24 md:h-24 object-cover rounded cursor-pointer border-2 hover:border-brand-gold transition-all ${index === 0 ? 'border-brand-gold' : 'border-transparent'}`;
+        thumb.onclick = () => {
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = imgSrc;
+                mainImg.style.opacity = '1';
+            }, 300);
+            // Update borders
+            Array.from(thumbContainer.children).forEach(child => {
+                child.classList.remove('border-brand-gold');
+                child.classList.add('border-transparent');
+            });
+            thumb.classList.remove('border-transparent');
+            thumb.classList.add('border-brand-gold');
+        };
+        thumbContainer.appendChild(thumb);
+    });
+
+    const modal = document.getElementById('villa-modal');
+    modal.classList.remove('hidden');
+    gsap.fromTo(".modal-content", 
+        { y: 50, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }
+    );
+    document.body.style.overflow = 'hidden'; // Stop background scroll
+}
+
+function closeModal() {
+    const modal = document.getElementById('villa-modal');
+    gsap.to(".modal-content", { 
+        y: 50, 
+        opacity: 0, 
+        duration: 0.3, 
+        ease: "power2.in", 
+        onComplete: () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Set selected villa in booking form when coming from modal
+function setSelectedVilla() {
+    if (window.selectedVillaTitle) {
+        // This will be called when user clicks "Book This Villa" in modal
+        setTimeout(() => {
+            const villaDropdown = document.getElementById('contact-villa');
+            if (villaDropdown) {
+                const options = villaDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].text.includes(window.selectedVillaTitle)) {
+                        villaDropdown.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }, 100);
+    }
+}
+
+// Lonavala Slider Scroll Function
+function scrollLonavala(direction) {
+    const slider = document.getElementById('lonavala-slider');
+    if (!slider) return;
+    
+    const scrollAmount = 300;
+    if (direction === 'left') {
+        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+}
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+    }
+}
+
+// Scroll to section with offset for fixed navbar
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offset = 100; // Navbar height
+        const sectionPosition = section.offsetTop - offset;
+        window.scrollTo({
+            top: sectionPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+    </script>
+    <script>
+// Main JavaScript for база отдыха Золотые пески
+
+// Hero Image Slider (only for home page)
+let currentHeroIndex = 0;
+const heroBg = document.getElementById('hero-bg');
+
+if (heroBg) {
+    setInterval(() => {
+        currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+        heroBg.style.backgroundImage = heroImages[currentHeroIndex];
+    }, 3000);
+}
+
+// Loader & GSAP Initialization
+window.addEventListener('load', () => {
+    const tl = gsap.timeline();
+
+    tl.to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" })
+      .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" })
+      .to("#loader", { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut" });
+    
+    // Only animate hero elements if they exist (on home page)
+    const heroElems = document.querySelectorAll('.gsap-hero-elem');
+    if (heroElems.length > 0) {
+        tl.from(".gsap-hero-elem", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        }, "-=0.5");
+    }
+});
+
+// Register GSAP ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Navbar Scroll Effect
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    
+    if (navbar) {
+        if (currentScroll > 100) {
+            navbar.classList.remove('bg-transparent', 'py-6');
+            navbar.classList.add('bg-brand-dark', 'shadow-lg', 'py-4');
+        } else {
+            navbar.classList.add('bg-transparent', 'py-6');
+            navbar.classList.remove('bg-brand-dark', 'shadow-lg', 'py-4');
+        }
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Reveal Animations
+gsap.utils.toArray('.reveal-up').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-left').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: -60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-right').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+// Mobile Menu Functionality
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Toggle icon
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        } else {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        }
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    }
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('villa-modal');
+    if (modal && e.target === modal) {
+        closeModal();
+    }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('villa-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    }
+});
+
+// Form validation for booking
+const bookingForm = document.getElementById('booking-form');
+if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendWhatsapp();
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Don't prevent default for links that just have "#"
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const offset = 100;
+            const targetPosition = targetElement.offsetTop - offset;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Lazy loading for images
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Performance: Throttle scroll events
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(() => {
+        // Scroll-based functionality here
+    });
+}, { passive: true });
+
+// Console welcome message
+console.log('%cЗолотые пески', 'color: #D4AF37; font-size: 20px; font-weight: bold;');
+console.log('%cБаза отдыха на озере Тургояк', 'color: #666; font-size: 14px;');
+
+// Debug mode - set to false in production
+const DEBUG = false;
+if (DEBUG) {
+    console.log('Villa Data:', villaData);
+    console.log('Contact Info:', contactInfo);
+}
+
+// Динамическая подгрузка header и footer
+function loadInclude(id, url) {
+  fetch(url)
+    .then(r => r.text())
+    .then(html => { document.getElementById(id).innerHTML = html; });
+}
+loadInclude('header-placeholder', 'header.html');
+loadInclude('footer-placeholder', 'footer.html');
+
+// --- Исправление бага с возвратом из bfcache ---
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    location.reload();
+  }
+});
+
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    loadInclude('header-placeholder', 'header.html');
+    loadInclude('footer-placeholder', 'footer.html');
+    var loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'flex';
+  }
+});
+    </script>
+</body>
+</html>

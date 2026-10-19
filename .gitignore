@@ -1,0 +1,95 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor Directories and Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Log Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Dependency Directories
+node_modules/
+bower_components/
+
+# Build Outputs
+dist/
+build/
+.cache/
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary Files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Tilda-specific files (не нужны для Netlify/Vercel)
+tilda_*.html
+Tilda_*.md
+*_body_content.html
+
+# Documentation (опционально - закомментируйте если хотите сохранить в Git)
+# FINAL_Tilda_Guide.md
+# INSTALL_Page1_Index.md
+# Tilda_Checklist.md
+# Tilda_Instructions.md
+# Tilda_Migration_Simple.md
+
+# Scripts and utility files
+replace_images.ps1
+replace_images.sh
+Yandex_Disk_Links.md
+Карта сайта.csv
+
+# Backup Files
+*.bak
+*.backup
+*~
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Package manager files (if you add them later)
+package-lock.json
+yarn.lock
+
+# Test Coverage
+coverage/
+.nyc_output/
+
+# Others
+*.psd
+*.ai
+*.sketch

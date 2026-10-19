@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Как доехать | Золотые пески</title>
+  <meta name="description" content="Как доехать до базы отдыха «Золотые пески» на озере Тургояк: маршрут из Миасса и Челябинска, координаты, карта, Яндекс.Навигатор. Челябинская область.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Как доехать | Золотые пески">
+  <meta property="og:description" content="Маршрут и координаты базы Золотые пески на озере Тургояк. Как доехать из Миасса и Челябинска.">
+  <meta property="og:image" content="https://bazaturgoyak.ru/images/road/road.jfif">
+  <meta property="og:url" content="https://bazaturgoyak.ru/road.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Золотые пески">
+
+  <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .road-map-iframe { min-height: 400px; }
+    @media (min-width: 768px) { .road-map-iframe { min-height: 450px; } }
+    .route-step::before { content: ''; position: absolute; left: 0.625rem; top: 1.25rem; bottom: -0.25rem; width: 1.5px; background: linear-gradient(to bottom, #D4AF37, rgba(212,175,55,0.2)); }
+    .route-step:last-child::before { display: none; }
+    .copy-coords-btn:active { transform: scale(0.98); }
+    .route-card-btn { display: inline-flex !important; align-items: center; justify-content: center; flex-shrink: 0; width: 2.75rem; height: 2.75rem; box-sizing: border-box; padding: 0 !important; border-radius: 0.5rem; }
+    @media (min-width: 768px) { .route-card-btn { width: 3rem; height: 3rem; } }
+    .route-card-btn img { display: block; }
+    .road-photo-first-img { transform: scale(0.92); transform-origin: center; }
+    .group:hover .road-photo-first-img { transform: scale(1.1); }
+    .road-card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .road-card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08); }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+  <div id="header-placeholder"></div>
+
+  <main class="pt-28">
+    <!-- Hero -->
+    <section class="bg-[#1a1a1a] text-white">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <p class="text-xs tracking-[0.2em] uppercase text-[#D4AF37]">Маршруты и парковка</p>
+        <h1 class="mt-3 font-[Playfair_Display] text-3xl md:text-4xl">Как доехать</h1>
+        <p class="mt-5 max-w-2xl text-sm md:text-base text-white/80">Координаты для навигатора, пошаговые маршруты от крупных городов, карта и информация о парковке.</p>
+      </div>
+    </section>
+
+    <!-- Координаты для навигатора -->
+    <section class="mx-auto max-w-6xl px-6 py-14" id="coordinates">
+      <div class="road-card-hover rounded-2xl border border-black/10 bg-[#F7F3E8] p-6 md:p-8 shadow-sm">
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] mb-4">
+          <i class="fas fa-crosshairs text-lg"></i>
+        </div>
+        <h2 class="font-[Playfair_Display] text-xl md:text-2xl font-semibold text-[#1a1a1a] mb-2">Координаты для навигатора</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">Введите в GPS или навигатор для построения маршрута до базы отдыха.</p>
+        <div class="mt-6 flex flex-wrap items-center gap-4">
+          <code class="inline-flex items-center gap-2 rounded-lg bg-white/80 border border-black/10 px-3 py-2 font-mono text-sm text-[#1a1a1a]" id="coords-text">55.187969, 60.059069</code>
+          <button type="button" class="copy-coords-btn inline-flex items-center gap-2 rounded-lg bg-[#D4AF37] px-3 py-2 text-sm font-medium text-[#1a1a1a] hover:bg-[#b5952f] transition-colors" id="copy-coords-btn" title="Скопировать">
+            <i class="fas fa-copy"></i>
+            <span>Скопировать</span>
+          </button>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-3 text-sm">
+          <a href="https://yandex.ru/maps/?ll=60.059069%2C55.187969&pt=60.059069%2C55.187969&z=15" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#D4AF37] hover:underline">
+            <i class="fas fa-map-marker-alt"></i> Открыть в Яндекс.Картах
+          </a>
+          <a href="https://2gis.ru/search/55.187969%2060.059069" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#D4AF37] hover:underline">
+            <i class="fas fa-map"></i> Построить маршрут в 2ГИС
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Пошаговые маршруты на авто -->
+    <section class="mx-auto max-w-6xl px-6 py-10" id="routes">
+      <h2 class="font-[Playfair_Display] text-2xl md:text-3xl mb-4">Маршруты на автомобиле</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+        <!-- Из Челябинска -->
+        <div class="road-card-hover rounded-xl border border-black/10 bg-[#F7F3E8] p-3 md:p-4 flex flex-col md:flex-row md:items-stretch gap-3 md:gap-4 shadow-sm">
+          <div class="flex-1 min-w-0">
+            <h3 class="font-[Playfair_Display] text-base md:text-lg flex items-center gap-1.5 text-[#1a1a1a]">
+              <i class="fas fa-car text-[#D4AF37] text-sm"></i>
+              Из Челябинска
+            </h3>
+            <p class="mt-0.5 text-[11px] text-gray-600">Около 90 км, ориентировочно 1 ч 20 мин</p>
+            <ol class="mt-2 space-y-1 relative">
+              <li class="route-step relative pl-6 text-xs">
+                <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">1</span>
+                <strong>Выезд из Челябинска</strong> — по трассе М-5 в направлении Уфы / Миасса.
+              </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">2</span>
+              Следовать по М-5 до указателя на <strong>Миасс</strong>, затем в сторону озера Тургояк.
+            </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">3</span>
+              После Миасса двигаться по дороге к <strong>озеру Тургояк</strong>, ориентируясь на указатели «Золотые пески» / базы отдыха.
+            </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">4</span>
+              Финишная точка — <strong>база отдыха «Золотые пески»</strong>. Координаты: 55.187969, 60.059069.
+            </li>
+          </ol>
+          </div>
+          <div class="md:flex-shrink-0 md:flex md:items-center md:border-l md:border-black/10 md:pl-4">
+            <a href="https://yandex.ru/maps/?rtext=55.159800%2C61.402550~55.187969%2C60.059069&rtt=auto" target="_blank" rel="noopener noreferrer" class="route-card-btn mt-3 md:mt-0 pt-2 md:pt-0 border-t md:border-t-0 border-black/10 rounded-lg bg-[#D4AF37] text-[#1a1a1a] hover:bg-[#b5952f] transition-colors" title="Построить маршрут в Яндекс.Картах">
+              <img src="images/YandexNavigatorLogo.svg" alt="Яндекс.Навигатор" class="h-5 w-5 md:h-6 md:w-6" width="24" height="24" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Из Екатеринбурга -->
+        <div class="road-card-hover rounded-xl border border-black/10 bg-[#F7F3E8] p-3 md:p-4 flex flex-col md:flex-row md:items-stretch gap-3 md:gap-4 shadow-sm">
+          <div class="flex-1 min-w-0">
+            <h3 class="font-[Playfair_Display] text-base md:text-lg flex items-center gap-1.5 text-[#1a1a1a]">
+              <i class="fas fa-car text-[#D4AF37] text-sm"></i>
+              Из Екатеринбурга
+            </h3>
+            <p class="mt-0.5 text-[11px] text-gray-600">Около 200 км, ориентировочно 2 ч 30 мин – 3 ч</p>
+            <ol class="mt-2 space-y-1 relative">
+              <li class="route-step relative pl-6 text-xs">
+                <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">1</span>
+                <strong>Выезд из Екатеринбурга</strong> — по трассе М-5 в направлении Челябинска.
+              </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">2</span>
+              Следовать по М-5 до <strong>Челябинска</strong> (можно объехать по объездной при необходимости).
+            </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">3</span>
+              От Челябинска — по маршруту в сторону <strong>Миасса</strong> и озера Тургояк (см. маршрут «Из Челябинска»).
+            </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">4</span>
+              Финишная точка — <strong>база отдыха «Золотые пески»</strong>. Координаты: 55.187969, 60.059069.
+            </li>
+          </ol>
+          </div>
+          <div class="md:flex-shrink-0 md:flex md:items-center md:border-l md:border-black/10 md:pl-4">
+            <a href="https://yandex.ru/maps/?rtext=56.838900%2C60.605700~55.187969%2C60.059069&rtt=auto" target="_blank" rel="noopener noreferrer" class="route-card-btn mt-3 md:mt-0 pt-2 md:pt-0 border-t md:border-t-0 border-black/10 rounded-lg bg-[#D4AF37] text-[#1a1a1a] hover:bg-[#b5952f] transition-colors" title="Построить маршрут в Яндекс.Картах">
+              <img src="images/YandexNavigatorLogo.svg" alt="Яндекс.Навигатор" class="h-5 w-5 md:h-6 md:w-6" width="24" height="24" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Из Уфы -->
+        <div class="road-card-hover rounded-xl border border-black/10 bg-[#F7F3E8] p-3 md:p-4 flex flex-col md:flex-row md:items-stretch gap-3 md:gap-4 shadow-sm">
+          <div class="flex-1 min-w-0">
+            <h3 class="font-[Playfair_Display] text-base md:text-lg flex items-center gap-1.5 text-[#1a1a1a]">
+              <i class="fas fa-car text-[#D4AF37] text-sm"></i>
+              Из Уфы
+            </h3>
+            <p class="mt-0.5 text-[11px] text-gray-600">Около 350 км, ориентировочно 4–5 ч</p>
+            <ol class="mt-2 space-y-1 relative">
+              <li class="route-step relative pl-6 text-xs">
+                <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">1</span>
+                <strong>Выезд из Уфы</strong> — по трассе М-5 в направлении Челябинска.
+              </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">2</span>
+              Следовать по М-5 через Златоуст в сторону <strong>Челябинска</strong>, затем по указателям на Миасс.
+            </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">3</span>
+              От Миасса — по дороге к <strong>озеру Тургояк</strong>, ориентируясь на указатели баз отдыха / «Золотые пески».
+            </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">4</span>
+              Финишная точка — <strong>база отдыха «Золотые пески»</strong>. Координаты: 55.187969, 60.059069.
+            </li>
+          </ol>
+          </div>
+          <div class="md:flex-shrink-0 md:flex md:items-center md:border-l md:border-black/10 md:pl-4">
+            <a href="https://yandex.ru/maps/?rtext=54.738800%2C55.972100~55.187969%2C60.059069&rtt=auto" target="_blank" rel="noopener noreferrer" class="route-card-btn mt-3 md:mt-0 pt-2 md:pt-0 border-t md:border-t-0 border-black/10 rounded-lg bg-[#D4AF37] text-[#1a1a1a] hover:bg-[#b5952f] transition-colors" title="Построить маршрут в Яндекс.Картах">
+              <img src="images/YandexNavigatorLogo.svg" alt="Яндекс.Навигатор" class="h-5 w-5 md:h-6 md:w-6" width="24" height="24" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Из Магнитогорска -->
+        <div class="road-card-hover rounded-xl border border-black/10 bg-[#F7F3E8] p-3 md:p-4 flex flex-col md:flex-row md:items-stretch gap-3 md:gap-4 shadow-sm">
+          <div class="flex-1 min-w-0">
+            <h3 class="font-[Playfair_Display] text-base md:text-lg flex items-center gap-1.5 text-[#1a1a1a]">
+              <i class="fas fa-car text-[#D4AF37] text-sm"></i>
+              Из Магнитогорска
+            </h3>
+            <p class="mt-0.5 text-[11px] text-gray-600">Около 250 км, ориентировочно 3–3,5 ч</p>
+            <ol class="mt-2 space-y-1 relative">
+              <li class="route-step relative pl-6 text-xs">
+                <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">1</span>
+                <strong>Выезд из Магнитогорска</strong> — в направлении Челябинска (трасса через Верхнеуральск или по М-5 через Учалы).
+              </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">2</span>
+              Следовать до развилки на <strong>Миасс</strong> / озеро Тургояк (через Челябинск или объездными дорогами — по навигатору).
+            </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">3</span>
+              От Миасса — по дороге к <strong>озеру Тургояк</strong>, указатели на базы отдыха / «Золотые пески».
+            </li>
+            <li class="route-step relative pl-6 text-xs">
+              <span class="absolute left-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[10px] font-bold text-[#1a1a1a]">4</span>
+              Финишная точка — <strong>база отдыха «Золотые пески»</strong>. Координаты: 55.187969, 60.059069.
+            </li>
+          </ol>
+          </div>
+          <div class="md:flex-shrink-0 md:flex md:items-center md:border-l md:border-black/10 md:pl-4">
+            <a href="https://yandex.ru/maps/?rtext=53.418600%2C58.979400~55.187969%2C60.059069&rtt=auto" target="_blank" rel="noopener noreferrer" class="route-card-btn mt-3 md:mt-0 pt-2 md:pt-0 border-t md:border-t-0 border-black/10 rounded-lg bg-[#D4AF37] text-[#1a1a1a] hover:bg-[#b5952f] transition-colors" title="Построить маршрут в Яндекс.Картах">
+              <img src="images/YandexNavigatorLogo.svg" alt="Яндекс.Навигатор" class="h-5 w-5 md:h-6 md:w-6" width="24" height="24" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Карта -->
+    <section class="mx-auto max-w-6xl px-6 py-14" id="map">
+      <h2 class="font-[Playfair_Display] text-2xl md:text-3xl mb-6">Карта и маршрут</h2>
+      <div class="rounded-2xl overflow-hidden border border-black/10 shadow-md">
+        <iframe class="road-map-iframe w-full border-0" src="https://yandex.ru/map-widget/v1/?ll=60.059069%2C55.187969&z=15&pt=60.059069%2C55.187969&l=map" allowfullscreen="true" loading="lazy" title="База отдыха Золотые пески на карте"></iframe>
+      </div>
+      <div class="mt-4 flex flex-wrap gap-3 text-sm">
+        <a href="https://yandex.ru/maps/?ll=60.059069%2C55.187969&pt=60.059069%2C55.187969&z=15" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg bg-[#D4AF37] px-3 py-2 font-medium text-[#1a1a1a] hover:bg-[#b5952f] transition-colors">
+          <i class="fas fa-external-link-alt"></i> Открыть в Яндекс.Картах
+        </a>
+        <a href="https://yandex.ru/maps/?rtext=~55.187969%2C60.059069&rtt=auto" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-[#D4AF37] px-3 py-2 font-medium text-[#1a1a1a] hover:bg-[#D4AF37]/10 transition-colors">
+          <i class="fas fa-route"></i> Построить маршрут
+        </a>
+      </div>
+    </section>
+
+    <!-- Без автомобиля -->
+    <section class="mx-auto max-w-6xl px-6 py-14" id="without-car">
+      <h2 class="font-[Playfair_Display] text-2xl md:text-3xl mb-8">Как добраться без автомобиля</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="road-card-hover rounded-2xl bg-[#F7F3E8] p-6 shadow-sm border border-black/10">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] mb-4">
+            <i class="fas fa-bus text-lg"></i>
+          </div>
+          <h3 class="font-[Playfair_Display] text-lg font-semibold text-[#1a1a1a] mb-2">Общественный транспорт</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">До Миасса можно доехать автобусом или электричкой из Челябинска и Екатеринбурга. От Миасса до базы отдыха — автобус до озера Тургояк или такси. Номера маршрутов и расписание уточняйте при бронировании.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl bg-[#F7F3E8] p-6 shadow-sm border border-black/10">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] mb-4">
+            <i class="fas fa-taxi text-lg"></i>
+          </div>
+          <h3 class="font-[Playfair_Display] text-lg font-semibold text-[#1a1a1a] mb-2">Такси</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Доехать до базы можно на такси. Укажите водителю координаты: <strong class="text-[#1a1a1a]">55.187969, 60.059069</strong>. Заранее уточните маршрут и контакты такси.</p>
+          <a href="https://yandex.ru/maps/?ll=60.061851%2C55.187183&mode=routes&rtext=~55.187969%2C60.059069&rtt=auto&ruri=~ymapsbm1%3A%2F%2Forg%3Foid%3D109014041624&source=serp_navig&z=15" target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm text-[#D4AF37] font-medium hover:underline">Построить маршрут в Яндекс.Картах →</a>
+        </div>
+        <div class="road-card-hover rounded-2xl bg-[#F7F3E8] p-6 shadow-sm border border-black/10">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] mb-4">
+            <i class="fas fa-shuttle-van text-lg"></i>
+          </div>
+          <h3 class="font-[Playfair_Display] text-lg font-semibold text-[#1a1a1a] mb-2">Трансфер</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Трансфер база не предоставляет. Доехать можно самостоятельно или заказать такси. Заранее уточните маршрут и контакты такси.</p>
+          <a href="https://yandex.ru/maps/?ll=60.061851%2C55.187183&mode=routes&rtext=~55.187969%2C60.059069&rtt=auto&ruri=~ymapsbm1%3A%2F%2Forg%3Foid%3D109014041624&source=serp_navig&z=15" target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm text-[#D4AF37] font-medium hover:underline">Построить маршрут в Яндекс.Картах →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Парковка -->
+    <section class="mx-auto max-w-6xl px-6 py-14" id="parking">
+      <h2 class="font-[Playfair_Display] text-2xl md:text-3xl mb-8">Парковка</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="road-card-hover rounded-2xl bg-[#F7F3E8] p-6 shadow-sm border border-black/10">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] mb-4">
+            <i class="fas fa-parking text-lg"></i>
+          </div>
+          <h3 class="font-[Playfair_Display] text-lg font-semibold text-[#1a1a1a] mb-2">Расположение</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Парковка на территории базы. Возможен заезд на автомобиле прямо на территорию. Количество мест уточняйте при бронировании.</p>
+        </div>
+        <div class="road-card-hover rounded-2xl bg-[#F7F3E8] p-6 shadow-sm border border-black/10">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] mb-4">
+            <i class="fas fa-ruble-sign text-lg"></i>
+          </div>
+          <h3 class="font-[Playfair_Display] text-lg font-semibold text-[#1a1a1a] mb-2">Стоимость</h3>
+          <ul class="text-sm text-gray-600 leading-relaxed space-y-2">
+            <li>Легковой авто — <strong class="text-[#1a1a1a]">500 ₽/сутки</strong> (для гостей, арендующих размещение)</li>
+            <li>Мотоцикл — <strong class="text-[#1a1a1a]">500 ₽/сутки</strong></li>
+            <li>Газель — <strong class="text-[#1a1a1a]">1000 ₽/сутки</strong></li>
+            <li>Автобус (до 40 мест) — <strong class="text-[#1a1a1a]">3000 ₽/сутки</strong></li>
+            <li>Только пляж (без проживания) — <strong class="text-[#1a1a1a]">1000 ₽/день</strong></li>
+            <li>Прицеп — как отдельное машино-место</li>
+            <li class="pt-1"><strong class="text-[#1a1a1a]">От 5 дней проживания — парковка бесплатно.</strong></li>
+          </ul>
+        </div>
+        <div class="road-card-hover rounded-2xl bg-[#F7F3E8] p-6 shadow-sm border border-black/10">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] mb-4">
+            <i class="fas fa-clipboard-list text-lg"></i>
+          </div>
+          <h3 class="font-[Playfair_Display] text-lg font-semibold text-[#1a1a1a] mb-2">Правила парковки</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Заезд на территорию разрешён. Места по указанию администрации. При длительном проживании (от 5 дней) парковка предоставляется бесплатно.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Фото дороги и указателей -->
+    <section id="road-photos" class="py-16 sm:py-24 bg-white">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-12">
+          <span class="text-[#D4AF37] uppercase tracking-[0.2em] text-xs font-bold">Как доехать</span>
+          <h2 class="font-[Playfair_Display] text-3xl sm:text-4xl mt-2">Дорога и указатели</h2>
+          <div class="w-24 h-1 bg-[#D4AF37] mx-auto mt-4"></div>
+          <p class="mt-4 text-sm text-gray-600 max-w-xl mx-auto">Фотографии подъезда и указателей помогут сориентироваться на месте.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <figure class="relative overflow-hidden group">
+            <img src="images/road/road.jfif" alt="Дорога, подъезд к базе отдыха Золотые пески" class="road-photo-first-img w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" />
+            <figcaption class="mt-2 text-center text-sm text-gray-600">Дорога / подъезд к базе</figcaption>
+          </figure>
+          <figure class="relative overflow-hidden group">
+            <img src="images/road/Ukazatel.jfif" alt="Указатель на базу отдыха Золотые пески" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" />
+            <figcaption class="mt-2 text-center text-sm text-gray-600">Указатель на базу</figcaption>
+          </figure>
+          <figure class="relative overflow-hidden group">
+            <img src="images/road/Povorot_na_bazu.jfif" alt="Поворот на базу отдыха Золотые пески" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" />
+            <figcaption class="mt-2 text-center text-sm text-gray-600">Поворот на базу</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/config.js"></script>
+  <script src="js/apply-config.js"></script>
+  <script>
+    function loadInclude(id, url) {
+      fetch(url)
+        .then(r => r.text())
+        .then(html => {
+          const container = document.getElementById(id);
+          if (!container) return;
+          container.innerHTML = html;
+          container.querySelectorAll('script').forEach(oldScript => {
+            const newScript = document.createElement('script');
+            if (oldScript.src) newScript.src = oldScript.src;
+            else newScript.textContent = oldScript.textContent;
+            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+            oldScript.replaceWith(newScript);
+          });
+        });
+    }
+    loadInclude('header-placeholder', 'header.html');
+    loadInclude('footer-placeholder', 'footer.html');
+
+    // Копирование координат
+    (function() {
+      var btn = document.getElementById('copy-coords-btn');
+      var text = document.getElementById('coords-text');
+      if (!btn || !text) return;
+      btn.addEventListener('click', function() {
+        var coords = '55.187969, 60.059069';
+        navigator.clipboard && navigator.clipboard.writeText(coords).then(function() {
+          var label = btn.querySelector('span');
+          if (label) { label.textContent = 'Скопировано'; }
+          setTimeout(function() { if (label) label.textContent = 'Скопировать'; }, 2000);
+        });
+      });
+    })();
+
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        loadInclude('header-placeholder', 'header.html');
+        loadInclude('footer-placeholder', 'footer.html');
+        var loader = document.getElementById('loader');
+        if (loader) loader.style.display = 'flex';
+      }
+    });
+  </script>
+</body>
+</html>

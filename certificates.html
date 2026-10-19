@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Рейтинги и документы | Золотые пески</title>
+  <meta name="description" content="Рейтинги, сертификаты и документы базы отдыха «Золотые пески» на озере Тургояк. Подтверждение качества услуг. Миасс.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Рейтинги и документы | Золотые пески">
+  <meta property="og:description" content="Сертификаты и рейтинги базы Золотые пески на Тургояке.">
+  <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+  <meta property="og:url" content="https://bazaturgoyak.ru/certificates.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Золотые пески">
+
+  <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-gold': '#D4AF37',
+            'brand-dark': '#1a1a1a',
+            'brand-cream': '#F9F9F5',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Lato"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #gallery-lightbox { display: none; }
+    #gallery-lightbox.open { display: flex !important; }
+    .cert-gallery-item { cursor: pointer; transition: transform 0.3s ease; }
+    .cert-gallery-item:hover { transform: scale(1.02); }
+    @media (max-width: 639px) {
+      #cert-gallery .p-3 { padding: 0.5rem 0.25rem; }
+    }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+  <div id="header-placeholder"></div>
+
+  <main class="pt-20 sm:pt-24 md:pt-28">
+    <!-- Hero -->
+    <section class="relative bg-[#1a1a1a] text-white">
+      <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('images/About/houses.jfif');"></div>
+      <div class="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 py-12 md:py-16">
+        <p class="text-xs tracking-[0.2em] uppercase text-brand-gold">О нас</p>
+        <h1 class="mt-3 font-[Playfair_Display] text-4xl md:text-5xl">Рейтинги и документы</h1>
+        <p class="mt-5 max-w-2xl text-white/90">Рейтинги гостей, официальные документы и фотогалерея базы отдыха «Золотые пески» на озере Тургояк.</p>
+      </div>
+    </section>
+
+    <!-- Рейтинги -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 md:py-14">
+      <h2 class="font-[Playfair_Display] text-2xl md:text-3xl text-brand-dark mb-2">Рейтинги и отзывы</h2>
+      <p class="text-gray-600 text-sm md:text-base mb-8">Оценки гостей на популярных платформах</p>
+      <div id="ratings-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <a href="https://2gis.ru/miass/firm/70000001029085215" target="_blank" rel="noopener" data-platform="2gis" class="flex items-center gap-3 sm:gap-4 rounded-2xl border border-black/10 bg-white p-4 sm:p-5 transition-all hover:border-brand-gold/50 hover:shadow-md min-h-[72px] sm:min-h-0">
+          <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#e8f0fe] text-[#1a73e8] text-2xl"><i class="fas fa-map-marked-alt"></i></span>
+          <div class="min-w-0 flex-1">
+            <h3 class="font-[Playfair_Display] font-semibold text-brand-dark">2ГИС</h3>
+            <p id="rating-2gis-value" class="text-brand-gold font-bold text-lg">4.2 ★</p>
+            <p id="rating-2gis-detail" class="text-xs text-gray-500">103 оценки · 54 отзыва</p>
+          </div>
+          <i class="fas fa-external-link-alt text-gray-400 shrink-0 text-sm"></i>
+        </a>
+        <a href="https://101hotels.com/search?query=%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D1%8B%D0%B5+%D0%BF%D0%B5%D1%81%D0%BA%D0%B8+%D0%A2%D1%83%D1%80%D0%B3%D0%BE%D1%8F%D0%BA" target="_blank" rel="noopener" data-platform="101hotels" class="flex items-center gap-3 sm:gap-4 rounded-2xl border border-black/10 bg-white p-4 sm:p-5 transition-all hover:border-brand-gold/50 hover:shadow-md min-h-[72px] sm:min-h-0">
+          <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#e8f4f8] text-[#0066b3] text-2xl"><i class="fas fa-hotel"></i></span>
+          <div class="min-w-0 flex-1">
+            <h3 class="font-[Playfair_Display] font-semibold text-brand-dark">101hotels</h3>
+            <p id="rating-101hotels-value" class="text-sm text-gray-600">Оцените нас</p>
+            <p id="rating-101hotels-detail" class="text-xs text-gray-500">Отели и базы отдыха</p>
+          </div>
+          <i class="fas fa-external-link-alt text-gray-400 shrink-0 text-sm"></i>
+        </a>
+        <a href="https://yandex.ru/maps/org/zolotyye_peski/109014041624/?ll=59.697528%2C55.094918&z=9.97" target="_blank" rel="noopener" data-platform="yandex" class="flex items-center gap-3 sm:gap-4 rounded-2xl border border-black/10 bg-white p-4 sm:p-5 transition-all hover:border-brand-gold/50 hover:shadow-md min-h-[72px] sm:min-h-0">
+          <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#fff5f0] p-2"><img src="images/ac11d936-57e3-421f-bf4e-f75c3e7dfd0c.svg" alt="Яндекс" class="w-full h-full object-contain" /></span>
+          <div class="min-w-0 flex-1">
+            <h3 class="font-[Playfair_Display] font-semibold text-brand-dark">Яндекс.Карты</h3>
+            <p id="rating-yandex-value" class="text-sm text-gray-600">Оцените нас</p>
+            <p id="rating-yandex-detail" class="text-xs text-gray-500">Найти на карте</p>
+          </div>
+          <i class="fas fa-external-link-alt text-gray-400 shrink-0 text-sm"></i>
+        </a>
+        <a href="https://www.google.com/maps/place/%D0%91%D0%B0%D0%B7%D0%B0+%D0%BE%D1%82%D0%B4%D1%8B%D1%85%D0%B0+%22%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D1%8B%D0%B5+%D0%BF%D0%B5%D1%81%D0%BA%D0%B8%22/@55.188062,60.059644,17z/data=!4m9!3m8!1s0x43c5196e3d6f378d:0x9507c5e7cf9964fa!5m2!4m1!1i2!8m2!3d55.188062!4d60.059644!16s%2Fg%2F11gjxkvhkx?entry=ttu" target="_blank" rel="noopener" data-platform="google" class="flex items-center gap-3 sm:gap-4 rounded-2xl border border-black/10 bg-white p-4 sm:p-5 transition-all hover:border-brand-gold/50 hover:shadow-md min-h-[72px] sm:min-h-0">
+          <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#f0f0f0] text-[#4285f4] text-2xl"><i class="fab fa-google"></i></span>
+          <div class="min-w-0 flex-1">
+            <h3 class="font-[Playfair_Display] font-semibold text-brand-dark">Google</h3>
+            <p id="rating-google-value" class="text-sm text-gray-600">Оцените нас</p>
+            <p id="rating-google-detail" class="text-xs text-gray-500">Отзывы на картах</p>
+          </div>
+          <i class="fas fa-external-link-alt text-gray-400 shrink-0 text-sm"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Галерея с возможностью увеличения -->
+    <section class="bg-[#F7F3E8] py-10 md:py-14">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 class="font-[Playfair_Display] text-2xl md:text-3xl text-brand-dark mb-2">Фотогалерея</h2>
+        <p class="text-gray-600 text-sm md:text-base mb-8">Нажмите на изображение для увеличения</p>
+        <div id="cert-gallery" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div class="cert-gallery-item rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm" data-index="0">
+            <img src="images/About/houses.jfif" alt="Территория базы отдыха Золотые пески" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+            <div class="p-3 text-center">
+              <p class="text-xs font-medium text-brand-dark">Территория базы</p>
+            </div>
+          </div>
+          <div class="cert-gallery-item rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm" data-index="1">
+            <img src="images/Entertaiment/beach5.jfif" alt="Песчаный пляж на озере Тургояк" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+            <div class="p-3 text-center">
+              <p class="text-xs font-medium text-brand-dark">Песчаный пляж</p>
+            </div>
+          </div>
+          <div class="cert-gallery-item rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm" data-index="2">
+            <img src="images/Entertaiment/beach3.jfif" alt="Вид на озеро Тургояк" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+            <div class="p-3 text-center">
+              <p class="text-xs font-medium text-brand-dark">Вид на озеро</p>
+            </div>
+          </div>
+          <div class="cert-gallery-item rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm" data-index="3">
+            <img src="images/Entertaiment/banya%20(1).webp" alt="Русская баня" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+            <div class="p-3 text-center">
+              <p class="text-xs font-medium text-brand-dark">Русская баня</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="gallery-lightbox" class="fixed inset-0 z-[10000] hidden items-center justify-center bg-black/90 p-3 sm:p-4" aria-hidden="true" role="dialog" aria-label="Просмотр документа">
+      <button type="button" id="gallery-lightbox-close" class="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/90 hover:text-white text-3xl sm:text-4xl leading-none z-20 p-1" aria-label="Закрыть">&times;</button>
+      <div class="flex items-center justify-center w-full">
+        <div class="relative w-fit max-w-[95vw]">
+          <button type="button" id="gallery-lightbox-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 sm:left-2 sm:-translate-x-full bg-black/50 hover:bg-black/70 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center z-20 active:scale-95" aria-label="Предыдущее"><i class="fas fa-chevron-left text-sm sm:text-base"></i></button>
+          <img id="gallery-lightbox-img" alt="Просмотр документа" class="block max-w-[95vw] max-h-[80vh] sm:max-h-[85vh] object-contain rounded-lg shadow-2xl" />
+          <button type="button" id="gallery-lightbox-next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 sm:right-2 sm:translate-x-full bg-black/50 hover:bg-black/70 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center z-20 active:scale-95" aria-label="Следующее"><i class="fas fa-chevron-right text-sm sm:text-base"></i></button>
+        </div>
+      </div>
+      <div id="gallery-lightbox-counter" class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-xs sm:text-sm"></div>
+    </div>
+
+    <!-- Архив документов -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 md:py-14">
+      <h2 class="font-[Playfair_Display] text-2xl md:text-3xl text-brand-dark mb-8">Архив документов</h2>
+      <div class="rounded-2xl bg-[#F7F3E8] p-4 sm:p-6 md:p-10">
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <a href="docs/Положение о бронировании.pdf" target="_blank" rel="noopener" class="flex items-center gap-4 rounded-xl border border-black/10 bg-white p-4 transition-all hover:border-brand-gold/50 hover:shadow-md">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-gold/10 text-brand-gold"><i class="fas fa-file-pdf text-xl"></i></span>
+            <div class="min-w-0">
+              <p class="font-medium text-brand-dark">Положение о бронировании</p>
+              <p class="text-sm text-gray-500">Правила и условия бронирования</p>
+            </div>
+            <i class="fas fa-external-link-alt text-gray-400 shrink-0"></i>
+          </a>
+          <a href="docs/Правила проживания и отдыха.pdf" target="_blank" rel="noopener" class="flex items-center gap-4 rounded-xl border border-black/10 bg-white p-4 transition-all hover:border-brand-gold/50 hover:shadow-md">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-gold/10 text-brand-gold"><i class="fas fa-file-pdf text-xl"></i></span>
+            <div class="min-w-0">
+              <p class="font-medium text-brand-dark">Правила проживания и отдыха</p>
+              <p class="text-sm text-gray-500">Регламент на территории базы</p>
+            </div>
+            <i class="fas fa-external-link-alt text-gray-400 shrink-0"></i>
+          </a>
+          <a href="docs/Публичная_оферта_базы_отдыха.pdf" target="_blank" rel="noopener" class="flex items-center gap-3 sm:gap-4 rounded-xl border border-black/10 bg-white p-4 transition-all hover:border-brand-gold/50 hover:shadow-md sm:col-span-2 lg:col-span-1">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-gold/10 text-brand-gold"><i class="fas fa-file-pdf text-xl"></i></span>
+            <div class="min-w-0">
+              <p class="font-medium text-brand-dark">Публичная оферта</p>
+              <p class="text-sm text-gray-500">Договор оферты базы отдыха</p>
+            </div>
+            <i class="fas fa-external-link-alt text-gray-400 shrink-0"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/config.js"></script>
+  <script src="js/booking-mode.js"></script>
+  <script>
+    (function() {
+      var base = (function() {
+        var p = window.location.pathname;
+        var i = p.lastIndexOf('/');
+        return (i >= 0 ? p.substring(0, i + 1) : '') || '/';
+      })();
+      function loadInclude(id, url) {
+        var fullUrl = (url.indexOf('/') === 0 ? url : base + url);
+        fetch(fullUrl)
+          .then(function(r) { return r.ok ? r.text() : Promise.reject(new Error(r.status)); })
+          .then(function(html) {
+            var container = document.getElementById(id);
+            if (!container) return;
+            container.innerHTML = html;
+            container.querySelectorAll('script').forEach(function(oldScript) {
+              var newScript = document.createElement('script');
+              if (oldScript.src) newScript.src = oldScript.src; else newScript.textContent = oldScript.textContent;
+              Array.from(oldScript.attributes).forEach(function(attr) { newScript.setAttribute(attr.name, attr.value); });
+              oldScript.replaceWith(newScript);
+            });
+          })
+          .catch(function() { /* header/footer require HTTP server, not file:// */ });
+      }
+      loadInclude('header-placeholder', 'header.html');
+      loadInclude('footer-placeholder', 'footer.html');
+    })();
+
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) location.reload();
+    });
+  </script>
+  <script>
+    // Рейтинги: с сервера бронирований или data/ratings.json
+    (function loadRatings() {
+      var API_URL = (window.CONFIG && window.CONFIG.apiBaseUrl) ? (window.CONFIG.apiBaseUrl.replace(/\/+$/, '') + '/ratings') : '/api/ratings';
+      var LOCAL_URL = 'data/ratings.json';
+      var FALLBACK = {
+        '2gis': { rating: 4.2, ratingsCount: 103, reviewsCount: 54 },
+        '101hotels': null,
+        'yandex': null,
+        'google': null
+      };
+      var PLATFORMS = ['2gis', '101hotels', 'yandex', 'google'];
+      var DEFAULT_TEXT = { '101hotels': ['Оцените нас', 'Отели и базы отдыха'], 'yandex': ['Оцените нас', 'Найти на карте'], 'google': ['Оцените нас', 'Отзывы на картах'] };
+
+      function updateCard(platform, data) {
+        var valueEl = document.getElementById('rating-' + platform + '-value');
+        var detailEl = document.getElementById('rating-' + platform + '-detail');
+        if (!valueEl) return;
+        if (data && data.rating != null && Number(data.rating) > 0) {
+          valueEl.textContent = Number(data.rating).toFixed(1) + ' ★';
+          valueEl.className = 'text-brand-gold font-bold text-lg';
+          if (detailEl) {
+            var parts = [];
+            if (data.ratingsCount != null) parts.push(data.ratingsCount + ' оценок');
+            if (data.reviewsCount != null) parts.push(data.reviewsCount + ' отзывов');
+            detailEl.textContent = parts.length ? parts.join(' · ') : '';
+          }
+        } else {
+          var fb = FALLBACK[platform];
+          if (platform === '2gis' && fb) {
+            valueEl.textContent = fb.rating.toFixed(1) + ' ★';
+            valueEl.className = 'text-brand-gold font-bold text-lg';
+            if (detailEl) detailEl.textContent = fb.ratingsCount + ' оценок · ' + fb.reviewsCount + ' отзывов';
+          } else {
+            var def = DEFAULT_TEXT[platform];
+            valueEl.textContent = def ? def[0] : 'Оцените нас';
+            valueEl.className = 'text-sm text-gray-600';
+            if (detailEl) detailEl.textContent = def ? def[1] : '';
+          }
+        }
+      }
+
+      function applyRatings(json) {
+        if (json && typeof json === 'object') {
+          PLATFORMS.forEach(function(p) {
+            updateCard(p, json[p] !== undefined ? json[p] : FALLBACK[p]);
+          });
+        }
+      }
+
+      function tryLocal() {
+        var base = (function() {
+          var p = window.location.pathname;
+          var i = p.lastIndexOf('/');
+          return (i >= 0 ? p.substring(0, i + 1) : '') || '/';
+        })();
+        fetch(base + LOCAL_URL, { headers: { 'Accept': 'application/json' } })
+          .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+          .then(applyRatings)
+          .catch(function() {
+            PLATFORMS.forEach(function(p) { updateCard(p, FALLBACK[p]); });
+          });
+      }
+
+      // В режиме placeholder (консервация) API не дёргаем — сразу локальный снимок.
+      if (window.GSBooking && !window.GSBooking.isLive()) {
+        tryLocal();
+        return;
+      }
+      fetch(API_URL, { headers: { 'Accept': 'application/json' } })
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(applyRatings)
+        .catch(tryLocal);
+    })();
+  </script>
+  <script>
+
+    // Gallery Lightbox
+    (function initCertLightbox() {
+      const modal = document.getElementById('gallery-lightbox');
+      const modalImg = document.getElementById('gallery-lightbox-img');
+      const closeBtn = document.getElementById('gallery-lightbox-close');
+      const prevBtn = document.getElementById('gallery-lightbox-prev');
+      const nextBtn = document.getElementById('gallery-lightbox-next');
+      const counterEl = document.getElementById('gallery-lightbox-counter');
+      const items = document.querySelectorAll('#cert-gallery .cert-gallery-item img');
+      if (!modal || !modalImg || !items.length) return;
+
+      let images = Array.from(items).map(img => ({ src: img.src, alt: img.alt }));
+      let currentIndex = 0;
+
+      function show() {
+        const item = images[currentIndex];
+        if (!item) return;
+        modalImg.src = item.src;
+        modalImg.alt = item.alt;
+        if (counterEl) counterEl.textContent = (currentIndex + 1) + ' / ' + images.length;
+      }
+
+      function open(index) {
+        currentIndex = index;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        show();
+      }
+
+      function close() {
+        modal.classList.remove('open');
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.removeAttribute('src');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('#cert-gallery .cert-gallery-item').forEach((item, idx) => {
+        item.addEventListener('click', () => open(idx));
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-label', 'Увеличить изображение');
+        item.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(idx); } });
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      if (prevBtn) prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        show();
+      });
+      if (nextBtn) nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) % images.length;
+        show();
+      });
+
+      modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+      });
+    })();
+  </script>
+</body>
+</html>

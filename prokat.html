@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Прокат инвентаря | Золотые пески — база отдыха на Тургояке</title>
+  <meta name="description" content="Прокат инвентаря на базе «Золотые пески» на озере Тургояк: SUP-доски, лодки, велосипеды и другое. Условия и цены. Миасс.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Прокат инвентаря | Золотые пески">
+  <meta property="og:description" content="Прокат SUP, лодок, велосипедов на базе Золотые пески, озеро Тургояк.">
+  <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+  <meta property="og:url" content="https://bazaturgoyak.ru/prokat.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Золотые пески">
+
+  <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .prokat-card { transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+    .prokat-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .prokat-card-body { flex: 1; display: flex; flex-direction: column; padding: 0.75rem 1rem; }
+    .prokat-card-price { margin-top: auto; padding-top: 0.75rem; }
+    .prokat-img { height: 180px; object-fit: cover; }
+    @media (min-width: 640px) { .prokat-img { height: 220px; } }
+    .price-tag { font-variant-numeric: tabular-nums; }
+    .prokat-price-ask { display: inline-block; margin-top: 0; padding: 0.35rem 0.6rem; background: rgba(212, 175, 55, 0.15); color: #92400e; font-weight: 600; font-size: 0.875rem; border-radius: 0.375rem; border: 1px solid rgba(212, 175, 55, 0.35); }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+  <div id="header-placeholder"></div>
+
+  <main class="pt-20 sm:pt-28">
+    <!-- Hero -->
+    <section class="relative bg-[#1a1a1a] text-white">
+      <div class="absolute inset-0 bg-cover bg-center opacity-50" style="background-image: url('images/Entertaiment/Beach1.jfif');"></div>
+      <div class="relative mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-16">
+        <p class="text-xs tracking-[0.2em] uppercase text-[#D4AF37]">Развлечения</p>
+        <h1 class="mt-3 font-[Playfair_Display] text-3xl sm:text-4xl md:text-5xl">Прокат инвентаря</h1>
+        <p class="mt-4 sm:mt-5 max-w-2xl text-white/90 text-sm sm:text-base">Лодки, сапборды, байдарки и спортинвентарь — арендуйте всё необходимое для отдыха на озере Тургояк.</p>
+      </div>
+    </section>
+
+    <!-- Прокат: статический каталог + цены с сервера -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14" id="prokat-inventory"></section>
+
+    <!-- Условия аренды -->
+    <section class="bg-[#F7F3E8] py-10 sm:py-14">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 class="font-[Playfair_Display] text-xl sm:text-2xl md:text-3xl text-[#1a1a1a]">Условия аренды</h2>
+        <div class="mt-6 sm:mt-8 grid gap-6 sm:gap-8 grid-cols-1 lg:grid-cols-2">
+          <div class="rounded-2xl bg-white p-4 sm:p-6 shadow-sm">
+            <h3 class="flex items-center gap-2 font-semibold text-[#1a1a1a] text-base sm:text-lg">
+              <i class="fas fa-lock text-[#D4AF37] flex-shrink-0"></i> Залог
+            </h3>
+            <p class="mt-3 text-gray-700 text-sm sm:text-base" id="condition-deposit"></p>
+            <p class="mt-3 text-sm text-amber-800" id="condition-lifejackets"></p>
+          </div>
+          <div class="rounded-2xl bg-white p-4 sm:p-6 shadow-sm">
+            <h3 class="flex items-center gap-2 font-semibold text-[#1a1a1a] text-base sm:text-lg">
+              <i class="fas fa-list-check text-[#D4AF37] flex-shrink-0"></i> Правила использования
+            </h3>
+            <ul class="mt-3 list-inside list-disc space-y-2 text-gray-700 text-sm sm:text-base" id="condition-rules"></ul>
+          </div>
+        </div>
+        <div class="mt-6 rounded-2xl bg-white p-4 sm:p-6 shadow-sm">
+          <h3 class="flex items-center gap-2 font-semibold text-[#1a1a1a] text-base sm:text-lg">
+            <i class="fas fa-exclamation-triangle text-[#D4AF37] flex-shrink-0"></i> Ответственность за повреждения
+          </h3>
+          <p class="mt-3 text-gray-700 text-sm sm:text-base" id="condition-liability"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Бронирование и контакты -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14">
+      <h2 class="font-[Playfair_Display] text-xl sm:text-2xl md:text-3xl text-[#1a1a1a]">Забронировать прокат</h2>
+      <p class="mt-3 text-gray-600 text-sm sm:text-base">Свяжитесь с нами по телефону, в MAX или через Telegram-бота — подберём инвентарь и время.</p>
+      <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+        <a data-config="phone" href="#" class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#D4AF37] px-5 py-3.5 min-h-[48px] font-semibold text-[#1a1a1a] hover:bg-amber-500 transition-colors w-full sm:w-auto">
+          <i class="fas fa-phone"></i>
+          Позвонить
+        </a>
+        <a data-config="max" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#6B4EFF] px-5 py-3.5 min-h-[48px] font-semibold text-white hover:opacity-90 transition-colors w-full sm:w-auto">
+          <img src="images/max-mess.png" alt="MAX" class="w-5 h-5 object-contain shrink-0">
+          Написать в MAX
+        </a>
+        <a data-config="telegram" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0088cc] px-5 py-3.5 min-h-[48px] font-semibold text-white hover:opacity-90 transition-colors w-full sm:w-auto">
+          <i class="fab fa-telegram"></i>
+          Telegram-бот
+        </a>
+      </div>
+      <p class="mt-4 text-sm text-gray-500">Время работы: <span id="contact-hours">9:00–22:00</span></p>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+<script src="js/config.js"></script>
+  <script src="js/apply-config.js"></script>
+  <script src="js/booking-mode.js"></script>
+  <script src="prokat-data.js"></script>
+  <script>
+    const API_BASE_URL = (window.CONFIG && window.CONFIG.apiBaseUrl) || '/api';
+
+    function loadInclude(id, url) {
+      fetch(url)
+        .then(r => r.text())
+        .then(html => {
+          const container = document.getElementById(id);
+          if (!container) return;
+          container.innerHTML = html;
+          container.querySelectorAll('script').forEach(oldScript => {
+            const newScript = document.createElement('script');
+            if (oldScript.src) newScript.src = oldScript.src;
+            else newScript.textContent = oldScript.textContent;
+            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+            oldScript.replaceWith(newScript);
+          });
+        })
+        .catch(() => {});
+    }
+    loadInclude('header-placeholder', 'header.html');
+    loadInclude('footer-placeholder', 'footer.html');
+
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        loadInclude('header-placeholder', 'header.html');
+        loadInclude('footer-placeholder', 'footer.html');
+      }
+    });
+
+    function formatPrice(val) {
+      if (val == null) return '—';
+      return new Intl.NumberFormat('ru-RU', { style: 'decimal', minimumFractionDigits: 0 }).format(val) + ' ₽';
+    }
+
+    function renderCategories(data) {
+      if (!data || !data.categories || !data.categories.length) {
+        document.getElementById('prokat-inventory').innerHTML = '<p class="text-gray-500">Нет данных для отображения.</p>';
+        return;
+      }
+      var note = '<p class="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">Цены ориентировочные — итоговую стоимость уточняйте при бронировании.</p>';
+      var html = note;
+      data.categories.forEach(function(cat) {
+        html += '<div class="mb-14">';
+        html += '<h2 class="font-[Playfair_Display] text-xl sm:text-2xl md:text-3xl text-[#1a1a1a] flex items-center gap-2">';
+        html += '<i class="fas ' + (cat.icon || 'fa-box') + ' text-[#D4AF37]"></i>';
+        html += cat.name + '</h2>';
+        html += '<p class="mt-2 text-gray-600 text-sm sm:text-base">' + cat.description + '</p>';
+        html += '<div class="mt-6 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">';
+        (cat.items || []).forEach(function(item) {
+          var priceDisplay = '';
+          var priceBlock = '';
+          if (item.priceFromApi != null && item.priceFromApi.value != null) {
+            var p = item.priceFromApi;
+            priceDisplay = formatPrice(p.value) + (p.period === 'hourly' ? '/час' : '/сут');
+            priceBlock = '<div class="prokat-card-price"><p class="price-tag text-base font-semibold text-[#1a1a1a]">' + priceDisplay + '</p></div>';
+          } else {
+            priceBlock = '<div class="prokat-card-price"><span class="prokat-price-ask">Уточняйте при бронировании</span></div>';
+          }
+          var depositBadge = item.requiresDeposit ? '<span class="text-xs text-amber-700 bg-amber-100 px-2 py-0.5 rounded">залог</span>' : '';
+          html += '<div class="prokat-card rounded-2xl border border-black/10 bg-white overflow-hidden">';
+          html += '<div class="aspect-[4/3] overflow-hidden bg-gray-100"><img src="' + item.image + '" alt="' + item.name + '" class="prokat-img w-full object-cover" loading="lazy" onerror="this.src=\'images/Entertaiment/Beach1.jfif\'"></div>';
+          html += '<div class="prokat-card-body"><div class="flex items-start justify-between gap-2"><h3 class="font-[Playfair_Display] text-base sm:text-lg font-semibold text-[#1a1a1a] min-w-0 break-words">' + item.name + '</h3>' + depositBadge + '</div>';
+          if (item.capacity && item.capacity !== '—') html += '<p class="mt-1 text-sm text-gray-500">' + item.capacity + '</p>';
+          html += '<p class="mt-2 text-sm text-gray-600 flex-grow">' + item.description + '</p>';
+          html += priceBlock + '</div></div>';
+        });
+        html += '</div></div>';
+      });
+      document.getElementById('prokat-inventory').innerHTML = html;
+    }
+
+    /** Подставляет в список проката актуальные цены с сервера (по apiTypeSlug). */
+    function applyApiPrices(staticData, apiObjects) {
+      if (!apiObjects || !Array.isArray(apiObjects) || !staticData.categories) return;
+      var rental = apiObjects.filter(function(o) { return o.type && !o.type.isAccommodations; });
+      var bySlug = {};
+      rental.forEach(function(obj) {
+        var slug = (obj.type && obj.type.slug) ? String(obj.type.slug).toLowerCase() : '';
+        if (!slug) return;
+        if (!bySlug[slug]) bySlug[slug] = [];
+        bySlug[slug].push(obj);
+      });
+      staticData.categories.forEach(function(cat) {
+        (cat.items || []).forEach(function(item) {
+          var slug = item.apiTypeSlug ? String(item.apiTypeSlug).toLowerCase() : '';
+          if (!slug || !bySlug[slug] || !bySlug[slug].length) return;
+          var obj = bySlug[slug][0];
+          var period = (obj.type && obj.type.rentalPeriod === 'hourly') ? 'hourly' : 'daily';
+          var price = null;
+          if (period === 'hourly' && obj.effectivePricePerHour != null) {
+            price = parseFloat(obj.effectivePricePerHour);
+          } else if (obj.effectivePricePerDay != null) {
+            price = parseFloat(obj.effectivePricePerDay);
+          }
+          if (!isFinite(price)) return;
+          item.priceFromApi = { value: Math.round(price), period: period };
+        });
+      });
+    }
+
+    function deepCopyCategories(data) {
+      if (!data || !data.categories) return data ? { categories: [] } : { categories: [] };
+      var categories = data.categories.map(function(cat) {
+        var items = (cat.items || []).map(function(i) {
+          var copy = {};
+          for (var k in i) { if (Object.prototype.hasOwnProperty.call(i, k)) copy[k] = i[k]; }
+          return copy;
+        });
+        var catCopy = {};
+        for (var key in cat) { if (Object.prototype.hasOwnProperty.call(cat, key)) catCopy[key] = cat[key]; }
+        catCopy.items = items;
+        return catCopy;
+      });
+      var result = {};
+      for (var s in data) { if (Object.prototype.hasOwnProperty.call(data, s)) result[s] = data[s]; }
+      result.categories = categories;
+      return result;
+    }
+
+    function renderConditions(data) {
+      if (!data || !data.conditions) return;
+      var c = data.conditions;
+      if (c.deposit) document.getElementById('condition-deposit').textContent = c.deposit;
+      if (c.lifeJackets) document.getElementById('condition-lifejackets').textContent = c.lifeJackets;
+      if (c.liability) document.getElementById('condition-liability').textContent = c.liability;
+      var rulesEl = document.getElementById('condition-rules');
+      if (rulesEl && Array.isArray(c.rules)) c.rules.forEach(function(r) { rulesEl.innerHTML += '<li>' + r + '</li>'; });
+    }
+
+    function init() {
+      var data = window.PROKAT_DATA;
+      if (data) {
+        renderConditions(data);
+      }
+
+      var listWithPrices = deepCopyCategories(data || {});
+      renderCategories(listWithPrices);
+
+      // В режиме placeholder (консервация) API не дёргаем — каталог статичный,
+      // цены остаются «Уточняйте при бронировании».
+      if (window.GSBooking && !window.GSBooking.isLive()) return;
+      fetch(API_BASE_URL + '/objects?isActive=true')
+        .then(function(r) { return r.ok ? r.json() : []; })
+        .then(function(objects) {
+          if (!window.PROKAT_DATA || !objects || !objects.length) return;
+          var copy = deepCopyCategories(window.PROKAT_DATA);
+          applyApiPrices(copy, objects);
+          renderCategories(copy);
+        })
+        .catch(function() {});
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>

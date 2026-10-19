@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Технические работы | Золотые пески</title>
+    <meta name="description" content="На сайте ведутся технические работы. База отдыха Золотые пески на озере Тургояк. Скоро вернёмся.">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Технические работы | Золотые пески">
+    <meta property="og:description" content="Технические работы. База Золотые пески — озеро Тургояк.">
+    <meta property="og:image" content="https://bazaturgoyak.ru/images/dom_14/1.webp">
+    <meta property="og:url" content="https://bazaturgoyak.ru/maintenance.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Золотые пески">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/avif" sizes="96x96" href="images/favicon-96x96.avif">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4AF37; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b5952f; 
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+/* Hero Background Transition */
+#hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+/* Villa Card Hover Effects */
+.villa-card:hover .villa-img {
+    transform: scale(1.1);
+}
+
+.villa-card {
+    overflow: hidden;
+}
+
+.villa-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Floating Icons */
+.floating-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.floating-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal Styles */
+#villa-modal {
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Transition */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        max-height: 95vh;
+    }
+}
+
+/* Focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Button hover effects */
+button:hover,
+a.button:hover {
+    cursor: pointer;
+}
+
+/* Parallax effect for background images */
+.bg-fixed {
+    background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll;
+    }
+}
+
+/* Error pages: floating buttons on small screens */
+@media (max-width: 576px) {
+    .floating-icon {
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
+        font-size: 1.25rem !important;
+    }
+    body .fixed.bottom-6.right-6 {
+        bottom: 16px;
+        right: 16px;
+    }
+}
+    </style>
+    
+    <!-- Tailwind Config -->
+    <script>
+// Tailwind CSS Configuration
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'brand-gold': '#D4AF37',
+                'brand-dark': '#1a1a1a',
+                'brand-green': '#2C3E50',
+                'brand-cream': '#F9F9F5',
+            },
+            fontFamily: {
+                serif: ['"Playfair Display"', 'serif'],
+                sans: ['"Lato"', 'sans-serif'],
+            }
+        }
+    }
+}
+    </script>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans overflow-x-hidden">
+
+    
+    <!-- Floating Contact Icons -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-4">
+        <a data-config="telegram" href="#" target="_blank" class="floating-icon w-14 h-14 bg-[#0088cc] rounded-full flex items-center justify-center text-white text-3xl" title="Написать в Telegram">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a data-config="max" href="#" target="_blank" rel="noopener" class="floating-icon w-14 h-14 bg-[#6B4EFF] rounded-full flex items-center justify-center" title="Написать в MAX">
+            <img src="images/max-mess.png" alt="MAX" class="w-8 h-8 object-contain">
+        </a>
+        <a data-config="phone" href="#" class="floating-icon w-14 h-14 bg-brand-gold rounded-full flex items-center justify-center text-white text-2xl" title="Позвонить">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Maintenance Section -->
+    <section class="min-h-screen flex items-center justify-center bg-gradient-to-b from-brand-cream to-white py-12 px-4 sm:px-6">
+        <div class="container mx-auto max-w-2xl text-center">
+            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 sm:p-10 md:p-12">
+                <div class="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-amber-50 text-brand-gold mb-6" aria-hidden="true">
+                    <i class="fas fa-tools text-4xl sm:text-5xl"></i>
+                </div>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-serif text-brand-dark mb-4">Технические работы</h1>
+                <p class="text-gray-600 text-base sm:text-lg mb-6 max-w-md mx-auto">Сайт временно обновляется. Мы скоро вернёмся — приносим извинения за неудобства.</p>
+                <p class="text-gray-600 text-sm sm:text-base mb-8">По всем вопросам бронирования и отдыха на базе «Золотые пески» свяжитесь с нами:</p>
+
+                <div class="maintenance-contacts bg-brand-cream rounded-xl p-6 sm:p-8 text-left max-w-md mx-auto mb-8">
+                    <p class="text-sm font-semibold text-brand-dark uppercase tracking-wider mb-4">Контакты для связи</p>
+                    <a data-config="phone" href="#" class="flex items-center gap-3 py-2 text-gray-700 hover:text-brand-gold transition-colors">
+                        <i class="fas fa-phone-alt text-brand-gold w-5"></i>
+                        <span data-config-text="1"></span>
+                    </a>
+                    <a data-config="telegram" href="#" target="_blank" rel="noopener" class="flex items-center gap-3 py-2 text-gray-700 hover:text-brand-gold transition-colors">
+                        <i class="fab fa-telegram-plane text-brand-gold w-5 text-xl"></i>
+                        <span>Telegram: Золотые пески</span>
+                    </a>
+                    <a data-config="max" href="#" target="_blank" rel="noopener" class="flex items-center gap-3 py-2 text-gray-700 hover:text-brand-gold transition-colors">
+                        <span class="text-brand-gold w-5 text-center text-xs font-bold">MAX</span>
+                        <span data-config-text="1"></span>
+                    </a>
+                    <a data-config="email" href="#" class="flex items-center gap-3 py-2 text-gray-700 hover:text-brand-gold transition-colors">
+                        <i class="fas fa-envelope text-brand-gold w-5"></i>
+                        <span data-config-text="1"></span>
+                    </a>
+                    <p data-config="address" data-config-text="1" class="text-sm text-gray-500 mt-4 pt-4 border-t border-gray-200"></p>
+                </div>
+
+                <a href="index.html" class="inline-block bg-brand-gold text-white px-8 py-3.5 rounded-lg font-bold hover:bg-brand-dark transition-colors duration-300 shadow-md hover:shadow-lg">Перейти на главную</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts: конфиг и подстановка ссылок (Telegram и др.) из .env -->
+    <script src="js/config.js"></script>
+    <script src="js/apply-config.js"></script>
+    <script>
+// Villa Data Configuration
+const villaData = {
+    'mist-valley': {
+        title: 'Домик у озера',
+        price: '₹15k',
+        tag: 'Most Popular',
+        desc: 'Nestled in the clouds, Mist Valley offers a serene escape. Enjoy the heated jacuzzi, sit by the bonfire under the stars, and wake up to mountain views. This 3BHK retreat is perfect for families seeking peace and natural beauty.',
+        beds: '3 Bedrooms',
+        baths: '4 Bathrooms',
+        guests: 'Up to 10',
+        images: [
+            "[YANDEX_DISK_URL_villa1_v1.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v2.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v3.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v4.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v5.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v6.jpeg]",
+            "[YANDEX_DISK_URL_villa1_v7.jpeg]",
+        ]
+    },
+    'sky-deck': {
+        title: 'Домик с террасой',
+        price: '₹22k',
+        tag: 'Premium Luxury',
+        desc: 'Experience infinity. This villa features a stunning infinity pool that merges with the horizon. Spacious interiors and a private terrace bar make it perfect for those seeking the ultimate luxury experience in Lonavala.',
+        beds: '4 Bedrooms',
+        baths: '5 Bathrooms',
+        guests: 'Up to 12',
+        images: [
+            "[YANDEX_DISK_URL_villa2_i1.jpeg]",
+            "[YANDEX_DISK_URL_villa2_i2.jpeg]",
+            "[YANDEX_DISK_URL_villa2_i3.jpeg]",
+            "[YANDEX_DISK_URL_villa2_i4.jpeg]",
+            "[YANDEX_DISK_URL_villa2_i5.jpeg]",
+        ]
+    },
+    'verdant-edge': {
+        title: 'Домик большой',
+        price: '₹28k',
+        tag: 'Exclusive Estate',
+        desc: 'The ultimate party destination. Massive lawns, a private home theater, gaming room, and huge living spaces make it perfect for large groups. Host celebrations, reunions, or corporate retreats in this expansive 5BHK estate.',
+        beds: '5 Bedrooms',
+        baths: '6 Bathrooms',
+        guests: 'Up to 15',
+        images: [
+            "[YANDEX_DISK_URL_villa3_l1.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l2.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l3.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l4.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l5.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l6.jpeg]",
+            "[YANDEX_DISK_URL_villa3_l7.jpeg]"
+        ]
+    },
+    'pebble-creek': {
+        title: 'Домик для двоих',
+        price: '₹12k',
+        tag: 'Nature Retreat',
+        desc: 'Intimate and cozy. A lovely duplex with a path leading directly to a seasonal stream. Perfect for couples or small families seeking quiet time in nature. Wake up to bird songs and enjoy peaceful evenings by the water.',
+        beds: '2 Bedrooms',
+        baths: '3 Bathrooms',
+        guests: 'Up to 6',
+        images: [
+            "[YANDEX_DISK_URL_villa4_p1.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p2.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p3.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p4.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p5.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p6.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p7.jpeg]",
+        ]
+    }
+};
+
+// Hero Background Images for Slider
+const heroImages = [
+     "[YANDEX_DISK_URL_villa4_p1.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p2.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p3.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p4.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p5.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p6.jpeg]",
+            "[YANDEX_DISK_URL_villa4_p7.jpeg]",
+]
+
+// Contact Information (deprecated — use window.CONFIG)
+const contactInfo = {
+    phone: window.CONFIG?.phone || '+79080686060',
+    email: window.CONFIG?.email || 'bazaturgoyak@mail.ru',
+    address: window.CONFIG?.address || 'Челябинская область, г. Миасс, озеро Тургояк'
+};
+    </script>
+    <script>
+// Utility Functions for сайта Золотые пески
+
+// Telegram: отправка заявки в бота
+function sendWhatsapp() {
+    const name = document.getElementById('contact-name').value;
+    const phone = document.getElementById('contact-phone').value;
+    const date = document.getElementById('contact-date').value;
+    const villa = document.getElementById('contact-villa').value;
+    
+    // Get optional fields if they exist
+    const email = document.getElementById('contact-email')?.value || '';
+    const checkout = document.getElementById('contact-checkout')?.value || '';
+    const guests = document.getElementById('contact-guests')?.value || '';
+    const message = document.getElementById('contact-message')?.value || '';
+
+    // Validation
+    if (!name || !phone || !date) {
+        alert("Please fill in your Name, Phone Number, and Check-in Date.");
+        return;
+    }
+
+    if (!villa) {
+        alert("Please select a villa.");
+        return;
+    }
+
+    // Build WhatsApp message
+    let whatsappMessage = `Здравствуйте! База «Золотые пески». Хочу уточнить наличие.%0A%0A*Имя:* ${name}%0A*Телефон:* ${phone}`;
+    
+    if (email) {
+        whatsappMessage += `%0A*Email:* ${email}`;
+    }
+    
+    if (guests) {
+        whatsappMessage += `%0A*Number of Guests:* ${guests}`;
+    }
+    
+    whatsappMessage += `%0A*Check-in Date:* ${date}`;
+    
+    if (checkout) {
+        whatsappMessage += `%0A*Check-out Date:* ${checkout}`;
+    }
+    
+    whatsappMessage += `%0A*Interested Villa:* ${villa}`;
+    
+    if (message) {
+        whatsappMessage += `%0A*Special Requests:* ${message}`;
+    }
+    
+    whatsappMessage += `%0A%0APlease let me know the details.`;
+
+    const telegramText = whatsappMessage.replace(/%0A/g, '\n');
+    const telegramBase = (window.CONFIG && window.CONFIG.telegramBot) ? window.CONFIG.telegramBot.replace(/\/+$/, '') : 'https://t.me/Zolotye_peski174_bot';
+    window.open(telegramBase + '?text=' + encodeURIComponent(telegramText), '_blank');
+}
+
+// Modal Functions
+function openModal(villaId) {
+    const data = villaData[villaId];
+    if (!data) return;
+
+    // Populate Text
+    document.getElementById('modal-title').innerText = data.title;
+    document.getElementById('modal-price').innerHTML = `${data.price}<span class="text-sm font-normal text-gray-500">/night</span>`;
+    document.getElementById('modal-desc').innerText = data.desc;
+    document.getElementById('modal-tag').innerText = data.tag;
+    document.getElementById('modal-beds').innerText = data.beds;
+    document.getElementById('modal-baths').innerText = data.baths;
+    document.getElementById('modal-guests').innerText = data.guests;
+    
+    // Set contact dropdown if on booking page
+    const villaDropdown = document.getElementById('contact-villa');
+    if (villaDropdown) {
+        // Store the villa title for later use
+        window.selectedVillaTitle = data.title;
+    }
+
+    // Populate Images
+    const mainImg = document.getElementById('modal-main-img');
+    const thumbContainer = document.getElementById('modal-thumbnails');
+    
+    mainImg.src = data.images[0];
+    thumbContainer.innerHTML = ''; // Clear previous thumbnails
+
+    data.images.forEach((imgSrc, index) => {
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.className = `w-20 h-20 md:w-24 md:h-24 object-cover rounded cursor-pointer border-2 hover:border-brand-gold transition-all ${index === 0 ? 'border-brand-gold' : 'border-transparent'}`;
+        thumb.onclick = () => {
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = imgSrc;
+                mainImg.style.opacity = '1';
+            }, 300);
+            // Update borders
+            Array.from(thumbContainer.children).forEach(child => {
+                child.classList.remove('border-brand-gold');
+                child.classList.add('border-transparent');
+            });
+            thumb.classList.remove('border-transparent');
+            thumb.classList.add('border-brand-gold');
+        };
+        thumbContainer.appendChild(thumb);
+    });
+
+    const modal = document.getElementById('villa-modal');
+    modal.classList.remove('hidden');
+    gsap.fromTo(".modal-content", 
+        { y: 50, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }
+    );
+    document.body.style.overflow = 'hidden'; // Stop background scroll
+}
+
+function closeModal() {
+    const modal = document.getElementById('villa-modal');
+    gsap.to(".modal-content", { 
+        y: 50, 
+        opacity: 0, 
+        duration: 0.3, 
+        ease: "power2.in", 
+        onComplete: () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Set selected villa in booking form when coming from modal
+function setSelectedVilla() {
+    if (window.selectedVillaTitle) {
+        // This will be called when user clicks "Book This Villa" in modal
+        setTimeout(() => {
+            const villaDropdown = document.getElementById('contact-villa');
+            if (villaDropdown) {
+                const options = villaDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].text.includes(window.selectedVillaTitle)) {
+                        villaDropdown.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }, 100);
+    }
+}
+
+// Lonavala Slider Scroll Function
+function scrollLonavala(direction) {
+    const slider = document.getElementById('lonavala-slider');
+    if (!slider) return;
+    
+    const scrollAmount = 300;
+    if (direction === 'left') {
+        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+}
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+    }
+}
+
+// Scroll to section with offset for fixed navbar
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offset = 100; // Navbar height
+        const sectionPosition = section.offsetTop - offset;
+        window.scrollTo({
+            top: sectionPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+    </script>
+    <script>
+// Main JavaScript for сайта Золотые пески
+
+// Hero Image Slider (only for home page)
+let currentHeroIndex = 0;
+const heroBg = document.getElementById('hero-bg');
+
+if (heroBg) {
+    setInterval(() => {
+        currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+        heroBg.style.backgroundImage = heroImages[currentHeroIndex];
+    }, 3000);
+}
+
+// Loader & GSAP Initialization
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    if (loader) {
+        const tl = gsap.timeline();
+        tl.to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" })
+          .to("#loader-line", { scaleX: 1, duration: 0.8, ease: "power2.out" })
+          .to("#loader", { y: "-100%", duration: 1, delay: 0.5, ease: "power2.inOut" });
+        const heroElems = document.querySelectorAll('.gsap-hero-elem');
+        if (heroElems.length > 0) {
+            tl.from(".gsap-hero-elem", { y: 50, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out" }, "-=0.5");
+        }
+    }
+});
+
+// Register GSAP ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Navbar Scroll Effect
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    
+    if (navbar) {
+        if (currentScroll > 100) {
+            navbar.classList.remove('bg-transparent', 'py-6');
+            navbar.classList.add('bg-brand-dark', 'shadow-lg', 'py-4');
+        } else {
+            navbar.classList.add('bg-transparent', 'py-6');
+            navbar.classList.remove('bg-brand-dark', 'shadow-lg', 'py-4');
+        }
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Reveal Animations
+gsap.utils.toArray('.reveal-up').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-left').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: -60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+gsap.utils.toArray('.reveal-right').forEach(elem => {
+    gsap.from(elem, {
+        scrollTrigger: {
+            trigger: elem,
+            start: "top 80%",
+        },
+        x: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+});
+
+// Mobile Menu Functionality
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Toggle icon
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        } else {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        }
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    }
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('villa-modal');
+    if (modal && e.target === modal) {
+        closeModal();
+    }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('villa-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    }
+});
+
+// Form validation for booking
+const bookingForm = document.getElementById('booking-form');
+if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendWhatsapp();
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Don't prevent default for links that just have "#"
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const offset = 100;
+            const targetPosition = targetElement.offsetTop - offset;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Lazy loading for images
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Performance: Throttle scroll events
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(() => {
+        // Scroll-based functionality here
+    });
+}, { passive: true });
+
+// Console welcome message
+console.log('%cЗолотые пески', 'color: #D4AF37; font-size: 20px; font-weight: bold;');
+console.log('%cExperience luxury living in Lonavala', 'color: #666; font-size: 14px;');
+
+// Debug mode - set to false in production
+const DEBUG = false;
+if (DEBUG) {
+    console.log('Villa Data:', villaData);
+    console.log('Contact Info:', contactInfo);
+}
+
+// Динамическая подгрузка header и footer
+function loadInclude(id, url) {
+  fetch(url)
+    .then(r => r.text())
+    .then(html => {
+      const container = document.getElementById(id);
+      container.innerHTML = html;
+      container.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        Array.from(oldScript.attributes).forEach(attr => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        oldScript.replaceWith(newScript);
+      });
+    });
+}
+loadInclude('header-placeholder', 'header.html');
+loadInclude('footer-placeholder', 'footer.html');
+
+// --- Исправление бага с возвратом из bfcache ---
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) {
+    loadInclude('header-placeholder', 'header.html');
+    loadInclude('footer-placeholder', 'footer.html');
+    var loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'flex';
+  }
+});
+    </script>
+</body>
+</html>
