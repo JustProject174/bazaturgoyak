@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Git hook: commit-msg
+# Validates Conventional Commits format locally before commit is accepted.
+# Install: git config core.hooksPath .githooks
+
+set -euo pipefail
+
+commit_msg_file="$1"
+first_line=$(head -n 1 "$commit_msg_file")
+
+# Allow merge commits and revert commits without conventional prefix
+if [[ "$first_line" =~ ^(Merge|Revert) ]]; then
+  exit 0
+fi
+
+pattern='^(feat|fix|hotfix|chore|docs|test|perf|refactor|build|ci|style|revert)(\([a-z0-9-]+\))?: .{1,100}$'
+
+if [[ ! "$first_line" =~ $pattern ]]; then
+  echo ""
+  echo "  ❌ Invalid commit message format!"
+  echo ""
+  echo "  Your message:  $first_line"
+  echo ""
+  echo "  Expected format:  <type>(<scope>): <subject>"
+  echo ""
+  echo "  Types:"
+  echo "    feat       New functionality"
+  echo "    fix        Bug fix"
+  echo "    hotfix     Critical production fix"
+  echo "    chore      Maintenance, deps, CI/CD"
+  echo "    docs       Documentation"
+  echo "    test       Test additions or fixes"
+  echo "    perf       Performance improvement"
+  echo "    refactor   Code restructuring (no behavior change)"
+  echo "    build      Build system or dependencies"
+  echo "    ci         CI/CD pipeline changes"
+  echo "    style      Formatting, no logic change"
+  echo "    revert     Revert a previous commit"
+  echo ""
+  echo "  Examples:"
+  echo "    feat(alerts): add CPU usage alert for node-exporter"
+  echo "    fix(grafana): correct panel datasource variable"
+  echo "    chore(deps): bump prometheus to v2.45.0"
+  echo ""
+  exit 1
+fi
+
+echo "  ✅ Commit message follows Conventional Commits."
+exit 0
